@@ -26,6 +26,7 @@
     "bin-editor-next": "^1.1.0",
     "bin-ui-design": "^0.6.1",
     "brace": "^0.11.1",
+    "dayjs": "^1.11.13",
     "localforage": "^1.10.0",
     "mitt": "^3.0.1",
     "vue": "^3.4.27",

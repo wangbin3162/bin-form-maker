@@ -1,0 +1,85 @@
+<template>
+  <div class="comp-config-container">
+    <cfg-field label="控件类型" :labelWidth="labelWidth">
+      <b-tag>{{ data.name }}</b-tag>
+    </cfg-field>
+    <!-- 基础字段配置 -->
+    <FieldCfg v-model="data" :labelWidth="labelWidth" :size="size" />
+
+    <cfg-field label="显示类型" :labelWidth="labelWidth">
+      <b-radio-group
+        v-model="data.config.type"
+        :size="size"
+        type="button"
+        @change="handleChangeRadio"
+      >
+        <b-radio label="year">年</b-radio>
+        <b-radio label="month">月</b-radio>
+        <b-radio label="date">日期</b-radio>
+        <b-radio label="datetime">日期时间</b-radio>
+      </b-radio-group>
+    </cfg-field>
+
+    <cfg-field
+      label="显示格式"
+      tooltip="仅用于显示格式，实际存储格式根据类型判定"
+      :labelWidth="labelWidth"
+    >
+      <b-input v-model="data.config.format" :size="size"></b-input>
+    </cfg-field>
+
+    <cfg-field label="占位内容" :labelWidth="labelWidth">
+      <b-input v-model="data.config.placeholder" :size="size" clearable />
+    </cfg-field>
+
+    <cfg-field label="默认值" :labelWidth="labelWidth">
+      <b-date-picker
+        :size="size"
+        v-model="data.config.defaultValue"
+        :type="data.config.type"
+      ></b-date-picker>
+    </cfg-field>
+
+    <div class="status-container">
+      <div class="mb-10">操作属性</div>
+      <div class="checkbox">
+        <b-checkbox v-model="data.config.clearable">显示清除按钮</b-checkbox>
+        <b-checkbox v-model="data.config.editable">是否可输入</b-checkbox>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+defineOptions({ name: 'DatePickerConfig' })
+
+const data = defineModel({ type: Object })
+
+defineProps({
+  size: {
+    type: String,
+    default: 'small',
+  },
+  labelWidth: {
+    type: String,
+    default: '85px',
+  },
+})
+
+function handleChangeRadio(val) {
+  if (val === 'datetime') {
+    data.value.config.format = 'YYYY-MM-DD HH:mm:ss'
+  }
+  if (val === 'date') {
+    data.value.config.format = 'YYYY-MM-DD'
+  }
+  if (val === 'year') {
+    data.value.config.format = 'YYYY'
+  }
+  if (val === 'month') {
+    data.value.config.format = 'YYYY-MM'
+  }
+}
+</script>
+
+<style scoped></style>

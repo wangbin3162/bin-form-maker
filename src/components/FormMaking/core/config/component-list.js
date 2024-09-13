@@ -61,12 +61,7 @@ export const basicComponents = [
     icon: 'select',
   },
   {
-    type: 'time',
-    name: '时间选择器',
-    icon: 'time-circle',
-  },
-  {
-    type: 'date',
+    type: 'date-picker',
     name: '日期选择器',
     icon: 'calendar',
   },

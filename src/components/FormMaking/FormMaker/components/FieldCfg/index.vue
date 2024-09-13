@@ -16,11 +16,11 @@
           <span style="color: rgba(0, 0, 0, 0.65)" class="over-hidden">字段标识</span>
         </template>
 
-        <b-input v-model="data.model" :size="size" clearable />
+        <b-input v-model="data.model" :size="size" clearable placeholder="字段名称，必填" />
       </b-form-item>
     </b-form>
     <cfg-field label="字段标题" :labelWidth="labelWidth">
-      <b-input v-model="data.label" :size="size" clearable />
+      <b-input v-model="data.label" :size="size" clearable placeholder="字段的标题" />
     </cfg-field>
 
     <cfg-field
@@ -29,7 +29,7 @@
       :labelWidth="labelWidth"
       style="padding-bottom: 16px"
     >
-      <b-input v-model="data.config.tooltip" :size="size" clearable />
+      <b-input v-model="data.config.tooltip" :size="size" clearable placeholder="请输入" />
     </cfg-field>
   </div>
 </template>
