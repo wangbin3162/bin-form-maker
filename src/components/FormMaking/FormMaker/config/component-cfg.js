@@ -28,6 +28,8 @@ function mergeConfig(type) {
   mergeObj.key = uuid()
   mergeObj.model = `${type}_${generateId()}`
   mergeObj.label = mergeObj.name
+  // 每个组件都应该扩展一个隐藏属性
+  mergeObj.config.hidden = false
   return mergeObj
 }
 

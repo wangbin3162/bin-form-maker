@@ -1,6 +1,6 @@
 <template>
   <div class="form-config-container">
-    <div class="radio-group">
+    <div class="radio-group" v-if="!isLayouts(data.type)">
       <b-radio-group v-model="curTabActive" size="default" type="capsule">
         <b-radio v-for="item in tabs" :label="item.key" :key="item.key">
           {{ item.title }}
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { isOptionsCtrl } from '@/components/FormMaking/core/config/component-list'
+import { isOptionsCtrl, isLayouts } from '../../../core/config/component-list'
 import { ref, watch } from 'vue'
 defineOptions({ name: 'WidgetConfig' })
 
@@ -74,12 +74,20 @@ const tabs = isOptionsCtrl(data.value.type)
   }
   :deep(.bin-radio-group) {
     display: flex;
-    width: 100%;
+    /* width: 100%; */
   }
   :deep(.bin-radio-group-button.bin-radio-group-small .bin-radio) {
-    width: 100%;
+    /* width: 100%; */
     text-align: center;
   }
+
+  :deep(.bin-icon-select) {
+    .select-trigger .bin-button {
+      height: var(--bin-small-height);
+      line-height: var(--bin-small-height-2);
+    }
+  }
+
   .config-content {
     height: calc(100% - 44px);
     overflow: hidden;

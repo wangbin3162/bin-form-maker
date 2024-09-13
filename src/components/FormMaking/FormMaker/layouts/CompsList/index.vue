@@ -16,9 +16,9 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'CompsList' })
 import { ref } from 'vue'
 import { basicComponents, layoutComponents } from '../../../core/config/component-list'
-defineOptions({ name: 'CompsList' })
 
 const activeTab = ref('comps')
 

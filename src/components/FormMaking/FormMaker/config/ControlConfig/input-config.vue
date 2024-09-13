@@ -1,6 +1,5 @@
 <template>
-  <div style="padding: 0 8px">
-    {{ data }}
+  <div class="comp-config-container">
     <div v-if="tab === 'base'">
       <cfg-field label="控件类型" :labelWidth="labelWidth">
         <b-tag>{{ data.name }}</b-tag>
@@ -52,18 +51,22 @@
         <b-input v-model="data.config.defaultValue" :size="size" clearable />
       </cfg-field>
 
-      <b-divider style="margin: 0 0 12px"></b-divider>
-
-      <div style="padding: 0 16px 24px">
+      <div class="status-container">
         <div class="mb-16">状态</div>
-        <div flex="main:justify">
+        <div class="status-box">
           <span>隐藏</span>
           <b-switch v-model="data.config.hidden" :size="size" />
         </div>
-        <b-divider dashed style="margin: 0 0 8px"></b-divider>
-        <div flex="main:justify">
+        <div class="status-box">
           <span>禁用</span>
           <b-switch v-model="data.config.disabled" :size="size" />
+        </div>
+      </div>
+
+      <div class="status-container">
+        <div class="mb-16">操作属性</div>
+        <div class="checkbox">
+          <b-checkbox v-model="data.config.clearable">显示清除按钮</b-checkbox>
         </div>
       </div>
     </div>
@@ -90,3 +93,5 @@ defineProps({
   },
 })
 </script>
+
+<style scoped></style>

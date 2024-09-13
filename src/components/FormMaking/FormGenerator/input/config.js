@@ -14,7 +14,7 @@ export default {
     maxlength: 256,
     clearable: true,
     // 控制类属性
-    disabled: false,
     hidden: false,
+    disabled: false,
   },
 }

@@ -15,7 +15,7 @@
 
 <script setup>
 defineOptions({ name: 'WidgetForm' })
-import useStoreCenter from '@/components/FormMaking/FormMaker/hooks/store-center'
+import useStoreCenter from '../../hooks/store-center'
 
 const { widgetForm } = useStoreCenter()
 </script>
@@ -74,11 +74,14 @@ const { widgetForm } = useStoreCenter()
           font-size: 16px;
           color: #fff;
           margin: 0 4px;
-          cursor: move;
+          cursor: pointer;
         }
 
         &:hover {
           opacity: 1;
+        }
+        &.widget-col-action {
+          background-color: #fea638;
         }
       }
       .widget-view-drag {
@@ -96,16 +99,20 @@ const { widgetForm } = useStoreCenter()
           font-size: 18px;
           color: #fff;
           margin: 0 4px;
-          cursor: pointer;
+          cursor: grab;
         }
 
         &:hover {
           opacity: 1;
         }
+        &.widget-col-drag {
+          background-color: #fea638;
+        }
       }
+
       .widget-view-field-name {
         position: absolute;
-        top: 6px;
+        top: 0;
         right: 4px;
         font-size: 12px;
         color: #67c23a;
@@ -116,6 +123,7 @@ const { widgetForm } = useStoreCenter()
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        opacity: 0;
       }
       &.active {
         outline: 1px solid var(--bin-color-primary);
@@ -123,17 +131,17 @@ const { widgetForm } = useStoreCenter()
         .widget-view-field-name {
           opacity: 0.8;
         }
-      }
-      &.ghost {
-        background: #f56c6c;
-        border: 2px solid #f56c6c;
-        outline-width: 0;
-        height: 3px;
-        box-sizing: border-box;
-        font-size: 0;
-        content: '';
-        overflow: hidden;
-        padding: 0;
+        &.ghost {
+          background: #f56c6c;
+          border: 2px solid #f56c6c;
+          outline-width: 0;
+          height: 3px;
+          box-sizing: border-box;
+          font-size: 0;
+          content: '';
+          overflow: hidden;
+          padding: 0;
+        }
       }
     }
 
@@ -173,13 +181,6 @@ const { widgetForm } = useStoreCenter()
         padding: 0;
       }
 
-      .widget-view-drag.widget-col-drag {
-        background: #fea638;
-      }
-
-      .widget-view-action {
-        background: #fea638;
-      }
       &::after {
         display: none;
       }
@@ -189,18 +190,7 @@ const { widgetForm } = useStoreCenter()
       min-height: 50px;
       border: 1px dashed #ccc;
       background: #fff;
-    }
-
-    .widget-view-field-name {
-      position: absolute;
-      top: 2px;
-      right: 3px;
-      font-size: 12px;
-      color: var(--bin-color-success-light2);
-      opacity: 0;
-      z-index: 8;
-      font-weight: 500;
-      line-height: 22px;
+      margin: 2px;
     }
   }
   .ghost {
@@ -212,11 +202,20 @@ const { widgetForm } = useStoreCenter()
     }
   }
 
-  li.ghost {
-    height: 3px;
-    list-style: none;
+  li.form-edit-widget-label.no-put.ghost {
     font-size: 0;
+    width: 100%;
+    height: 6px;
+    background: #f56c6c;
+    margin: 0px;
+    padding: 0 2px;
+    list-style: none;
+    position: relative;
     overflow: hidden;
+    outline-width: 0;
+    > a {
+      display: none;
+    }
   }
   .bin-form {
     .bin-form-item-content,

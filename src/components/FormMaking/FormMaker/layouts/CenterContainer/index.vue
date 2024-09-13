@@ -29,7 +29,7 @@
 
 <script setup>
 defineOptions({ name: 'CenterContainer' })
-import useStoreCenter from '@/components/FormMaking/FormMaker/hooks/store-center'
+import useStoreCenter from '../../hooks/store-center'
 
 const { widgetForm } = useStoreCenter()
 </script>

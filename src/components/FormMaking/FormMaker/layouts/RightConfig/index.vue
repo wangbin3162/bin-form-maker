@@ -22,8 +22,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import useStoreCenter from '@/components/FormMaking/FormMaker/hooks/store-center'
+import useStoreCenter from '../../hooks/store-center'
 
 defineOptions({ name: 'RightConfig' })
 
@@ -35,7 +34,7 @@ const tabs = [
 ]
 </script>
 
-<style scoped>
+<style>
 .right-config-container {
   width: 350px;
   height: 100%;
@@ -70,6 +69,31 @@ const tabs = [
       margin-bottom: 16px;
       .bin-form-item__error {
         padding-top: 2px;
+      }
+    }
+  }
+
+  /* 组件的内部样式 */
+  .comp-config-container {
+    padding: 0 10px;
+  }
+  .status-container {
+    border-top: 1px solid var(--bin-border-color-light);
+    padding: 16px 5px;
+    .status-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      border-bottom: 1px dashed var(--bin-border-color-light);
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    .checkbox {
+      padding: 0 8px;
+      :deep(.bin-checkbox) {
+        margin-bottom: 8px;
       }
     }
   }

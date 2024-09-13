@@ -7,6 +7,7 @@
     handle=".drag-widget"
     :list="widgets"
     :animation="200"
+    @add="handleWidgetAdd($event, widgets)"
   >
     <template #item="{ element, index }">
       <div
@@ -14,14 +15,24 @@
         :class="{ active: isComSelected(element), 'widget-col': isLayouts(element.type) }"
         @click.stop="handleSelectWidget(element)"
       >
-        <div v-if="isLayouts(element.type)">容器组件</div>
+        <component
+          v-if="isLayouts(element.type)"
+          :is="`BF-${element.type}`"
+          :data="element"
+          :form-config="widgetForm.config"
+        >
+          <template v-slot="{ data }">
+            <WidgetNest :widgets="data.list" class="widget-col-list" />
+          </template>
+        </component>
+
         <WidgetFormItem v-if="isBaseCtrl(element.type)" :element="element" />
 
         <!-- 控制按钮 -->
         <div
           v-show="isComSelected(element)"
           class="widget-view-action"
-          :class="{ 'widget-col-action': element.type === 'grid' }"
+          :class="{ 'widget-col-action': isLayouts(element.type) }"
         >
           <i
             class="b-iconfont b-icon-delete"
@@ -37,6 +48,10 @@
         >
           <i class="b-iconfont b-icon-drag drag-widget"></i>
         </div>
+
+        <div class="widget-view-field-name">
+          <span>{{ element.model }}</span>
+        </div>
       </div>
     </template>
   </Draggable>
@@ -45,8 +60,8 @@
 <script setup>
 defineOptions({ name: 'WidgetNest' })
 import Draggable from 'vuedraggable'
-import { isBaseCtrl, isLayouts } from '@/components/FormMaking/core/config/component-list'
-import useStoreCenter from '@/components/FormMaking/FormMaker/hooks/store-center'
+import { isBaseCtrl, isLayouts } from '../../../core/config/component-list'
+import useStoreCenter from '../../hooks/store-center'
 
 const props = defineProps({
   widgets: {
@@ -55,5 +70,6 @@ const props = defineProps({
   },
 })
 
-const { isComSelected, deleteWidget, handleSelectWidget } = useStoreCenter()
+const { isComSelected, widgetForm, deleteWidget, handleSelectWidget, handleWidgetAdd } =
+  useStoreCenter()
 </script>

@@ -10,17 +10,17 @@
 
     <div class="config-content">
       <b-scrollbar>
-        <div style="padding: 0 8px">
+        <div class="comp-config-container">
           <div v-if="curTabActive === 'base'">
-            <cfg-field label="标签对齐方式" :labelWidth="labelWidth">
+            <cfg-field label="标签对齐" :labelWidth="labelWidth">
               <b-radio-group v-model="data.labelPosition" type="button" :size="size">
-                <b-radio label="left" title="左对齐"><span>左对齐</span></b-radio>
-                <b-radio label="top" title="顶部对齐"><span>顶部对齐</span></b-radio>
-                <b-radio label="right" title="右对齐"><span>右对齐</span></b-radio>
+                <b-radio label="left">左侧</b-radio>
+                <b-radio label="top">顶部</b-radio>
+                <b-radio label="right">右侧</b-radio>
               </b-radio-group>
             </cfg-field>
 
-            <cfg-field label="表单标签宽度" :labelWidth="labelWidth">
+            <cfg-field label="标签宽度" :labelWidth="labelWidth">
               <b-input-number
                 v-model="data.labelWidth"
                 :min="60"
@@ -31,7 +31,7 @@
               ></b-input-number>
             </cfg-field>
 
-            <cfg-field label="表单标签后缀" :labelWidth="labelWidth">
+            <cfg-field label="标签后缀" :labelWidth="labelWidth">
               <b-input v-model="data.labelSuffix" :size="size" clearable />
             </cfg-field>
 
@@ -62,7 +62,7 @@ defineProps({
   },
   labelWidth: {
     type: String,
-    default: '100px',
+    default: '85px',
   },
 })
 
@@ -89,6 +89,10 @@ const tabs = [
   height: 100%;
   .radio-group {
     padding: 5px 8px;
+  }
+
+  .comp-config-container {
+    padding: 0 10px;
   }
   :deep(.bin-radio-group) {
     display: flex;

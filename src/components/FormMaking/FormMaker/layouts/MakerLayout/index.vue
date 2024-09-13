@@ -24,10 +24,9 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'MakerLayout' })
 import useLockScreen from './useLockScreen'
 import { MessageBox } from 'bin-ui-design'
-
-defineOptions({ name: 'MakerLayout' })
 
 const emit = defineEmits(['close', 'rollback'])
 defineProps({

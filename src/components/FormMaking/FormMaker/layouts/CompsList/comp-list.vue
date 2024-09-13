@@ -14,6 +14,7 @@
         ghostClass: 'ghost',
       }"
       filter=".disabled"
+      :clone="buildCompCfg"
     >
       <template #item="{ element, index }">
         <li class="form-edit-widget-label no-put" :key="index" @click="addWidget(element)">
@@ -29,7 +30,8 @@
 
 <script setup>
 import Draggable from 'vuedraggable'
-import useStoreCenter from '@/components/FormMaking/FormMaker/hooks/store-center'
+import useStoreCenter from '../../hooks/store-center'
+import { createComponent } from '../../config/component-cfg'
 defineOptions({ name: 'CompList' })
 
 defineProps({
@@ -44,6 +46,10 @@ defineProps({
 })
 
 const { addWidget } = useStoreCenter()
+
+function buildCompCfg(item) {
+  return createComponent(item.type)
+}
 </script>
 
 <style scoped>

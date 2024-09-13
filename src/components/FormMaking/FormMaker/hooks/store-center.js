@@ -2,7 +2,7 @@ import {
   createComponent,
   getNewFromCfg,
 } from '@/components/FormMaking/FormMaker/config/component-cfg'
-import { ref, computed, nextTick } from 'vue'
+import { ref, nextTick } from 'vue'
 
 const status = {
   // 控件form对象配置信息
@@ -22,7 +22,7 @@ export default function useStoreCenter() {
   // 初始化事件
   function initSchema(form) {
     widgetForm.value = getNewFromCfg(form)
-    console.log(widgetForm.value)
+    // console.log(widgetForm.value)
   }
 
   // btn-bar 清空事件
@@ -35,8 +35,7 @@ export default function useStoreCenter() {
   function addWidget(item) {
     const com = createComponent(item.type)
     widgetForm.value.list.push(com)
-    selectWidget.value = widgetForm.value.list[widgetForm.value.list.length - 1]
-    currentCfgTab.value = 'widget'
+    handleSelectWidget(com)
   }
 
   function isComSelected(widget) {
@@ -63,6 +62,12 @@ export default function useStoreCenter() {
   // 选中一个组件
   function handleSelectWidget(widget) {
     selectWidget.value = widget
+    currentCfgTab.value = 'widget'
+  }
+
+  // 基础布局模块增加
+  function handleWidgetAdd({ newIndex }, list) {
+    handleSelectWidget(list[newIndex])
   }
 
   return {
@@ -76,5 +81,6 @@ export default function useStoreCenter() {
     deleteWidget,
     isComSelected,
     handleSelectWidget,
+    handleWidgetAdd,
   }
 }
