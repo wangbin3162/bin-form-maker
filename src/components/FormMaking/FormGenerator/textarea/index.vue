@@ -1,16 +1,10 @@
 <template>
-  <b-input
-    v-model="model"
-    :size="formConfig.size"
-    :type="config.type"
-    :max-length="config.maxlength"
-    v-bind="config"
-  ></b-input>
+  <b-input v-model="model" type="textarea" :max-length="config.maxlength" v-bind="config"></b-input>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-defineOptions({ name: 'BFInput' })
+defineOptions({ name: 'BFTextarea' })
 
 const props = defineProps({
   data: {

@@ -1,16 +1,17 @@
 <template>
-  <b-input
+  <b-input-number
     v-model="model"
     :size="formConfig.size"
     :type="config.type"
-    :max-length="config.maxlength"
+    :style="{ width: config.width }"
+    :always="config.btnPos === 'always'"
     v-bind="config"
-  ></b-input>
+  ></b-input-number>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-defineOptions({ name: 'BFInput' })
+defineOptions({ name: 'BFInputNumber' })
 
 const props = defineProps({
   data: {

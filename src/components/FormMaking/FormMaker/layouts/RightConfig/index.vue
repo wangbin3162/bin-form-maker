@@ -65,7 +65,7 @@ const tabs = [
     overflow-y: auto;
     overflow-x: hidden;
 
-    :deep(.bin-form-item) {
+    .bin-form-item {
       margin-bottom: 16px;
       .bin-form-item__error {
         padding-top: 2px;
@@ -92,7 +92,7 @@ const tabs = [
     }
     .checkbox {
       padding: 0 8px;
-      :deep(.bin-checkbox) {
+      .bin-checkbox {
         margin-bottom: 8px;
       }
     }
