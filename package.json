@@ -1,0 +1,56 @@
+{
+  "name": "bin-form-maker",
+  "version": "0.0.1",
+  "description": "bin-form-maker是一个通用的表单设计器，用于快速设计通用表单，使用jsonschema来进行页面渲染，同时，支持扩展和嵌套组件",
+  "homepage": "https://github.com/wangbin3162/bin-form-maker",
+  "keywords": [
+    "bin-admin-pro",
+    "vue3",
+    "vite"
+  ],
+  "author": "wang bin",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.vue src --max-warnings 0 && pretty-quick --check",
+    "lint:fix": "eslint --fix --ext .js,.vue src && pretty-quick"
+  },
+  "dependencies": {
+    "bin-editor-next": "^1.1.0",
+    "bin-ui-design": "^0.6.1",
+    "brace": "^0.11.1",
+    "localforage": "^1.10.0",
+    "mitt": "^3.0.1",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "@types/node": "^18.19.33",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/compiler-sfc": "^3.4.27",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-vue": "^9.26.0",
+    "postcss-color-mix": "^1.1.0",
+    "postcss-each": "^1.1.0",
+    "postcss-each-variables": "^0.3.0",
+    "postcss-import": "^15.1.0",
+    "postcss-nested": "^6.0.1",
+    "prettier": "^2.8.8",
+    "pretty-quick": "^3.3.1",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-copy": "^3.5.0",
+    "vite": "^5.2.11"
+  }
+}
