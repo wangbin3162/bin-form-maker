@@ -29,6 +29,9 @@
     <div v-if="tab === 'options'">
       <DatasourceCfg v-model="data" :labelWidth="labelWidth" :size="size" />
     </div>
+    <div v-if="tab === 'validate'">
+      <ValidateCfg v-model="data" :labelWidth="labelWidth" :size="size" />
+    </div>
   </div>
 </template>
 

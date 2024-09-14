@@ -32,38 +32,41 @@ defineProps({
 
 const curTabActive = ref('base')
 
+const tabs = ref([])
+
 watch(
   () => data.value.key,
   () => {
     curTabActive.value = 'base'
-  },
-)
 
-const tabs = isOptionsCtrl(data.value.type)
-  ? [
-      {
-        title: '基础',
-        key: 'base',
-      },
-      {
-        title: '选项',
-        key: 'options',
-      },
-      {
-        title: '验证',
-        key: 'validate',
-      },
-    ]
-  : [
-      {
-        title: '基础',
-        key: 'base',
-      },
-      {
-        title: '验证',
-        key: 'validate',
-      },
-    ]
+    tabs.value = isOptionsCtrl(data.value.type)
+      ? [
+          {
+            title: '基础',
+            key: 'base',
+          },
+          {
+            title: '选项',
+            key: 'options',
+          },
+          {
+            title: '验证',
+            key: 'validate',
+          },
+        ]
+      : [
+          {
+            title: '基础',
+            key: 'base',
+          },
+          {
+            title: '验证',
+            key: 'validate',
+          },
+        ]
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped>
