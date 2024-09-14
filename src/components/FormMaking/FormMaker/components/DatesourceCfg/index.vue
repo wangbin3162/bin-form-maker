@@ -82,7 +82,7 @@
       </b-checkbox-group>
     </div>
 
-    <div class="mt-8 mb-8" style="padding-left: 20px">
+    <div class="mt-8 mb-8" style="padding-left: 30px">
       <b-button v-if="dataSource.type === 'static'" icon="plus" type="text" @click="handleAdd">
         新增选项
       </b-button>

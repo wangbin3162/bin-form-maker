@@ -8,7 +8,7 @@ const configMap = new Map()
 // 制作基础组件映射
 Object.keys(cfgs).forEach(key => {
   const config = cfgs[key].default
-  console.log(config)
+  // console.log(config)
   if (config?.type) {
     configMap.set(config.type, config)
   }

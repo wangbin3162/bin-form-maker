@@ -4,7 +4,7 @@
       v-for="item in config.options"
       :key="item.key"
       :value="item.key"
-      :label="item.value"
+      :label="item.label"
     ></b-option>
   </b-select>
 </template>
