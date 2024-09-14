@@ -37,3 +37,16 @@ export function toJson(data, defaultValue) {
     return defaultValue
   }
 }
+
+// 字符串逗号分隔成数组
+export function splitValue(value) {
+  if (value !== null && value.length > 0) {
+    return value.split(',')
+  } else {
+    return []
+  }
+}
+
+export function joinValue(arr) {
+  return arr.length ? arr.join(',') : ''
+}

@@ -8,7 +8,7 @@ const configMap = new Map()
 // 制作基础组件映射
 Object.keys(cfgs).forEach(key => {
   const config = cfgs[key].default
-  // console.log(config)
+  console.log(config)
   if (config?.type) {
     configMap.set(config.type, config)
   }
@@ -22,6 +22,7 @@ const BaseComponent = {
 // 根据组件类型（type==input) 创建新的配置项
 function mergeConfig(type) {
   const config = configMap.get(type) || {}
+  console.log(type)
   const baseObj = isLayouts(type) ? { type } : { type, ...BaseComponent }
   const mergeObj = deepMerge(baseObj, config)
   // 生成唯一key值，用于删除判定

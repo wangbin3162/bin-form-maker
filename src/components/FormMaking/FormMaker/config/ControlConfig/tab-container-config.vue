@@ -55,7 +55,7 @@
       @drag-drop="handleDragDrop"
     >
       <template #handle>
-        <b-icon name="drag" class="handle" style="cursor: grab; font-size: 18px" />
+        <drag-handle />
       </template>
       <template #span="{ index }">
         <b-input v-model="data.tabs[index].title" clearable></b-input>
