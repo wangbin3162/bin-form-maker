@@ -6,11 +6,13 @@
     <div class="config-content">
       <b-scrollbar>
         <div v-if="activeTab === 'comps'">
-          <CompList title="布局组件" :list="layoutComponents" />
-          <CompList title="基础组件" :list="basicComponents" />
+          <CompList title="布局控件" :list="layoutComponents" />
+          <CompList title="表单控件" :list="basicComponents" />
           <slot></slot>
         </div>
-        <div v-else>大纲树</div>
+        <div v-else class="p8">
+          <b-tree :data="treeList" ref="treeRef" @select-change="handleSelect"></b-tree>
+        </div>
       </b-scrollbar>
     </div>
   </div>
@@ -21,12 +23,28 @@ defineOptions({ name: 'CompsList' })
 import { ref } from 'vue'
 import { basicComponents, layoutComponents } from '../../../core/config/component-list'
 
+import useStoreCenter from '../../hooks/store-center'
+import useRealFields from '../../../core/hooks/use-real-fields'
+
 const activeTab = ref('comps')
+const treeRef = ref(null)
 
 const tabs = [
   { key: 'comps', title: '组件', icon: 'appstore' },
   { key: 'form', title: '大纲', icon: 'cluster' },
 ]
+
+const { widgetForm, handleSelectWidget } = useStoreCenter()
+const { treeList, ctrlCfgs } = useRealFields(widgetForm)
+
+function handleSelect(selected, node) {
+  if (['col', 'tag'].includes(node.type)) {
+    treeRef.value?.unselectAll()
+  } else {
+    const com = ctrlCfgs.value[node.model]
+    handleSelectWidget(com)
+  }
+}
 </script>
 
 <style scoped>

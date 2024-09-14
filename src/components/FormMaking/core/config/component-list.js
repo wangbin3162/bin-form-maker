@@ -11,12 +11,12 @@ export const layoutComponents = [
   {
     type: 'group-container',
     name: '分组容器',
-    icon: 'appstore',
+    icon: 'folder',
   },
   {
     type: 'tab-container',
     name: 'Tab容器',
-    icon: 'appstore',
+    icon: 'calendar',
   },
   {
     type: 'divider',
