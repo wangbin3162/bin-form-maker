@@ -21,7 +21,15 @@
         <div class="form-empty" v-if="widgetForm.list.length === 0">
           <b-empty>从左侧拖拽或点击来添加字段</b-empty>
         </div>
-        <WidgetForm />
+        <WidgetForm>
+          <template
+            v-for="slot in slotsWedigets"
+            :key="slot.config.compName"
+            v-slot:[`custom-${slot.config.compName}`]="{ node }"
+          >
+            <slot :name="`custom-${slot.config.compName}`" v-bind:node="node"></slot>
+          </template>
+        </WidgetForm>
       </b-scrollbar>
     </div>
   </div>
@@ -30,8 +38,10 @@
 <script setup>
 defineOptions({ name: 'CenterContainer' })
 import useStoreCenter from '../../hooks/store-center'
+import useRealFields from '../../../core/hooks/use-real-fields'
 
 const { widgetForm } = useStoreCenter()
+const { slotsWedigets } = useRealFields(widgetForm)
 </script>
 
 <style scoped>

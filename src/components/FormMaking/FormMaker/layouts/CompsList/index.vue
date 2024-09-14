@@ -8,6 +8,7 @@
         <div v-if="activeTab === 'comps'">
           <CompList title="布局组件" :list="layoutComponents" />
           <CompList title="基础组件" :list="basicComponents" />
+          <slot></slot>
         </div>
         <div v-else>大纲树</div>
       </b-scrollbar>

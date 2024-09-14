@@ -20,7 +20,14 @@
       :data="element"
       :model-value="element.config.defaultValue"
       :form-config="widgetForm.config"
-    />
+    >
+      <template
+        v-if="element.type === 'custom'"
+        v-slot:[`custom-${element.config.compName}`]="{ node }"
+      >
+        <slot :name="`custom-${element.config.compName}`" v-bind:node="node"></slot>
+      </template>
+    </component>
 
     <div
       v-else

@@ -65,6 +65,11 @@ export const basicComponents = [
     name: '日期选择器',
     icon: 'calendar',
   },
+  {
+    type: 'custom',
+    name: '自定义组件',
+    icon: 'appstoreadd',
+  },
 ]
 
 // 基础布局组件

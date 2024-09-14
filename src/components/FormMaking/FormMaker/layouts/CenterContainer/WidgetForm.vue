@@ -8,7 +8,15 @@
       :size="widgetForm.config.size"
     >
       <!-- 附加递归嵌套控件 -->
-      <widget-nest class="widget-form-list" :widgets="widgetForm.list" />
+      <widget-nest class="widget-form-list" :widgets="widgetForm.list">
+        <template
+          v-for="slot in slotsWedigets"
+          :key="slot.config.compName"
+          v-slot:[`custom-${slot.config.compName}`]="{ node }"
+        >
+          <slot :name="`custom-${slot.config.compName}`" v-bind:node="node"></slot>
+        </template>
+      </widget-nest>
     </b-form>
   </div>
 </template>
@@ -16,8 +24,11 @@
 <script setup>
 defineOptions({ name: 'WidgetForm' })
 import useStoreCenter from '../../hooks/store-center'
+import useRealFields from '../../../core/hooks/use-real-fields'
 
 const { widgetForm } = useStoreCenter()
+
+const { slotsWedigets } = useRealFields(widgetForm)
 </script>
 
 <style>

@@ -26,7 +26,14 @@
           </template>
         </component>
 
-        <WidgetFormItem v-if="isBaseCtrl(element.type)" :element="element" />
+        <WidgetFormItem v-if="isBaseCtrl(element.type)" :element="element">
+          <template
+            v-if="element.type === 'custom'"
+            v-slot:[`custom-${element.config.compName}`]="{ node }"
+          >
+            <slot :name="`custom-${element.config.compName}`" v-bind:node="node"></slot>
+          </template>
+        </WidgetFormItem>
 
         <!-- 控制按钮 -->
         <div
