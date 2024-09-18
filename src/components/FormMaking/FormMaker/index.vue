@@ -1,14 +1,10 @@
 <template>
   <MakerLayout v-model="visible" :topTitle="topTitle" :inner="inner">
-    <CompsList></CompsList>
+    <CompsList :customFields="customFields" />
     <CenterContainer @onSave="handleSave">
       <!-- 作用域插槽，用于自定义外部组件插槽 -->
-      <template
-        v-for="slot in slotsWedigets"
-        :key="slot.config.compName"
-        v-slot:[`custom-${slot.config.compName}`]="{ node }"
-      >
-        <slot :name="`custom-${slot.config.compName}`" v-bind:node="node"></slot>
+      <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+        <slot :name="slot.type" v-bind:node="node"></slot>
       </template>
     </CenterContainer>
     <RightConfig>
@@ -28,17 +24,27 @@ import useMakerStore from './hooks/useMakerStore'
 
 const emit = defineEmits(['onSave'])
 defineOptions({ name: 'BFormMaker' })
-defineProps({
+
+const props = defineProps({
   topTitle: {
     type: String,
     default: 'FormMaker 表单设计器',
   },
   inner: Boolean,
+  // 自定义字段
+  customFields: {
+    type: Array,
+    default: () => [],
+  },
 })
 
 const visible = defineModel({ type: Boolean, default: false })
 
 const { widgetForm, slotsWedigets } = useMakerStore()
+
+slotsWedigets.value = [...props.customFields]
+
+console.log(slotsWedigets.value)
 
 function handleSave() {
   emit('onSave', widgetForm.value)

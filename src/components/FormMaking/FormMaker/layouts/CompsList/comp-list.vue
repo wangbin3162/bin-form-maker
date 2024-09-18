@@ -1,5 +1,5 @@
 <template>
-  <b-collapse-wrap collapse style="margin: 0">
+  <b-collapse-wrap collapse style="margin: 0 0 1px">
     <template #title>
       <span class="title">{{ title }}</span>
     </template>
@@ -17,7 +17,11 @@
       :clone="buildCompCfg"
     >
       <template #item="{ element, index }">
-        <li class="form-edit-widget-label no-put" :key="index" @click="addWidget(element)">
+        <li
+          class="form-edit-widget-label no-put"
+          :key="index"
+          @click="addWidget(element, isCustom)"
+        >
           <a>
             <b-icon :name="element.icon" />
             <span class="field-name">{{ element.name }}</span>
@@ -34,7 +38,7 @@ import useMakerStore from '../../hooks/useMakerStore'
 import { createComponent } from '../../../core/config/component-cfg'
 defineOptions({ name: 'CompList' })
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: '',
@@ -43,12 +47,18 @@ defineProps({
     type: Array,
     default: () => [],
   },
+  // 是否是自定义的控件
+  isCustom: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const { addWidget } = useMakerStore()
 
 function buildCompCfg(item) {
-  return createComponent(item.type)
+  console.log(item)
+  return createComponent(item.type, item.name, props.isCustom)
 }
 </script>
 

@@ -20,11 +20,8 @@
       v-model="models[element.model]"
       :form-config="widgetForm.config"
     >
-      <template
-        v-if="element.type === 'custom-component'"
-        v-slot:[`custom-${element.config.compName}`]="{ node }"
-      >
-        <slot :name="`custom-${element.config.compName}`" v-bind:node="node"></slot>
+      <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+        <slot :name="slot.type" v-bind:node="node"></slot>
       </template>
     </component>
   </b-form-item>
@@ -34,7 +31,7 @@
 defineOptions({ name: 'RenderFormItem' })
 import useRenderStore from '../../core/hooks/use-render-store'
 
-const { widgetForm } = useRenderStore()
+const { widgetForm, slotsWedigets } = useRenderStore()
 
 const models = defineModel({ type: Object, default: {} })
 

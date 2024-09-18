@@ -1,8 +1,8 @@
 <template>
   <div class="p24">
     <b-button type="primary" @click="visible = true">打开设计器</b-button>
-    <BFormMaker v-model="visible" @onSave="handleSave">
-      <template #custom-customComp="{ node }">
+    <BFormMaker v-model="visible" :customFields="customFields" @onSave="handleSave">
+      <template #custom-comp="{ node }">
         <CustomNode v-bind="node" />
       </template>
 
@@ -23,6 +23,15 @@ import useStoreCenter from '@/components/FormMaking/core/hooks/use-store-center'
 const visible = ref(true)
 
 const { formConfig } = useStoreCenter()
+
+// 自定义高级组件或者自定义组件
+const customFields = [
+  {
+    type: 'custom-comp',
+    name: '自定义组件',
+    icon: 'appstoreadd',
+  },
+]
 
 function handleSave(widgetForm) {
   console.log(widgetForm)

@@ -25,8 +25,8 @@ export default function useMakerStore() {
   }
 
   // 增加一个组件
-  function addWidget(item) {
-    const com = createComponent(item.type)
+  function addWidget(item, isCustom) {
+    const com = createComponent(item.type, item.name, isCustom)
     widgetForm.value.list.push(com)
     handleSelectWidget(com)
   }

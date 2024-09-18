@@ -15,20 +15,9 @@ export default function useRealFields(widgetForm) {
   // 所有控件的映射
   const ctrlCfgs = computed(() => fieldCfg.value.ctrlCfgs)
 
-  // 所有插槽作用域的名称，即自定义组件
-  const slotsWedigets = computed(() => {
-    const customComps = realFieldWedgits.value.filter(i => i.type === 'custom-component')
-    const map = new Map()
-    customComps.forEach(i => {
-      map.set(i.config.compName, i)
-    })
-    return [...map.values()]
-  })
-
   return {
     realFieldWedgits,
     ctrlCfgs,
-    slotsWedigets,
     treeList,
   }
 }

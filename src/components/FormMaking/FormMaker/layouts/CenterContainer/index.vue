@@ -24,18 +24,18 @@
           <b-empty>从左侧拖拽或点击来添加字段</b-empty>
         </div>
         <WidgetForm>
-          <template
-            v-for="slot in slotsWedigets"
-            :key="slot.config.compName"
-            v-slot:[`custom-${slot.config.compName}`]="{ node }"
-          >
-            <slot :name="`custom-${slot.config.compName}`" v-bind:node="node"></slot>
+          <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+            <slot :name="slot.type" v-bind:node="node"></slot>
           </template>
         </WidgetForm>
       </b-scrollbar>
     </div>
 
-    <FormPreview ref="previewRef" />
+    <FormPreview ref="previewRef">
+      <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+        <slot :name="slot.type" v-bind:node="node"></slot>
+      </template>
+    </FormPreview>
   </div>
 </template>
 
@@ -100,7 +100,7 @@ function handleSave() {
 const previewRef = ref(null)
 
 function handlePreview() {
-  previewRef.value?.open(widgetForm.value)
+  previewRef.value?.open(widgetForm.value, slotsWedigets.value)
 }
 </script>
 

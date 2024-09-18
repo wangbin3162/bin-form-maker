@@ -21,11 +21,8 @@
       :model-value="element.config.defaultValue"
       :form-config="widgetForm.config"
     >
-      <template
-        v-if="element.type === 'custom-component'"
-        v-slot:[`custom-${element.config.compName}`]="{ node }"
-      >
-        <slot :name="`custom-${element.config.compName}`" v-bind:node="node"></slot>
+      <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+        <slot :name="slot.type" v-bind:node="node"></slot>
       </template>
     </component>
 
@@ -43,7 +40,7 @@
 defineOptions({ name: 'WidgetFormItem' })
 import useMakerStore from '../../hooks/useMakerStore'
 
-const { widgetForm } = useMakerStore()
+const { widgetForm, slotsWedigets } = useMakerStore()
 
 defineProps({
   element: {

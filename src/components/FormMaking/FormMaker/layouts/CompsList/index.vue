@@ -8,7 +8,13 @@
         <div v-if="activeTab === 'comps'">
           <CompList title="布局控件" :list="layoutComponents" />
           <CompList title="表单控件" :list="basicComponents" />
-          <slot></slot>
+          <!-- 高级字段待定如上传等 -->
+          <CompList
+            title="自定义控件"
+            v-if="customFields.length > 0"
+            :list="customFields"
+            is-custom
+          />
         </div>
         <div v-else class="p8">
           <b-tree :data="treeList" ref="treeRef" @select-change="handleSelect"></b-tree>
@@ -23,6 +29,14 @@ defineOptions({ name: 'CompsList' })
 import { ref } from 'vue'
 import { basicComponents, layoutComponents } from '../../../core/config/component-list'
 import useMakerStore from '../../hooks/useMakerStore'
+
+defineProps({
+  // 自定义字段
+  customFields: {
+    type: Array,
+    default: () => [],
+  },
+})
 
 const activeTab = ref('comps')
 const treeRef = ref(null)
@@ -74,6 +88,17 @@ function handleSelect(selected, node) {
     height: calc(100% - 45px);
     overflow-y: auto;
     overflow-x: hidden;
+  }
+  :deep(.bin-collapse-wrap) {
+    .header .arrow {
+      transform: translateY(-50%) rotate(-90deg);
+      .b-iconfont {
+        font-size: 12px;
+      }
+    }
+    &.bin-collapse-wrap-active .header .arrow {
+      transform: translateY(-50%) rotate(0);
+    }
   }
 }
 </style>

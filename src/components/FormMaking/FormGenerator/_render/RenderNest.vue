@@ -12,12 +12,9 @@
         </template>
       </component>
 
-      <RenderFormItem v-if="isBaseCtrl(element.type)" :element="element" v-model="models">
-        <template
-          v-if="element.type === 'custom-component'"
-          v-slot:[`custom-${element.config.compName}`]="{ node }"
-        >
-          <slot :name="`custom-${element.config.compName}`" v-bind:node="node"></slot>
+      <RenderFormItem v-else :element="element" v-model="models">
+        <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+          <slot :name="slot.type" v-bind:node="node"></slot>
         </template>
       </RenderFormItem>
     </div>
@@ -27,16 +24,16 @@
 <script setup>
 defineOptions({ name: 'RenderNest' })
 import useRenderStore from '../../core/hooks/use-render-store'
-import { isBaseCtrl, isLayouts } from '../../core/config/component-list'
+import { isLayouts } from '../../core/config/component-list'
 
 const models = defineModel({ type: Object, default: {} })
 
-const props = defineProps({
+defineProps({
   widgets: {
     type: Array,
     default: () => [],
   },
 })
 
-const { widgetForm } = useRenderStore()
+const { widgetForm, slotsWedigets } = useRenderStore()
 </script>

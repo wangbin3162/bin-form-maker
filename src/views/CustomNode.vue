@@ -11,6 +11,7 @@
 <script setup>
 import { computed } from 'vue'
 defineOptions({ name: 'BFCustomNode' })
+
 const props = defineProps({
   data: {
     type: Object,

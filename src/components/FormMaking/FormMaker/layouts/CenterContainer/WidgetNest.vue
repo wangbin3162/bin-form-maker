@@ -26,12 +26,9 @@
           </template>
         </component>
 
-        <WidgetFormItem v-if="isBaseCtrl(element.type)" :element="element">
-          <template
-            v-if="element.type === 'custom-component'"
-            v-slot:[`custom-${element.config.compName}`]="{ node }"
-          >
-            <slot :name="`custom-${element.config.compName}`" v-bind:node="node"></slot>
+        <WidgetFormItem v-else :element="element">
+          <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+            <slot :name="slot.type" v-bind:node="node"></slot>
           </template>
         </WidgetFormItem>
 
@@ -67,16 +64,22 @@
 <script setup>
 defineOptions({ name: 'WidgetNest' })
 import Draggable from 'vuedraggable'
-import { isBaseCtrl, isLayouts } from '../../../core/config/component-list'
+import { isLayouts } from '../../../core/config/component-list'
 import useMakerStore from '../../hooks/useMakerStore'
 
-const props = defineProps({
+defineProps({
   widgets: {
     type: Array,
     default: () => [],
   },
 })
 
-const { isComSelected, widgetForm, deleteWidget, handleSelectWidget, handleWidgetAdd } =
-  useMakerStore()
+const {
+  widgetForm,
+  slotsWedigets,
+  isComSelected,
+  deleteWidget,
+  handleSelectWidget,
+  handleWidgetAdd,
+} = useMakerStore()
 </script>

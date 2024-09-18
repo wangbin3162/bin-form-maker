@@ -20,16 +20,19 @@ const BaseComponent = {
 }
 
 // 根据组件类型（type==input) 创建新的配置项
-function mergeConfig(type) {
-  const config = configMap.get(type) || {}
+function mergeConfig(type, label, isCustom) {
+  const config = configMap.get(isCustom ? 'custom-component' : type, label) || {}
   const baseObj = isLayouts(type) ? { type } : { type, ...BaseComponent }
   const mergeObj = deepMerge(baseObj, config)
   // 生成唯一key值，用于删除判定
   mergeObj.key = uuid()
   mergeObj.model = `${type}_${generateId()}`
-  mergeObj.label = mergeObj.name
+  mergeObj.label = mergeObj.name || label
   // 每个组件都应该扩展一个隐藏属性
   mergeObj.config.hidden = false
+  if (isCustom) {
+    mergeObj.config.compName = type
+  }
   return mergeObj
 }
 
@@ -37,8 +40,8 @@ function mergeConfig(type) {
  * 创建组件
  * @param name
  */
-export function createComponent(type) {
-  const config = mergeConfig(type)
+export function createComponent(type, label, isCustom) {
+  const config = mergeConfig(type, label, isCustom)
   console.log(`----------createComponent [${type}]: `, config)
   return config
 }

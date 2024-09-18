@@ -1,9 +1,6 @@
 <template>
   <div class="custom-wrap">
-    <slot
-      :name="`custom-${config.compName}`"
-      v-bind:node="{ modelValue: model, data, formConfig }"
-    ></slot>
+    <slot :name="config.compName" v-bind:node="{ modelValue: model, data, formConfig }"></slot>
   </div>
 </template>
 

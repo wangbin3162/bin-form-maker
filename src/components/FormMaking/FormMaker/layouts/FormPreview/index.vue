@@ -1,7 +1,11 @@
 <template>
   <b-modal v-model="previewModal" title="表单预览" width="1400px" screen-center>
     <div class="preview" style="height: 520px">
-      <RenderForm v-if="previewModal" :default-model="defaultModel" ref="renderFormRef" />
+      <RenderForm v-if="previewModal" :default-model="defaultModel" ref="renderFormRef">
+        <template #custom-comp="{ node }">
+          <CustomNode v-bind="node" v-model="formModels[node.data.model]" />
+        </template>
+      </RenderForm>
     </div>
     <template #footer>
       <div flex="main:center cross:center">
@@ -25,6 +29,7 @@
 <script setup>
 import { ref } from 'vue'
 import useRenderStore from '../../../core/hooks/use-render-store'
+import CustomNode from '@/views/CustomNode.vue'
 import { Message } from 'bin-ui-design'
 defineOptions({ name: 'FormPreview' })
 
@@ -36,10 +41,9 @@ const { initSchema, formModels, formRules } = useRenderStore()
 const defaultModel = ref({}) // 默认对象
 const renderFormRef = ref(null)
 
-function open(formData) {
+function open(formData, customFields) {
   previewModal.value = true
-
-  initSchema(formData)
+  initSchema(formData, customFields)
 }
 
 async function formSubmit() {

@@ -9,23 +9,29 @@ const renderStatus = {
   widgetForm: ref({}),
   formModels: ref({}), // 实际存储的对象
   formRules: ref({}), // 实际form存储的校验
+  slotsWedigets: ref([]), // 外部插槽的内容
 }
 
 /**
  * 渲染中信
  */
 export default function useRenderStore() {
-  const { widgetForm, formModels, formRules } = renderStatus
+  const { widgetForm, formModels, formRules, slotsWedigets } = renderStatus
 
-  const { realFieldWedgits, ctrlCfgs, slotsWedigets, treeList } = useRealFields(widgetForm)
+  const { realFieldWedgits, ctrlCfgs, treeList } = useRealFields(widgetForm)
 
   const formConfig = computed(() => widgetForm.value.config)
 
-  // 初始化事件
-  function initSchema(form) {
+  // 初始化事件,第一个是表单对象的内容，第二个是自定义字段的列表
+  function initSchema(form, customFields) {
     widgetForm.value = getNewFromCfg(form)
     console.log(widgetForm.value)
-    console.log('------------------- 初始化schema -------------------', widgetForm.value)
+    slotsWedigets.value = [...customFields]
+    console.log(
+      '------------------- 初始化schema -------------------',
+      widgetForm.value,
+      slotsWedigets.value,
+    )
   }
 
   // 动态拼接model

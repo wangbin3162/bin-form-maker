@@ -9,12 +9,8 @@
     >
       <!-- 附加递归嵌套控件 -->
       <widget-nest class="widget-form-list" :widgets="widgetForm.list">
-        <template
-          v-for="slot in slotsWedigets"
-          :key="slot.config.compName"
-          v-slot:[`custom-${slot.config.compName}`]="{ node }"
-        >
-          <slot :name="`custom-${slot.config.compName}`" v-bind:node="node"></slot>
+        <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
+          <slot :name="slot.type" v-bind:node="node"></slot>
         </template>
       </widget-nest>
     </b-form>
