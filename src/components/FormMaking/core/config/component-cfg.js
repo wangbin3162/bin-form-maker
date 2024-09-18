@@ -38,7 +38,6 @@ function mergeConfig(type) {
  * @param name
  */
 export function createComponent(type) {
-  console.log(`----------createComponent [${type}]: `)
   const config = mergeConfig(type)
   console.log(`----------createComponent [${type}]: `, config)
   return config

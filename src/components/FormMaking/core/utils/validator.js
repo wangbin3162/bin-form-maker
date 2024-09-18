@@ -372,10 +372,10 @@ export const validatorBuild = {
 /**
  * 根据rules获取实际form-item需要的rules
  * @param rules
- * @param sourceObj : sourceObj 就是 formModel
+ * @param formModel : sourceObj 就是 formModel
  */
-export function buildRules(rules, sourceObj, viewId, ctrlCfgs) {
+export function buildRules(rules, formModel, ctrlCfgs) {
   return rules.map(rule => {
-    return validatorBuild[rule.name](rule, sourceObj, viewId, ctrlCfgs)
+    return validatorBuild[rule.name](rule, formModel, ctrlCfgs)
   })
 }

@@ -1,16 +1,9 @@
-import { computed } from 'vue'
-import {
-  SIMPLE_RULE,
-  MULTIPLE_RULE,
-  RULE,
-  TYPE,
-  TRIGGER,
-  RULE_NAME_MAP,
-  TYPE_RULE,
-} from '../../../core/utils/validator'
+import { computed, ref, watch } from 'vue'
+import { MULTIPLE_RULE, RULE, TYPE, TRIGGER } from '../../../core/utils/validator'
+import { deepCopy } from '@/components/FormMaking/core/utils/utils'
 
 export function useRules(data) {
-  const checkRules = computed(() => data.value.rules)
+  const checkRules = ref(deepCopy(data.value.rules))
 
   const normalType = computed(() => (data.value.type === 'input-number' ? TYPE[1] : TYPE[0]))
 
@@ -25,7 +18,7 @@ export function useRules(data) {
     } else {
       const index = checkRules.value.findIndex(item => item.name === RULE.required)
       if (index > -1) {
-        checkRules.value.splice(index, 1)
+        removeRules(index)
       }
     }
   }
@@ -210,6 +203,14 @@ export function useRules(data) {
       return checkRules.value.findIndex(item => item.name === name) > -1
     }
   }
+
+  watch(
+    () => checkRules.value,
+    () => {
+      data.value.rules = deepCopy(checkRules.value)
+    },
+    { deep: true },
+  )
 
   return {
     checkRules,

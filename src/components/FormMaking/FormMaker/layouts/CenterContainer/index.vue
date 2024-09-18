@@ -3,7 +3,7 @@
     <div class="top-fix" flex="main:justify cross:center">
       <div class="top-fix-left" flex="cross:center"></div>
       <div class="top-fix-right">
-        <b-button type="text" icon="eye">预览</b-button>
+        <b-button type="text" icon="eye" @click="handlePreview">预览</b-button>
         <b-divider type="vertical" />
         <DebugModal style="display: inline-block" :data="{ widgetForm }">
           <b-button type="text" icon="edit-square">查看JSON</b-button>
@@ -34,6 +34,8 @@
         </WidgetForm>
       </b-scrollbar>
     </div>
+
+    <FormPreview ref="previewRef" />
   </div>
 </template>
 
@@ -42,6 +44,7 @@ defineOptions({ name: 'CenterContainer' })
 import useMakerStore from '../../hooks/useMakerStore'
 import { generateId } from '../../../core/utils/utils'
 import { Message } from 'bin-ui-design'
+import { ref } from 'vue'
 
 const emit = defineEmits(['onSave'])
 
@@ -92,6 +95,12 @@ const downloadCfg = () => {
 
 function handleSave() {
   emit('onSave')
+}
+
+const previewRef = ref(null)
+
+function handlePreview() {
+  previewRef.value?.open(widgetForm.value)
 }
 </script>
 

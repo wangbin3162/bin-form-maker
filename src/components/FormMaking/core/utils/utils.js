@@ -16,7 +16,7 @@ export const deepMerge = Utils.util.deepMerge
 
 export const isEqual = Utils.util.isEqual
 
-export const isEmpty = Utils.util.isEmpty
+export const isEmpty = Utils.helper.isEmpty
 
 /**
  * 转换为json对象
