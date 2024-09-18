@@ -1,5 +1,5 @@
-import { deepMerge, generateId, uuid } from '../../core/utils/utils'
-import { isLayouts } from '../../core/config/component-list'
+import { deepMerge, generateId, uuid } from '../utils/utils'
+import { isLayouts } from './component-list'
 
 const cfgs = import.meta.glob('../../FormGenerator/*/config.js', { eager: true })
 
@@ -38,6 +38,7 @@ function mergeConfig(type) {
  * @param name
  */
 export function createComponent(type) {
+  console.log(`----------createComponent [${type}]: `)
   const config = mergeConfig(type)
   console.log(`----------createComponent [${type}]: `, config)
   return config
@@ -66,19 +67,23 @@ export function getNewFromCfg(widgetForm) {
       globalEvents: {
         onEvents: [
           {
-            fields: [], // 监听的字段及条件
-            actions: [], // 满足执行的动作
-            disActions: [], // 不满足执行的动作
+            // 监听的字段及条件
+            fields: [{ fieldName: 'field1', fieldTitle: '字段1' }],
+            // 满足执行的动作
+            actions: [],
+            // 不满足执行的动作
+            disActions: [],
           },
         ],
         customScript: {
+          enable: false,
           funcBody: '',
           arguments: ['formModel', 'ctrlCfgs'],
         },
       },
-      globalDicts: [
-        { key: 'dict1', name: '字典名1', options: [{ key: 'o1', label: '标签1' }] },
-        { key: 'dict2', name: '字典名2', options: [{ key: 'o1', label: '标签1' }] },
+      dataSet: [
+        // { key: 'dict1', name: '字典名1', options: [{ key: 'o1', label: '标签1' }] },
+        // { key: 'dict2', name: '字典名2', options: [{ key: 'o1', label: '标签1' }] },
       ], // 全局字典
     },
   }

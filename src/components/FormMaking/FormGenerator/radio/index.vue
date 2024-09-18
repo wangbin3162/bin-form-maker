@@ -35,7 +35,7 @@ const model = defineModel({ type: String, default: '' })
 // config 配置项
 const config = computed(() => props.data.config)
 
-const { realOptions } = useRealOptions(config.value, props.formConfig)
+const { realOptions } = useRealOptions(config, props.formConfig)
 </script>
 
 <style scoped>

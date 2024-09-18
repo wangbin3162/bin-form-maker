@@ -1,13 +1,12 @@
-import useRealFields from '../../../core/hooks/use-real-fields'
-import useStoreCenter from '../../hooks/store-center'
+import useMakerStore from '../../hooks/useMakerStore'
+// 参数配置
 export function useParamsDesc() {
-  const { widgetForm } = useStoreCenter()
+  const { realFieldWedgits, ctrlCfgs } = useMakerStore()
   // 当前选中的表格控件字段列
   // 当前form表单模型
   const formModel = {}
 
   let modelStr = ''
-  const { realFieldWedgits, ctrlCfgs } = useRealFields(widgetForm)
 
   realFieldWedgits.value.forEach(item => {
     formModel[item.model] = null

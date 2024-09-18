@@ -9,7 +9,7 @@
 
 <script setup>
 import { computed } from 'vue'
-defineOptions({ name: 'BFCustom' })
+defineOptions({ name: 'BFCustomComponent' })
 
 const props = defineProps({
   data: {

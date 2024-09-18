@@ -30,8 +30,8 @@
 
 <script setup>
 import Draggable from 'vuedraggable'
-import useStoreCenter from '../../hooks/store-center'
-import { createComponent } from '../../config/component-cfg'
+import useMakerStore from '../../hooks/useMakerStore'
+import { createComponent } from '../../../core/config/component-cfg'
 defineOptions({ name: 'CompList' })
 
 defineProps({
@@ -45,7 +45,7 @@ defineProps({
   },
 })
 
-const { addWidget } = useStoreCenter()
+const { addWidget } = useMakerStore()
 
 function buildCompCfg(item) {
   return createComponent(item.type)

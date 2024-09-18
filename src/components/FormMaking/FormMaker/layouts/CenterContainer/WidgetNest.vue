@@ -28,7 +28,7 @@
 
         <WidgetFormItem v-if="isBaseCtrl(element.type)" :element="element">
           <template
-            v-if="element.type === 'custom'"
+            v-if="element.type === 'custom-component'"
             v-slot:[`custom-${element.config.compName}`]="{ node }"
           >
             <slot :name="`custom-${element.config.compName}`" v-bind:node="node"></slot>
@@ -68,7 +68,7 @@
 defineOptions({ name: 'WidgetNest' })
 import Draggable from 'vuedraggable'
 import { isBaseCtrl, isLayouts } from '../../../core/config/component-list'
-import useStoreCenter from '../../hooks/store-center'
+import useMakerStore from '../../hooks/useMakerStore'
 
 const props = defineProps({
   widgets: {
@@ -78,5 +78,5 @@ const props = defineProps({
 })
 
 const { isComSelected, widgetForm, deleteWidget, handleSelectWidget, handleWidgetAdd } =
-  useStoreCenter()
+  useMakerStore()
 </script>

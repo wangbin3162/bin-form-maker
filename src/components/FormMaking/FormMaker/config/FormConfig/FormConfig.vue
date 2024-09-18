@@ -43,6 +43,20 @@
               </b-radio-group>
             </cfg-field>
           </div>
+          <div v-if="curTabActive === 'datasouce'">
+            <slot name="DataSetCfg" v-bind:dataset="data.dataSet">
+              <cfg-field
+                label="数据配置"
+                tooltip="基于一定规则进行配置，这里通过一个固定插槽[DataSetCfg]予以动态抛出,作用域属性dataset用于外部设置。"
+                :labelWidth="labelWidth"
+              >
+                <DebugModal style="display: inline-block" :data="format" title="格式查看">
+                  <b-button type="text">格式查看</b-button>
+                </DebugModal>
+              </cfg-field>
+            </slot>
+          </div>
+          <div v-if="curTabActive === 'event'">界面事件</div>
         </div>
       </b-scrollbar>
     </div>
@@ -67,6 +81,28 @@ defineProps({
 })
 
 const curTabActive = ref('base')
+const format = [
+  {
+    key: 'dict1',
+    name: '字典名1',
+    options: [
+      {
+        key: 'o1',
+        label: '标签1',
+      },
+    ],
+  },
+  {
+    key: 'dict2',
+    name: '字典名2',
+    options: [
+      {
+        key: 'o1',
+        label: '标签1',
+      },
+    ],
+  },
+]
 
 const tabs = [
   {

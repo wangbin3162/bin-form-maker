@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-defineOptions({ name: 'CustomConfig' })
+defineOptions({ name: 'CustomComponentConfig' })
 
 const data = defineModel({ type: Object })
 

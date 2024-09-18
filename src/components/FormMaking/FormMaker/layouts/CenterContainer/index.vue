@@ -39,15 +39,13 @@
 
 <script setup>
 defineOptions({ name: 'CenterContainer' })
-import useStoreCenter from '../../hooks/store-center'
-import useRealFields from '../../../core/hooks/use-real-fields'
+import useMakerStore from '../../hooks/useMakerStore'
 import { generateId } from '../../../core/utils/utils'
 import { Message } from 'bin-ui-design'
 
 const emit = defineEmits(['onSave'])
 
-const { widgetForm } = useStoreCenter()
-const { slotsWedigets } = useRealFields(widgetForm)
+const { widgetForm, slotsWedigets } = useMakerStore()
 
 function downloadFile(content, fileName) {
   // filename，摘取了常用的部分，其实还有其他一些

@@ -17,7 +17,7 @@ export default function useRealFields(widgetForm) {
 
   // 所有插槽作用域的名称，即自定义组件
   const slotsWedigets = computed(() => {
-    const customComps = realFieldWedgits.value.filter(i => i.type === 'custom')
+    const customComps = realFieldWedgits.value.filter(i => i.type === 'custom-component')
     const map = new Map()
     customComps.forEach(i => {
       map.set(i.config.compName, i)

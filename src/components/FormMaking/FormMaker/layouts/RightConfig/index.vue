@@ -16,17 +16,21 @@
         <WidgetConfig v-if="selectWidget" v-model="selectWidget"></WidgetConfig>
         <div v-else style="height: 300px" flex="main:center cross:center">请添加组件</div>
       </div>
-      <FormConfig v-else v-model="widgetForm.config"></FormConfig>
+      <FormConfig v-else v-model="widgetForm.config">
+        <template #DataSetCfg="{ dataset }">
+          <slot name="DataSetCfg" v-bind:dataset="dataset"></slot>
+        </template>
+      </FormConfig>
     </div>
   </div>
 </template>
 
 <script setup>
-import useStoreCenter from '../../hooks/store-center'
+import useMakerStore from '../../hooks/useMakerStore'
 
 defineOptions({ name: 'RightConfig' })
 
-const { selectWidget, currentCfgTab, widgetForm } = useStoreCenter()
+const { selectWidget, currentCfgTab, widgetForm } = useMakerStore()
 
 const tabs = [
   { key: 'widget', title: '控件属性' },

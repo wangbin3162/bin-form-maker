@@ -66,7 +66,7 @@ export const basicComponents = [
     icon: 'calendar',
   },
   {
-    type: 'custom',
+    type: 'custom-component',
     name: '自定义组件',
     icon: 'appstoreadd',
   },

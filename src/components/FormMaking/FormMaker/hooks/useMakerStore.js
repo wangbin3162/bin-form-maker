@@ -1,30 +1,22 @@
-import {
-  createComponent,
-  getNewFromCfg,
-} from '@/components/FormMaking/FormMaker/config/component-cfg'
-import { ref, nextTick, computed } from 'vue'
+import useStoreCenter from '../../core/hooks/use-store-center'
+import { createComponent } from '../../core/config/component-cfg'
+import { nextTick } from 'vue'
 
-const status = {
-  // 控件form对象配置信息
-  widgetForm: ref({
-    list: [], // list表示实际布局对象，实际存储的都为json。
-    config: {}, // 表单层级的对象存储，存储表单信息以及表单字典映射。
-  }),
-  selectWidget: ref(),
-  currentCfgTab: ref('form'), // 当前右侧配置项的配置值
-}
-
-export default function useStoreCenter() {
-  const { widgetForm, selectWidget, currentCfgTab } = status
-
-  // const realFieldWedgits = computed(() => fieldCfg.value.fieldList)
-  const formConfig = computed(() => widgetForm.value.config)
-
-  // 初始化事件
-  function initSchema(form) {
-    widgetForm.value = getNewFromCfg(form)
-    // console.log(widgetForm.value)
-  }
+/**
+ * maker设计器专用store hook，用于操作和获取不同的数据信息。
+ */
+export default function useMakerStore() {
+  const {
+    widgetForm,
+    selectWidget,
+    currentCfgTab,
+    formConfig,
+    // realfields status
+    realFieldWedgits,
+    ctrlCfgs,
+    slotsWedigets,
+    treeList,
+  } = useStoreCenter()
 
   // btn-bar 清空事件
   function clearSchema() {
@@ -76,8 +68,12 @@ export default function useStoreCenter() {
     selectWidget,
     currentCfgTab,
     formConfig,
+    // realfields status
+    realFieldWedgits,
+    ctrlCfgs,
+    slotsWedigets,
+    treeList,
     // func
-    initSchema,
     clearSchema,
     addWidget,
     deleteWidget,

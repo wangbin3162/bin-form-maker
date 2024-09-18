@@ -91,7 +91,7 @@
           @change="sourceChange"
         >
           <b-option
-            v-for="item in formConfig.globalDicts"
+            v-for="item in formConfig.dataSet"
             :key="item.key"
             :label="item.name"
             :value="item.key"
@@ -147,7 +147,7 @@
 import { computed } from 'vue'
 import Draggable from 'vuedraggable'
 import { splitValue, joinValue, generateId } from '../../../core/utils/utils'
-import useStoreCenter from '../../hooks/store-center'
+import useMakerStore from '../../hooks/useMakerStore'
 
 defineOptions({ name: 'DatasourceCfg' })
 
@@ -164,7 +164,7 @@ defineProps({
   },
 })
 
-const { formConfig } = useStoreCenter()
+const { formConfig } = useMakerStore()
 
 const dataSource = computed(() => data.value.config.source)
 const options = computed(() => data.value.config.options)
@@ -197,13 +197,13 @@ function sourceChange(val) {
     dataSource.value.confName = ''
     return
   }
-  const source = formConfig.value.globalDicts.find(i => i.key === val)
+  const source = formConfig.value.dataSet.find(i => i.key === val)
   dataSource.value.confName = source.name
 }
 
 // 获取对应数据源下的数据options，用于定义默认值
 function getOptionsByDict(val) {
-  const source = formConfig.value.globalDicts.find(i => i.key === val)
+  const source = formConfig.value.dataSet.find(i => i.key === val)
   if (source) return source.options
   return []
 }

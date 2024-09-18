@@ -22,9 +22,7 @@
 defineOptions({ name: 'CompsList' })
 import { ref } from 'vue'
 import { basicComponents, layoutComponents } from '../../../core/config/component-list'
-
-import useStoreCenter from '../../hooks/store-center'
-import useRealFields from '../../../core/hooks/use-real-fields'
+import useMakerStore from '../../hooks/useMakerStore'
 
 const activeTab = ref('comps')
 const treeRef = ref(null)
@@ -34,8 +32,7 @@ const tabs = [
   { key: 'form', title: '大纲', icon: 'cluster' },
 ]
 
-const { widgetForm, handleSelectWidget } = useStoreCenter()
-const { treeList, ctrlCfgs } = useRealFields(widgetForm)
+const { handleSelectWidget, treeList, ctrlCfgs } = useMakerStore()
 
 function handleSelect(selected, node) {
   if (['col', 'tag'].includes(node.type)) {

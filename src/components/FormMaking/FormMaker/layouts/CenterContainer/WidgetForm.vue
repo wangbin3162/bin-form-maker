@@ -23,12 +23,9 @@
 
 <script setup>
 defineOptions({ name: 'WidgetForm' })
-import useStoreCenter from '../../hooks/store-center'
-import useRealFields from '../../../core/hooks/use-real-fields'
+import useMakerStore from '../../hooks/useMakerStore'
 
-const { widgetForm } = useStoreCenter()
-
-const { slotsWedigets } = useRealFields(widgetForm)
+const { widgetForm, slotsWedigets } = useMakerStore()
 </script>
 
 <style>

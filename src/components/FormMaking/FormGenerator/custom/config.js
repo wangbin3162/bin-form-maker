@@ -1,6 +1,6 @@
 // 当前组件的组件专属属性
 export default {
-  type: 'custom',
+  type: 'custom-component',
   name: '自定义组件',
   model: '',
   config: {

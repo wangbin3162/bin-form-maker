@@ -47,5 +47,5 @@ function handleInputMultiple(val) {
   model.value = config.value.multiple ? joinValue(val) : val
 }
 
-const { realOptions } = useRealOptions(config.value, props.formConfig)
+const { realOptions } = useRealOptions(config, props.formConfig)
 </script>

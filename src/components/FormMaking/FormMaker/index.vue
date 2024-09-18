@@ -11,7 +11,11 @@
         <slot :name="`custom-${slot.config.compName}`" v-bind:node="node"></slot>
       </template>
     </CenterContainer>
-    <RightConfig></RightConfig>
+    <RightConfig>
+      <template #DataSetCfg="{ dataset }">
+        <slot name="DataSetCfg" v-bind:dataset="dataset"></slot>
+      </template>
+    </RightConfig>
   </MakerLayout>
 </template>
 
@@ -20,8 +24,7 @@ import MakerLayout from './layouts/MakerLayout/index.vue'
 import CompsList from './layouts/CompsList/index.vue'
 import CenterContainer from './layouts/CenterContainer/index.vue'
 import RightConfig from './layouts/RightConfig/index.vue'
-import useStoreCenter from './hooks/store-center'
-import useRealFields from '../core/hooks/use-real-fields'
+import useMakerStore from './hooks/useMakerStore'
 
 const emit = defineEmits(['onSave'])
 defineOptions({ name: 'BFormMaker' })
@@ -35,10 +38,7 @@ defineProps({
 
 const visible = defineModel({ type: Boolean, default: false })
 
-const { initSchema, widgetForm } = useStoreCenter()
-const { slotsWedigets } = useRealFields(widgetForm)
-
-initSchema({})
+const { widgetForm, slotsWedigets } = useMakerStore()
 
 function handleSave() {
   emit('onSave', widgetForm.value)
