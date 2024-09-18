@@ -244,7 +244,7 @@
       </template>
     </Draggable>
 
-    <b-ace-editor :modelValue="JSON.stringify(checkRules, null, 2)" readonly height="250px" />
+    <!-- <b-ace-editor :modelValue="JSON.stringify(checkRules, null, 2)" readonly height="250px" /> -->
 
     <div style="height: 150px; padding: 30px 20px" v-if="checkRules.length === 0">
       <b-empty>当前无校验配置</b-empty>

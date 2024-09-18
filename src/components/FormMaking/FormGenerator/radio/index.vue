@@ -6,7 +6,7 @@
       :style="{ width: config.width }"
       :type="config.type"
     >
-      <b-radio v-for="item in config.options" :key="item.key" :label="item.key">
+      <b-radio v-for="item in realOptions" :key="item.key" :label="item.key">
         {{ item.label }}
       </b-radio>
     </b-radio-group>
@@ -15,6 +15,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import useRealOptions from '../../core/hooks/use-real-options'
 defineOptions({ name: 'BFRadio' })
 
 const props = defineProps({
@@ -33,6 +34,8 @@ const model = defineModel({ type: String, default: '' })
 
 // config 配置项
 const config = computed(() => props.data.config)
+
+const { realOptions } = useRealOptions(config.value, props.formConfig)
 </script>
 
 <style scoped>

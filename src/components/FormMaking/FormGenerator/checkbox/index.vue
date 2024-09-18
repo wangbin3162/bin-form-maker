@@ -13,7 +13,7 @@
       @change="handleCheckBox"
     >
       <b-checkbox
-        v-for="item in config.options"
+        v-for="item in realOptions"
         :key="item.key"
         :label="item.key"
         :style="{ width: config.itemWidth }"
@@ -27,6 +27,8 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { splitValue, joinValue } from '../../core/utils/utils'
+import useRealOptions from '../../core/hooks/use-real-options'
+
 defineOptions({ name: 'BFCheckbox' })
 
 const props = defineProps({
@@ -45,6 +47,7 @@ const model = defineModel({ type: String, default: '' })
 
 // config 配置项
 const config = computed(() => props.data.config)
+const { realOptions } = useRealOptions(config.value, props.formConfig)
 
 const realValue = ref(null)
 

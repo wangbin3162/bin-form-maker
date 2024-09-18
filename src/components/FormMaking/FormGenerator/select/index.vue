@@ -1,7 +1,7 @@
 <template>
   <b-select v-model="value" v-bind="config" @change="handleInputMultiple">
     <b-option
-      v-for="item in config.options"
+      v-for="item in realOptions"
       :key="item.key"
       :value="item.key"
       :label="item.label"
@@ -12,6 +12,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { splitValue, joinValue } from '../../core/utils/utils'
+import useRealOptions from '../../core/hooks/use-real-options'
 defineOptions({ name: 'BFSelect' })
 
 const props = defineProps({
@@ -45,4 +46,6 @@ watch(
 function handleInputMultiple(val) {
   model.value = config.value.multiple ? joinValue(val) : val
 }
+
+const { realOptions } = useRealOptions(config.value, props.formConfig)
 </script>

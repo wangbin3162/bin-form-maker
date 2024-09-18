@@ -1,7 +1,8 @@
 <template>
   <MakerLayout v-model="visible" :topTitle="topTitle" :inner="inner">
     <CompsList></CompsList>
-    <CenterContainer>
+    <CenterContainer @onSave="handleSave">
+      <!-- 作用域插槽，用于自定义外部组件插槽 -->
       <template
         v-for="slot in slotsWedigets"
         :key="slot.config.compName"
@@ -22,6 +23,7 @@ import RightConfig from './layouts/RightConfig/index.vue'
 import useStoreCenter from './hooks/store-center'
 import useRealFields from '../core/hooks/use-real-fields'
 
+const emit = defineEmits(['onSave'])
 defineOptions({ name: 'BFormMaker' })
 defineProps({
   topTitle: {
@@ -37,4 +39,8 @@ const { initSchema, widgetForm } = useStoreCenter()
 const { slotsWedigets } = useRealFields(widgetForm)
 
 initSchema({})
+
+function handleSave() {
+  emit('onSave', widgetForm.value)
+}
 </script>

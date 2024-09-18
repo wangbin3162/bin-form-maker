@@ -2,7 +2,7 @@ import {
   createComponent,
   getNewFromCfg,
 } from '@/components/FormMaking/FormMaker/config/component-cfg'
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, computed } from 'vue'
 
 const status = {
   // 控件form对象配置信息
@@ -18,6 +18,7 @@ export default function useStoreCenter() {
   const { widgetForm, selectWidget, currentCfgTab } = status
 
   // const realFieldWedgits = computed(() => fieldCfg.value.fieldList)
+  const formConfig = computed(() => widgetForm.value.config)
 
   // 初始化事件
   function initSchema(form) {
@@ -74,6 +75,7 @@ export default function useStoreCenter() {
     widgetForm,
     selectWidget,
     currentCfgTab,
+    formConfig,
     // func
     initSchema,
     clearSchema,

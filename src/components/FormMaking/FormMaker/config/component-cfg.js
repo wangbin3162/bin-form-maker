@@ -63,16 +63,22 @@ export function getNewFromCfg(widgetForm) {
       labelSuffix: '',
       size: 'default',
       // 全局脚本监听
-      globalEvents: [
-        {
-          fields: [], // 监听的字段及条件
-          actions: [], // 满足执行的动作
-          disActions: [], // 不满足执行的动作
+      globalEvents: {
+        onEvents: [
+          {
+            fields: [], // 监听的字段及条件
+            actions: [], // 满足执行的动作
+            disActions: [], // 不满足执行的动作
+          },
+        ],
+        customScript: {
+          funcBody: '',
+          arguments: ['formModel', 'ctrlCfgs'],
         },
-      ],
+      },
       globalDicts: [
-        { key: 'xxx', name: '字典名', mapping: [{ key: '', value: '' }] },
-        { key: 'xxx', name: '字典名', mapping: [{ key: '', value: '' }] },
+        { key: 'dict1', name: '字典名1', options: [{ key: 'o1', label: '标签1' }] },
+        { key: 'dict2', name: '字典名2', options: [{ key: 'o1', label: '标签1' }] },
       ], // 全局字典
     },
   }

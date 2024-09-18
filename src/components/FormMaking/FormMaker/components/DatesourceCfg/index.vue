@@ -1,7 +1,6 @@
 <template>
   <div class="datasource-container">
-    数据源配置
-    <cfg-field label="选项来源" :labelWidth="labelWidth">
+    <cfg-field label="选项来源" :labelWidth="labelWidth" style="padding-bottom: 8px">
       <b-radio-group v-model="dataSource.type" type="button" :size="size">
         <b-radio label="static">静态数据</b-radio>
         <b-radio label="dynamic">动态数据</b-radio>
@@ -9,6 +8,7 @@
     </cfg-field>
     <!-- 静态数据编辑 -->
     <div v-if="dataSource.type === 'static'">
+      <cfg-field label="数据选项" :labelWidth="labelWidth" style="padding-bottom: 8px"></cfg-field>
       <b-radio-group v-if="isSingle" v-model="data.config.defaultValue">
         <Draggable
           tag="ul"
@@ -81,7 +81,59 @@
         </Draggable>
       </b-checkbox-group>
     </div>
+    <div v-else>
+      <cfg-field label="数据源" :labelWidth="labelWidth">
+        <b-select
+          v-model="dataSource.confCode"
+          :size="size"
+          placeholder="请选择数据源"
+          clearable
+          @change="sourceChange"
+        >
+          <b-option
+            v-for="item in formConfig.globalDicts"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
+          ></b-option>
+        </b-select>
+      </cfg-field>
 
+      <cfg-field label="数据选项" :labelWidth="labelWidth" style="padding-bottom: 8px"></cfg-field>
+      <b-radio-group v-if="isSingle" v-model="data.config.defaultValue">
+        <ul style="width: 100%">
+          <template v-for="element in getOptionsByDict(dataSource.confCode)" :key="element.key">
+            <li class="mapping-item" style="width: 100%">
+              <div>
+                <b-radio :label="element.key"></b-radio>
+              </div>
+              <label>
+                {{ element.label }}
+              </label>
+            </li>
+          </template>
+        </ul>
+      </b-radio-group>
+
+      <b-checkbox-group
+        v-else
+        :model-value="splitValue(data.config.defaultValue)"
+        @change="multipleChage"
+      >
+        <ul style="width: 100%">
+          <template v-for="element in getOptionsByDict(dataSource.confCode)" :key="element.key">
+            <li class="mapping-item" style="width: 100%">
+              <div>
+                <b-checkbox :label="element.key"></b-checkbox>
+              </div>
+              <label>
+                {{ element.label }}
+              </label>
+            </li>
+          </template>
+        </ul>
+      </b-checkbox-group>
+    </div>
     <div class="mt-8 mb-8" style="padding-left: 30px">
       <b-button v-if="dataSource.type === 'static'" icon="plus" type="text" @click="handleAdd">
         新增选项
@@ -95,6 +147,7 @@
 import { computed } from 'vue'
 import Draggable from 'vuedraggable'
 import { splitValue, joinValue, generateId } from '../../../core/utils/utils'
+import useStoreCenter from '../../hooks/store-center'
 
 defineOptions({ name: 'DatasourceCfg' })
 
@@ -110,6 +163,8 @@ defineProps({
     default: '85px',
   },
 })
+
+const { formConfig } = useStoreCenter()
 
 const dataSource = computed(() => data.value.config.source)
 const options = computed(() => data.value.config.options)
@@ -134,6 +189,23 @@ function resetValueSelect() {
 
 function multipleChage(list) {
   data.value.config.defaultValue = joinValue(list)
+}
+
+// 数据源改变事件
+function sourceChange(val) {
+  if (val === '') {
+    dataSource.value.confName = ''
+    return
+  }
+  const source = formConfig.value.globalDicts.find(i => i.key === val)
+  dataSource.value.confName = source.name
+}
+
+// 获取对应数据源下的数据options，用于定义默认值
+function getOptionsByDict(val) {
+  const source = formConfig.value.globalDicts.find(i => i.key === val)
+  if (source) return source.options
+  return []
 }
 </script>
 
