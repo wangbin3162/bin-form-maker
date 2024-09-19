@@ -64,41 +64,20 @@ const props = defineProps({
   },
 })
 
-const { addWidget, alreadyInFieldModels } = useMakerStore()
+const { addWidget, alreadyInFieldModels, formatFieldComp } = useMakerStore()
 
 // 点击增加事件
 function addOne(ele) {
-  const com = props.isField ? formatComp(ele) : createComponent(ele.type, ele.name, props.isCustom)
+  const com = props.isField
+    ? formatFieldComp(ele)
+    : createComponent(ele.type, ele.name, props.isCustom)
   addWidget(com)
 }
 
 function buildCompCfg(item) {
   // console.log(item)
-  if (props.isField) return formatComp(item)
+  if (props.isField) return formatFieldComp(item)
   return createComponent(item.type, item.name, props.isCustom)
-}
-
-function formatComp(item) {
-  // 如果是实际字段，则根据字段的标识来创建一个字符串或者一个数字输入
-  const type = item.fieldType === 'number' ? 'input-number' : 'input'
-  const com = createComponent(type, item.fieldTitle, props.isCustom)
-  // 追加字段和定义
-  com.label = item.fieldTitle
-  com.model = item.fieldName
-  com.config.maxlength = +item.fieldLength
-  if (item.required) {
-    // 如果有必填，则追加一个必填校验
-    com.config.required = true
-    com.rules = [
-      {
-        name: '$required',
-        type: 'string',
-        trigger: 'blur',
-        message: '必填项',
-      },
-    ]
-  }
-  return com
 }
 </script>
 

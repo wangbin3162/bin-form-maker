@@ -50,3 +50,12 @@ export function splitValue(value) {
 export function joinValue(arr) {
   return arr.length ? arr.join(',') : ''
 }
+
+// 数组分割，按照个数分割
+export function chunkArray(array, chunkSize) {
+  let result = []
+  for (let i = 0; i < array.length; i += chunkSize) {
+    result.push(array.slice(i, i + chunkSize))
+  }
+  return result
+}

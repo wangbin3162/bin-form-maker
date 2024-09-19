@@ -1,10 +1,11 @@
 <template>
   <div class="p24">
-    <b-button type="primary" @click="visible = true">打开设计器</b-button>
+    <b-button type="primary" @click="open">打开设计器</b-button>
     <BFormMaker
       v-model="visible"
       :customFields="customFields"
       :realFields="realFields"
+      ref="makerRef"
       @onSave="handleSave"
     >
       <template #custom-comp="{ node }">
@@ -19,15 +20,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import BFormMaker from '@/components/FormMaking/FormMaker/index.vue'
 import CustomNode from './CustomNode.vue'
 import DatasetCfg from './DatasetCfg.vue'
 import useStoreCenter from '@/components/FormMaking/core/hooks/use-store-center'
 
 const visible = ref(true)
+const makerRef = ref(null)
 
-const { formConfig } = useStoreCenter()
+const { formConfig, initSchema } = useStoreCenter()
 
 // 自定义高级组件或者自定义组件
 const customFields = [
@@ -79,5 +81,14 @@ const realFields = [
 
 function handleSave(widgetForm) {
   console.log(widgetForm)
+}
+
+function open() {
+  initSchema({})
+  visible.value = true
+
+  nextTick(() => {
+    makerRef.value.quickLayout(4)
+  })
 }
 </script>
