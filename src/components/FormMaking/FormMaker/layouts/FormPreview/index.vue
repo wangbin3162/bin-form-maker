@@ -1,6 +1,6 @@
 <template>
   <b-modal v-model="previewModal" title="表单预览" width="1400px" screen-center>
-    <div class="preview" style="height: 520px">
+    <div class="preview" style="min-height: 520px">
       <RenderForm v-if="previewModal" :default-model="defaultModel" ref="renderFormRef">
         <template #custom-comp="{ node }">
           <CustomNode v-bind="node" v-model="formModels[node.data.model]" />
@@ -14,7 +14,7 @@
           <b-button @click="formReset">重 置</b-button>
           <DebugModal
             style="display: inline-block; margin: 0 8px"
-            :data="{ formModels, formRules }"
+            :data="{ formModels }"
             title="查看数据"
           >
             <b-button icon="edit-square">查看数据</b-button>
@@ -36,7 +36,7 @@ defineOptions({ name: 'FormPreview' })
 const previewModal = ref(false)
 const viewType = ref('EDIT')
 
-const { initSchema, formModels, formRules } = useRenderStore()
+const { initSchema, formModels } = useRenderStore()
 
 const defaultModel = ref({}) // 默认对象
 const renderFormRef = ref(null)

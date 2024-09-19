@@ -20,8 +20,8 @@
 // ]
 
 // 生成运行时可调用的函数，附加通用参数。
-export function buildFun(funcBody, ...augments) {
-  const paramsStr = new Set([...augments])
+export function buildFun(funcBody, ...arguments) {
+  const paramsStr = new Set([...arguments])
   const AsyncFunction = async function () {}.constructor
   const fun = new AsyncFunction(...paramsStr, funcBody)
   return async (...params) => {

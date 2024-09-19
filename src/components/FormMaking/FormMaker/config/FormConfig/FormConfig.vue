@@ -56,7 +56,7 @@
               </cfg-field>
             </slot>
           </div>
-          <div v-if="curTabActive === 'event'">界面事件</div>
+          <EventsCfg v-if="curTabActive === 'event'" v-model="data" />
         </div>
       </b-scrollbar>
     </div>

@@ -1,16 +1,18 @@
 <template>
   <div class="custom-scripts">
-    <div class="func-name" flex="main:justify cross:center">
+    <div v-if="label" class="func-name" flex="main:justify cross:center">
       <span class="tip">{{ label }}</span>
       <b-button type="text" icon="edit" size="small" @click="openEditor">编辑</b-button>
     </div>
+
+    <b-button v-else type="text" icon="edit" size="small" @click="openEditor">编辑</b-button>
 
     <CustomScriptsEditor
       ref="editorRef"
       v-model="data"
       :title="label + '编辑器'"
       :funcExplain="funcExplain"
-      :augments="augments"
+      :arguments="arguments"
       :paramsDesc="paramsDesc"
       :exampleDesc="exampleDesc"
     />
@@ -33,7 +35,7 @@ const props = defineProps({
     type: String,
   },
   // 函数入参,这里不包含最后都注入的util，和comApi
-  augments: {
+  arguments: {
     type: Array,
     default: () => [],
   },

@@ -350,7 +350,7 @@ export const validatorBuild = {
   // 脚本函数, 需要传入编辑对象，和所有控件的配置项
   $customFun: function (opts, obj, ctrlCfgs) {
     const AsyncFunction = async function () {}.constructor
-    const fun = new AsyncFunction(...opts.augments, opts.funcBody)
+    const fun = new AsyncFunction(...opts.arguments, opts.funcBody)
     return {
       validator: async (rule, value, callback) => {
         try {

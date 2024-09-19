@@ -1,6 +1,6 @@
 <template>
   <b-date-picker
-    v-model="value"
+    v-model="realValue"
     :format="config.format"
     :type="config.type"
     :placeholder="config.placeholder"
@@ -32,7 +32,7 @@ const props = defineProps({
 
 const model = defineModel({ type: String, default: '' })
 
-const value = ref(null)
+const realValue = ref(null)
 
 const valueMap = {
   date: 'YYYY-MM-DD',
@@ -44,7 +44,7 @@ const valueMap = {
 watch(
   () => model.value,
   val => {
-    value.value = val === '' ? '' : new Date(val)
+    realValue.value = val === '' ? '' : new Date(val)
   },
   { immediate: true },
 )

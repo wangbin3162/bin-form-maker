@@ -27,7 +27,7 @@
               lang="typescript"
               height="450"
               v-model="funcBodyStr"
-              :font-size="14"
+              :font-size="13"
               :options="{ showLineNumbers: false }"
               :styles="{ border: 'none' }"
             ></b-ace-editor>
@@ -84,7 +84,7 @@ const props = defineProps({
     type: String,
   },
   // 函数入参,这里不包含最后都注入的util，和comApi
-  augments: {
+  arguments: {
     type: Array,
     default: () => [],
   },
@@ -111,7 +111,7 @@ const visible = ref(false)
 const render = ref(false)
 const funcBodyStr = ref('')
 const tipType = ref(0) //  { 0: '变量说明', 1: '介绍案例' }
-const params = computed(() => [...props.augments].join(', '))
+const params = computed(() => [...props.arguments].join(', '))
 
 function open() {
   funcBodyStr.value = data.value
@@ -168,6 +168,7 @@ defineExpose({
 
   :deep(.ace-sqlserver) {
     background: transparent;
+    line-height: 18px;
     .ace_gutter {
       background: transparent;
     }

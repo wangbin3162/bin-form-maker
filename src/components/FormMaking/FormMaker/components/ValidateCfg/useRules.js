@@ -167,7 +167,7 @@ export function useRules(data) {
           ...normalCfg(ruleType),
           message: '校验失败',
           funcBody: '',
-          augments: ['formModel', 'ctrlCfgs'],
+          arguments: ['formModel', 'ctrlCfgs'],
         })
         break
       default:

@@ -44,7 +44,8 @@ watch(
 
 // 触发多选input函数
 function handleInputMultiple(val) {
-  model.value = config.value.multiple ? joinValue(val) : val
+  const valFormat = config.value.multiple ? joinValue(val) : val
+  model.value = valFormat
 }
 
 const { realOptions } = useRealOptions(config, props.formConfig)

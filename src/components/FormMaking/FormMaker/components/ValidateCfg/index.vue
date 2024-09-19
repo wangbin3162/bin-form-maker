@@ -221,7 +221,7 @@
             <template v-if="rule.name === RULE.customFun && !rule.uploadRequired">
               <CustomScripts
                 v-model="rule.funcBody"
-                :augments="rule.augments"
+                :arguments="rule.arguments"
                 style="margin-bottom: 4px"
                 :paramsDesc="paramsDesc"
                 :exampleDesc="exampleDesc"
@@ -267,7 +267,7 @@ import {
 } from '../../../core/utils/validator'
 import { useRules } from './useRules'
 import Draggable from 'vuedraggable'
-import { useParamsDesc } from './useParamsDesc'
+import { useParamsDesc } from '../../hooks/useParamsDesc'
 defineOptions({ name: 'ValidateCfg' })
 
 const data = defineModel({ type: Object })

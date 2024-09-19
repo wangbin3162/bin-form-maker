@@ -79,8 +79,10 @@ export function getNewFromCfg(widgetForm) {
           },
         ],
         customScript: {
-          enable: false,
-          funcBody: '',
+          enable: true,
+          funcBody: `console.log(formModel, ctrlCfgs)\r\n// 如果编号为000的时候，隐藏后两个内容，禁用年龄控件\r\nif(formModel.fnumber === '000') {\r\n  ctrlCfgs.merit_pay.config.hidden = true\r\n  ctrlCfgs.year_month.config.hidden = true\r\n\r\n  ctrlCfgs.fage.config.disabled = true\r\n}`,
+          // enable: false,
+          // funcBody: '',
           arguments: ['formModel', 'ctrlCfgs'],
         },
       },

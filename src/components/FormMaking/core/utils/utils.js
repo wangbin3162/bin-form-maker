@@ -59,3 +59,12 @@ export function chunkArray(array, chunkSize) {
   }
   return result
 }
+
+// 生成运行时可调用的函数，附加通用参数。
+export function buildFun(funcBody, augments) {
+  const AsyncFunction = async function () {}.constructor
+  const fun = new AsyncFunction(...augments, funcBody)
+  return async (...params) => {
+    return await fun(...params)
+  }
+}

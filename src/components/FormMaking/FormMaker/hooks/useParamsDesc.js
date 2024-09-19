@@ -1,7 +1,7 @@
-import useMakerStore from '../../hooks/useMakerStore'
+import useStoreCenter from '../../core/hooks/use-store-center'
 // 参数配置
 export function useParamsDesc() {
-  const { realFieldWedgits, ctrlCfgs } = useMakerStore()
+  const { realFieldWedgits, ctrlCfgs } = useStoreCenter()
   // 当前选中的表格控件字段列
   // 当前form表单模型
   const formModel = {}

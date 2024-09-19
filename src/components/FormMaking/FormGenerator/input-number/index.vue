@@ -2,10 +2,17 @@
   <b-input-number
     v-model="model"
     :size="formConfig.size"
-    :type="config.type"
     :style="{ width: config.width }"
     :always="config.btnPos === 'always'"
-    v-bind="config"
+    :min="config.min"
+    :max="config.max ? config.max : Infinity"
+    :step="config.step"
+    :precision="config.precision"
+    :arrowUpIcon="config.arrowUpIcon"
+    :arrowDownIcon="config.arrowDownIcon"
+    :editable="config.editable"
+    :readonly="config.readonly"
+    :disabled="config.disabled"
   ></b-input-number>
 </template>
 
@@ -25,7 +32,7 @@ const props = defineProps({
   },
 })
 
-const model = defineModel({ type: String, default: '' })
+const model = defineModel({ type: Number, default: null })
 
 // config 配置项
 const config = computed(() => props.data.config)

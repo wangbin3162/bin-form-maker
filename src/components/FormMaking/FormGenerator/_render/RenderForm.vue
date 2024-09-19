@@ -20,7 +20,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useFormEvents } from '../../core/hooks/use-form-events'
 defineOptions({ name: 'RenderForm' })
 
 const props = defineProps({
@@ -33,7 +34,7 @@ const props = defineProps({
 import useRenderStore from '../../core/hooks/use-render-store'
 import RenderNest from './RenderNest.vue'
 
-const { widgetForm, slotsWedigets, initForm, formModels, formRules } = useRenderStore()
+const { widgetForm, formConfig, slotsWedigets, initForm, formModels, formRules } = useRenderStore()
 
 initForm(props.defaultModel)
 
@@ -48,6 +49,10 @@ async function getFormData() {
 
 function resetForm() {
   formRef.value?.resetFields()
+}
+
+if (formConfig.value.globalEvents) {
+  useFormEvents()
 }
 
 defineExpose({

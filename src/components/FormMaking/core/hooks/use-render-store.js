@@ -2,7 +2,7 @@ import { getNewFromCfg } from '../config/component-cfg'
 import { ref, computed, toRaw } from 'vue'
 import useRealFields from './use-real-fields'
 import { buildRules } from '../utils/validator'
-import { isEmpty } from '../utils/utils'
+import { buildFun, isEmpty } from '../utils/utils'
 
 const renderStatus = {
   // 控件form对象配置信息
@@ -89,6 +89,17 @@ export default function useRenderStore() {
     console.log('-------------------------------- 初始化完成 --------------------------------')
     console.log('----> 最终 [models]: ', toRaw(formModels.value))
     console.log('---------------------------------------------------------------------------')
+
+    console.log(formConfig.value)
+  }
+
+  /**
+   * 自定义函数
+   */
+  function customFun() {
+    const customScript = formConfig.value.globalEvents.customScript
+    const fun = buildFun(customScript.funcBody, customScript.arguments)
+    fun(formModels.value, ctrlCfgs.value)
   }
 
   return {
@@ -105,5 +116,6 @@ export default function useRenderStore() {
     // func
     initSchema,
     initForm,
+    customFun,
   }
 }
