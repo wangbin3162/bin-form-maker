@@ -68,21 +68,43 @@ export function getNewFromCfg(widgetForm) {
       size: 'default',
       // 全局脚本监听
       globalEvents: {
+        type: 'simple', // 简单配置还是脚本配置
         onEvents: [
-          {
-            // 监听的字段及条件
-            fields: [{ fieldName: 'field1', fieldTitle: '字段1' }],
-            // 满足执行的动作
-            actions: [],
-            // 不满足执行的动作
-            disActions: [],
-          },
+          // {
+          //   name: '事件名称',
+          //   // 监听的字段及条件
+          //   fields: [
+          //     {
+          //       fieldName: 'fnumber',
+          //       fieldTitle: '编号',
+          //       compare: 'EQ',
+          //       value: '000',
+          //       type: 'input',
+          //     },
+          //     {
+          //       fieldName: 'fage',
+          //       fieldTitle: '编号',
+          //       compare: 'GT',
+          //       value: 18,
+          //       type: 'input-number',
+          //     },
+          //   ],
+          //   // 满足执行的动作 oType = [hidden,disabled,show,enabled] // 四种操作
+          //   actions: [
+          //     { fieldName: 'merit_pay', fieldTitle: '薪资', oType: 'hidden' },
+          //     { fieldName: 'year_month', fieldTitle: '薪资周期', oType: 'disabled' },
+          //   ],
+          //   // 不满足执行的动作
+          //   disActions: [
+          //     { fieldName: 'merit_pay', fieldTitle: '薪资', oType: 'show' },
+          //     { fieldName: 'year_month', fieldTitle: '薪资周期', oType: 'enabled' },
+          //   ],
+          // },
         ],
         customScript: {
-          enable: true,
-          funcBody: `console.log(formModel, ctrlCfgs)\r\n// 如果编号为000的时候，隐藏后两个内容，禁用年龄控件\r\nif(formModel.fnumber === '000') {\r\n  ctrlCfgs.merit_pay.config.hidden = true\r\n  ctrlCfgs.year_month.config.hidden = true\r\n\r\n  ctrlCfgs.fage.config.disabled = true\r\n}`,
-          // enable: false,
-          // funcBody: '',
+          // enable: true,
+          // funcBody: `console.log(formModel, ctrlCfgs)\r\n// 如果编号为000的时候，隐藏后两个内容，禁用年龄控件\r\nif(formModel.fnumber === '000') {\r\n  ctrlCfgs.merit_pay.config.hidden = true\r\n  ctrlCfgs.year_month.config.hidden = true\r\n\r\n  ctrlCfgs.fage.config.disabled = true\r\n}`,
+          funcBody: '',
           arguments: ['formModel', 'ctrlCfgs'],
         },
       },

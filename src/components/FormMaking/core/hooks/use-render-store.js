@@ -102,6 +102,12 @@ export default function useRenderStore() {
     fun(formModels.value, ctrlCfgs.value)
   }
 
+  function customFunByStr(str) {
+    const customScript = formConfig.value.globalEvents.customScript
+    const fun = buildFun(str, customScript.arguments)
+    fun(formModels.value, ctrlCfgs.value)
+  }
+
   return {
     widgetForm,
     formConfig,
@@ -117,5 +123,6 @@ export default function useRenderStore() {
     initSchema,
     initForm,
     customFun,
+    customFunByStr,
   }
 }
