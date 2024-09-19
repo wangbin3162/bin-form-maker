@@ -29,7 +29,7 @@ const { widgetForm, slotsWedigets } = useMakerStore()
   .widget-form-list {
     background: #fff;
     border: 1px dashed #999;
-    min-height: 500px;
+    min-height: calc(100vh - 124px);
     margin: 12px;
     transition: 0.25s;
     .widget-view {

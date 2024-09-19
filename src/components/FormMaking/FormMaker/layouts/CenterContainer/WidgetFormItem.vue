@@ -1,5 +1,5 @@
 <template>
-  <b-form-item :class="{ 'is-required': element.config.required }" :label="element.name">
+  <b-form-item :class="{ 'is-required': element.config.required }">
     <template #label>
       <span style="margin-left: 2px" class="over-hidden" :title="element.label">
         {{ element.label }}

@@ -24,6 +24,7 @@ function mergeConfig(type, label, isCustom) {
   const config = configMap.get(isCustom ? 'custom-component' : type, label) || {}
   const baseObj = isLayouts(type) ? { type } : { type, ...BaseComponent }
   const mergeObj = deepMerge(baseObj, config)
+  // console.log(mergeObj)
   // 生成唯一key值，用于删除判定
   mergeObj.key = uuid()
   mergeObj.model = `${type}_${generateId()}`

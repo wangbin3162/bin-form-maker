@@ -1,6 +1,6 @@
 import useStoreCenter from '../../core/hooks/use-store-center'
+import { nextTick, computed } from 'vue'
 import { createComponent } from '../../core/config/component-cfg'
-import { nextTick } from 'vue'
 
 /**
  * maker设计器专用store hook，用于操作和获取不同的数据信息。
@@ -11,12 +11,16 @@ export default function useMakerStore() {
     selectWidget,
     currentCfgTab,
     formConfig,
+    realFieldsDtos,
     // realfields status
     realFieldWedgits,
     ctrlCfgs,
     slotsWedigets,
     treeList,
   } = useStoreCenter()
+
+  // 所有实际已经在画布中的字段models
+  const alreadyInFieldModels = computed(() => realFieldWedgits.value.map(i => i.model))
 
   // btn-bar 清空事件
   function clearSchema() {
@@ -25,10 +29,9 @@ export default function useMakerStore() {
   }
 
   // 增加一个组件
-  function addWidget(item, isCustom) {
-    const com = createComponent(item.type, item.name, isCustom)
-    widgetForm.value.list.push(com)
-    handleSelectWidget(com)
+  function addWidget(item) {
+    widgetForm.value.list.push(item)
+    handleSelectWidget(item)
   }
 
   function isComSelected(widget) {
@@ -52,6 +55,14 @@ export default function useMakerStore() {
     })
   }
 
+  // 更改一个控件
+  function changeWidget(widget) {
+    selectWidget.value = null
+    nextTick(() => {
+      selectWidget.value = widget
+    })
+  }
+
   // 选中一个组件
   function handleSelectWidget(widget) {
     selectWidget.value = widget
@@ -68,14 +79,17 @@ export default function useMakerStore() {
     selectWidget,
     currentCfgTab,
     formConfig,
+    slotsWedigets,
+    realFieldsDtos,
     // realfields status
     realFieldWedgits,
+    alreadyInFieldModels,
     ctrlCfgs,
-    slotsWedigets,
     treeList,
     // func
     clearSchema,
     addWidget,
+    changeWidget,
     deleteWidget,
     isComSelected,
     handleSelectWidget,

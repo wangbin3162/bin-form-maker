@@ -16,15 +16,20 @@
       filter=".disabled"
       :clone="buildCompCfg"
     >
-      <template #item="{ element, index }">
+      <template #item="{ element }">
         <li
           class="form-edit-widget-label no-put"
-          :key="index"
-          @click="addWidget(element, isCustom)"
+          :class="{
+            disabled: alreadyInFieldModels.includes(element.fieldName),
+          }"
+          @click="addOne(element)"
         >
-          <a>
+          <a v-if="!isField">
             <b-icon :name="element.icon" />
             <span class="field-name">{{ element.name }}</span>
+          </a>
+          <a v-else :class="{ required: element.required }">
+            <span class="field-name">{{ element.fieldTitle }}asdfasdfas</span>
           </a>
         </li>
       </template>
@@ -52,13 +57,48 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // 是否是实际字段
+  isField: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const { addWidget } = useMakerStore()
+const { addWidget, alreadyInFieldModels } = useMakerStore()
+
+// 点击增加事件
+function addOne(ele) {
+  const com = props.isField ? formatComp(ele) : createComponent(ele.type, ele.name, props.isCustom)
+  addWidget(com)
+}
 
 function buildCompCfg(item) {
-  console.log(item)
+  // console.log(item)
+  if (props.isField) return formatComp(item)
   return createComponent(item.type, item.name, props.isCustom)
+}
+
+function formatComp(item) {
+  // 如果是实际字段，则根据字段的标识来创建一个字符串或者一个数字输入
+  const type = item.fieldType === 'number' ? 'input-number' : 'input'
+  const com = createComponent(type, item.fieldTitle, props.isCustom)
+  // 追加字段和定义
+  com.label = item.fieldTitle
+  com.model = item.fieldName
+  com.config.maxlength = +item.fieldLength
+  if (item.required) {
+    // 如果有必填，则追加一个必填校验
+    com.config.required = true
+    com.rules = [
+      {
+        name: '$required',
+        type: 'string',
+        trigger: 'blur',
+        message: '必填项',
+      },
+    ]
+  }
+  return com
 }
 </script>
 
@@ -96,22 +136,33 @@ ul {
   & > a {
     display: inline-flex;
     align-items: center;
-    cursor: move;
+    cursor: grab;
     background: #f6f7ff;
     color: rgba(0, 0, 0, 0.65);
     width: 100%;
     height: 100%;
-    padding-left: 6px;
+    padding: 0 6px;
+    position: relative;
     .icon {
       width: 20px;
     }
     .field-name {
       margin-left: 4px;
-      width: 72px;
+      flex: auto;
       line-height: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    &.required {
+      &::before {
+        position: absolute;
+        top: 4px;
+        left: 3px;
+        content: '*';
+        font-size: 16px;
+        color: var(--bin-color-danger);
+      }
     }
   }
 
@@ -119,8 +170,9 @@ ul {
     cursor: not-allowed;
     & > a {
       cursor: not-allowed;
-      border: 1px solid #d4d4d4;
-      background-color: #d4d4d4;
+      opacity: 0.7;
+      border: 1px solid #fafafa;
+      background-color: #fafafa;
     }
     &:hover {
       border-color: transparent;

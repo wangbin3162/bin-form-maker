@@ -8,13 +8,14 @@ const status = {
   selectWidget: ref(),
   currentCfgTab: ref('form'), // 当前右侧配置项的配置值
   slotsWedigets: ref([]), // 外部插槽的内容
+  realFieldsDtos: ref([]), // 外部实际传入的字段
 }
 
 /**
  * 数据中心，用于存储所有数据相关内容和操作
  */
 export default function useStoreCenter() {
-  const { widgetForm, selectWidget, currentCfgTab, slotsWedigets } = status
+  const { widgetForm, selectWidget, currentCfgTab, slotsWedigets, realFieldsDtos } = status
 
   const { realFieldWedgits, ctrlCfgs, treeList } = useRealFields(widgetForm)
 
@@ -37,6 +38,7 @@ export default function useStoreCenter() {
     realFieldWedgits,
     ctrlCfgs,
     slotsWedigets,
+    realFieldsDtos,
     treeList,
     // func
     initSchema,

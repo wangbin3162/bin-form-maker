@@ -1,6 +1,6 @@
 <template>
   <MakerLayout v-model="visible" :topTitle="topTitle" :inner="inner">
-    <CompsList :customFields="customFields" />
+    <CompsList />
     <CenterContainer @onSave="handleSave">
       <!-- 作用域插槽，用于自定义外部组件插槽 -->
       <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
@@ -36,15 +36,19 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  // 实际字段集合
+  realFields: {
+    type: Array,
+    default: () => [],
+  },
 })
 
 const visible = defineModel({ type: Boolean, default: false })
 
-const { widgetForm, slotsWedigets } = useMakerStore()
+const { widgetForm, slotsWedigets, realFieldsDtos } = useMakerStore()
 
 slotsWedigets.value = [...props.customFields]
-
-console.log(slotsWedigets.value)
+realFieldsDtos.value = [...props.realFields]
 
 function handleSave() {
   emit('onSave', widgetForm.value)

@@ -1,5 +1,42 @@
 <template>
   <div>
+    <cfg-field label="控件类型" :labelWidth="labelWidth">
+      <b-space>
+        <b-tag>{{ data.name }}</b-tag>
+        <b-dropdown @command="changeType">
+          <b-icon name="down-square" size="18" type="button" title="切换控件"></b-icon>
+          <template #dropdown>
+            <b-dropdown-menu>
+              <b-dropdown-item
+                v-for="t in basicComponents"
+                :key="t.type"
+                :selected="data.type === t.type"
+                :name="t.type"
+              >
+                {{ t.name }}
+              </b-dropdown-item>
+            </b-dropdown-menu>
+          </template>
+        </b-dropdown>
+      </b-space>
+
+      <b-dropdown @command="fillField" v-if="realFieldsDtos.length > 0" placement="bottom-start">
+        <b-button icon="highlight" type="text">填充字段</b-button>
+        <template #dropdown>
+          <b-dropdown-menu>
+            <b-dropdown-item
+              v-for="field in realFieldsDtos"
+              :key="field.fieldName"
+              :name="field"
+              :disabled="alreadyInFieldModels.includes(field.fieldName)"
+            >
+              <b-icon :name="field.fieldType === 'number' ? 'Field-number' : 'Field-String'" />
+              {{ field.fieldTitle }}
+            </b-dropdown-item>
+          </b-dropdown-menu>
+        </template>
+      </b-dropdown>
+    </cfg-field>
     <b-form ref="formRef" :model="data" :labelWidth="labelWidth" :size="size" label-position="left">
       <b-form-item
         label="字段标识"
@@ -36,6 +73,10 @@
 
 <script setup>
 defineOptions({ name: 'FieldCfg' })
+import useMakerStore from '../../hooks/useMakerStore'
+import { basicComponents } from '../../../core/config/component-list'
+import { createComponent } from '../../../core/config/component-cfg'
+import { deepCopy } from '@/components/FormMaking/core/utils/utils'
 
 const data = defineModel({ type: Object })
 
@@ -49,6 +90,23 @@ defineProps({
     default: '85px',
   },
 })
+
+const { realFieldsDtos, alreadyInFieldModels, changeWidget } = useMakerStore()
+
+function changeType(type) {
+  const com = createComponent(type, '', false)
+  data.value.type = type
+  data.value.name = data.value.label = com.name
+  data.value.config = deepCopy(com.config)
+  data.value.rules = []
+
+  changeWidget(data.value)
+}
+
+function fillField(item) {
+  data.value.model = item.fieldName
+  data.value.label = item.fieldTitle
+}
 </script>
 
 <style scoped>

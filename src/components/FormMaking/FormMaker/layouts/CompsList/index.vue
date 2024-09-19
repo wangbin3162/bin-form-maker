@@ -11,9 +11,16 @@
           <!-- 高级字段待定如上传等 -->
           <CompList
             title="自定义控件"
-            v-if="customFields.length > 0"
-            :list="customFields"
+            v-if="slotsWedigets.length > 0"
+            :list="slotsWedigets"
             is-custom
+          />
+          <!-- 实际字段 -->
+          <CompList
+            title="属性字段"
+            v-if="realFieldsDtos.length > 0"
+            :list="realFieldsDtos"
+            is-field
           />
         </div>
         <div v-else class="p8">
@@ -30,14 +37,6 @@ import { ref } from 'vue'
 import { basicComponents, layoutComponents } from '../../../core/config/component-list'
 import useMakerStore from '../../hooks/useMakerStore'
 
-defineProps({
-  // 自定义字段
-  customFields: {
-    type: Array,
-    default: () => [],
-  },
-})
-
 const activeTab = ref('comps')
 const treeRef = ref(null)
 
@@ -46,7 +45,7 @@ const tabs = [
   { key: 'form', title: '大纲', icon: 'cluster' },
 ]
 
-const { handleSelectWidget, treeList, ctrlCfgs } = useMakerStore()
+const { handleSelectWidget, treeList, ctrlCfgs, slotsWedigets, realFieldsDtos } = useMakerStore()
 
 function handleSelect(selected, node) {
   if (['col', 'tag'].includes(node.type)) {

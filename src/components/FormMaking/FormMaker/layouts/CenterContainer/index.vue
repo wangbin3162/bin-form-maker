@@ -13,7 +13,14 @@
         <b-divider type="vertical" />
         <b-button type="text" icon="save" @click="handleSave">保存</b-button>
         <b-divider type="vertical" />
-        <action-button type="text" color="#f5222d" icon="delete" message="确认清空画布吗？" confirm>
+        <action-button
+          type="text"
+          color="#f5222d"
+          icon="delete"
+          message="确认清空画布吗？"
+          confirm
+          @click="clearSchema"
+        >
           清空
         </action-button>
       </div>
@@ -48,7 +55,7 @@ import { ref } from 'vue'
 
 const emit = defineEmits(['onSave'])
 
-const { widgetForm, slotsWedigets } = useMakerStore()
+const { widgetForm, slotsWedigets, clearSchema } = useMakerStore()
 
 function downloadFile(content, fileName) {
   // filename，摘取了常用的部分，其实还有其他一些
