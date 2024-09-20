@@ -130,7 +130,7 @@
             </b-table>
           </div>
           <Transition name="fade-in">
-            <div class="top-mask" v-if="dragging" @dragover.prevent @drop="actionDrop">
+            <div class="top-mask match" v-if="dragging" @dragover.prevent @drop="actionDrop">
               <span>可放置此处增加满足动作</span>
             </div>
           </Transition>
@@ -177,7 +177,7 @@
             </b-table>
           </div>
           <Transition name="fade-in">
-            <div class="top-mask" v-if="dragging" @dragover.prevent @drop="disActionDrop">
+            <div class="top-mask no-match" v-if="dragging" @dragover.prevent @drop="disActionDrop">
               <span>可放置此处增加不满足动作</span>
             </div>
           </Transition>
@@ -364,6 +364,12 @@ function removeDisActions(idx) {
       padding: 8px;
       border-radius: 4px;
       opacity: 0.5;
+    }
+    &.match {
+      background-color: rgba(82, 196, 26, 0.1);
+    }
+    &.no-match {
+      background-color: rgba(245, 34, 45, 0.1);
     }
   }
 }

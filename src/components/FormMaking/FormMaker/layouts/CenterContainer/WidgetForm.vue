@@ -127,14 +127,11 @@ const { widgetForm, slotsWedigets } = useMakerStore()
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        opacity: 0;
+        opacity: 0.8;
       }
       &.active {
         outline: 1px solid var(--bin-color-primary);
         border: 1px solid var(--bin-color-primary);
-        .widget-view-field-name {
-          opacity: 0.8;
-        }
         &.ghost {
           background: #f56c6c;
           border: 2px solid #f56c6c;
