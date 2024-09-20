@@ -244,12 +244,6 @@
       </template>
     </Draggable>
 
-    <!-- <b-ace-editor
-      :modelValue="JSON.stringify({ data, checkRules }, null, 2)"
-      readonly
-      height="250px"
-    /> -->
-
     <div style="height: 150px; padding: 30px 20px" v-if="checkRules.length === 0">
       <b-empty>当前无校验配置</b-empty>
     </div>
@@ -267,6 +261,7 @@ import {
 } from '../../../core/utils/validator'
 import { useRules } from './useRules'
 import Draggable from 'vuedraggable'
+import CustomScripts from '../../components/CustomScripts/index.vue'
 import { useParamsDesc } from '../../hooks/useParamsDesc'
 defineOptions({ name: 'ValidateCfg' })
 

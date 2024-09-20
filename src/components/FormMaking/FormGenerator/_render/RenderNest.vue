@@ -8,21 +8,21 @@
         :form-config="widgetForm.config"
       >
         <template v-slot="{ data }">
-          <RenderNest :widgets="data.list" class="widget-col-list" v-model="models" />
+          <BFRenderNest :widgets="data.list" class="widget-col-list" v-model="models" />
         </template>
       </component>
 
-      <RenderFormItem v-else :element="element" v-model="models">
+      <BFRenderFormItem v-else :element="element" v-model="models">
         <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
           <slot :name="slot.type" v-bind:node="node"></slot>
         </template>
-      </RenderFormItem>
+      </BFRenderFormItem>
     </div>
   </div>
 </template>
 
 <script setup>
-defineOptions({ name: 'RenderNest' })
+defineOptions({ name: 'BFRenderNest' })
 import useRenderStore from '../../core/hooks/use-render-store'
 import { isLayouts } from '../../core/config/component-list'
 

@@ -11,14 +11,14 @@
       edit-table-detail
     >
       <template #action="{ index }">
-        <action-button
+        <ActionButton
           type="text"
           icon="minus-circle"
           color="danger"
           is-icon
           tooltip="删除"
           @click="removeDict(index)"
-        ></action-button>
+        ></ActionButton>
       </template>
     </b-table>
 
@@ -38,6 +38,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import ActionButton from '../components/FormMaking/FormMaker/components/ActionButton/index.vue'
 const data = defineModel({ type: Object })
 
 const columns = [

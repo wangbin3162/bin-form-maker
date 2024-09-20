@@ -1,12 +1,12 @@
 <template>
   <div class="comp-config-container">
-    <cfg-field label="控件类型" :labelWidth="labelWidth">
+    <CfgField label="控件类型" :labelWidth="labelWidth">
       <b-tag>{{ data.name }}</b-tag>
-    </cfg-field>
-    <cfg-field label="容器标题" :labelWidth="labelWidth">
+    </CfgField>
+    <CfgField label="容器标题" :labelWidth="labelWidth">
       <b-input v-model="data.config.title.text" :size="size" clearable />
-    </cfg-field>
-    <cfg-field label="标题字号" :labelWidth="labelWidth">
+    </CfgField>
+    <CfgField label="标题字号" :labelWidth="labelWidth">
       <b-space>
         <b-input-number
           v-model="data.config.title.fontSize"
@@ -22,12 +22,12 @@
           <b-radio :label="18">18</b-radio>
         </b-radio-group>
       </b-space>
-    </cfg-field>
-    <cfg-field label="标题图标" :labelWidth="labelWidth">
+    </CfgField>
+    <CfgField label="标题图标" :labelWidth="labelWidth">
       <b-icon-select v-model="data.config.title.icon" :size="size" />
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field label="内容边距">
+    <CfgField label="内容边距">
       <b-space>
         <b-input-number
           v-model="data.config.padding"
@@ -41,8 +41,8 @@
           <b-radio :label="24"></b-radio>
         </b-radio-group>
       </b-space>
-    </cfg-field>
-    <cfg-field label="下边距">
+    </CfgField>
+    <CfgField label="下边距">
       <b-space>
         <b-input-number
           v-model="data.config.margin"
@@ -56,15 +56,16 @@
           <b-radio :label="24"></b-radio>
         </b-radio-group>
       </b-space>
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field label="可收起">
+    <CfgField label="可收起">
       <b-switch v-model="data.config.collapse" :size="size" />
-    </cfg-field>
+    </CfgField>
   </div>
 </template>
 
 <script setup>
+import CfgField from '../components/Gui/CfgField.vue'
 defineOptions({ name: 'GroupContainerConfig' })
 
 const data = defineModel({ type: Object })

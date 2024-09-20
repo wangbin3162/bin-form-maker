@@ -36,11 +36,11 @@
               edit-table
               draggable
               max-height="192"
-              drag-handle=".handle"
+              DragHandle=".handle"
               @drag-drop="handleDragDrop"
             >
               <template #handle>
-                <drag-handle />
+                <DragHandle />
               </template>
               <template #fieldName="{ index }">
                 <div style="padding: 0 8px">
@@ -71,14 +71,14 @@
                 <b-input v-else v-model="currentObj.fields[index].value" />
               </template>
               <template #action="{ index }">
-                <action-button
+                <ActionButton
                   type="text"
                   icon="minus-circle"
                   color="danger"
                   is-icon
                   tooltip="删除"
                   @click="remove(index)"
-                ></action-button>
+                ></ActionButton>
               </template>
             </b-table>
           </div>
@@ -96,12 +96,12 @@
               :data="currentObj.actions"
               edit-table
               draggable
-              drag-handle=".handle"
+              DragHandle=".handle"
               @drag-drop="handleActionsDragDrop"
               max-height="192"
             >
               <template #handle>
-                <drag-handle />
+                <DragHandle />
               </template>
               <template #fieldName="{ index }">
                 <div style="padding: 0 8px">
@@ -118,14 +118,14 @@
                 </b-select>
               </template>
               <template #action="{ index }">
-                <action-button
+                <ActionButton
                   type="text"
                   icon="minus-circle"
                   color="danger"
                   is-icon
                   tooltip="删除"
                   @click="removeActions(index)"
-                ></action-button>
+                ></ActionButton>
               </template>
             </b-table>
           </div>
@@ -143,12 +143,12 @@
               :data="currentObj.disActions"
               edit-table
               draggable
-              drag-handle=".handle"
+              DragHandle=".handle"
               @drag-drop="handleDisActionsDragDrop"
               max-height="192"
             >
               <template #handle>
-                <drag-handle />
+                <DragHandle />
               </template>
               <template #fieldName="{ index }">
                 <div style="padding: 0 8px">
@@ -165,14 +165,14 @@
                 </b-select>
               </template>
               <template #action="{ index }">
-                <action-button
+                <ActionButton
                   type="text"
                   icon="minus-circle"
                   color="danger"
                   is-icon
                   tooltip="删除"
                   @click="removeDisActions(index)"
-                ></action-button>
+                ></ActionButton>
               </template>
             </b-table>
           </div>
@@ -194,8 +194,10 @@
 <script setup>
 defineOptions({ name: 'EventConfigModal' })
 import { Message } from 'bin-ui-design'
-import useMakerStore from '../../hooks/useMakerStore'
-import { COMPARE, COMPARE_NUM, OTYPE } from './events-enum'
+import useMakerStore from '../../../hooks/useMakerStore'
+import { COMPARE, COMPARE_NUM, OTYPE } from '../../../../core/utils/events-enum'
+import ActionButton from '../../../components/ActionButton/index.vue'
+import DragHandle from '../../../components/DragHandle/index.vue'
 import { ref, computed } from 'vue'
 
 const visible = ref(false)

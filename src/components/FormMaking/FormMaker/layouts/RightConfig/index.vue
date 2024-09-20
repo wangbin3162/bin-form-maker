@@ -27,6 +27,8 @@
 
 <script setup>
 import useMakerStore from '../../hooks/useMakerStore'
+import WidgetConfig from './WidgetConfig.vue'
+import FormConfig from './FormConfig.vue'
 
 defineOptions({ name: 'RightConfig' })
 

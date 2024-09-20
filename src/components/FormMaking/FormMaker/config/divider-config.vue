@@ -1,24 +1,24 @@
 <template>
   <div class="comp-config-container">
-    <cfg-field label="控件类型" :labelWidth="labelWidth">
+    <CfgField label="控件类型" :labelWidth="labelWidth">
       <b-tag>{{ data.name }}</b-tag>
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field label="标题" :labelWidth="labelWidth">
+    <CfgField label="标题" :labelWidth="labelWidth">
       <b-input v-model="data.label" :size="size" clearable />
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field label="标题位置" :labelWidth="labelWidth">
+    <CfgField label="标题位置" :labelWidth="labelWidth">
       <b-radio-group v-model="data.config.align" type="button" :size="size">
         <b-radio label="left">左侧</b-radio>
         <b-radio label="center">顶部</b-radio>
         <b-radio label="right">右侧</b-radio>
       </b-radio-group>
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field label="组件样式" :labelWidth="labelWidth">
+    <CfgField label="组件样式" :labelWidth="labelWidth">
       <b-input v-model="data.config.margin" size="small" placeholder="编写CSS属性" />
-    </cfg-field>
+    </CfgField>
 
     <div class="status-container">
       <div class="mb-16">操作属性</div>
@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+import CfgField from '../components/Gui/CfgField.vue'
 defineOptions({ name: 'DividerConfig' })
 
 const data = defineModel({ type: Object })

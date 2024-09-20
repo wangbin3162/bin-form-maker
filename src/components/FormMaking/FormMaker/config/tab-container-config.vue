@@ -1,15 +1,15 @@
 <template>
   <div class="comp-config-container">
-    <cfg-field label="控件类型" :labelWidth="labelWidth">
+    <CfgField label="控件类型" :labelWidth="labelWidth">
       <b-tag>{{ data.name }}</b-tag>
-    </cfg-field>
-    <cfg-field label="标签类型">
+    </CfgField>
+    <CfgField label="标签类型">
       <b-radio-group v-model="data.config.type" size="small" type="button">
         <b-radio label="default">默认</b-radio>
         <b-radio label="card">卡片</b-radio>
       </b-radio-group>
-    </cfg-field>
-    <cfg-field label="内容边距">
+    </CfgField>
+    <CfgField label="内容边距">
       <b-space>
         <b-input-number
           v-model="data.config.padding"
@@ -23,8 +23,8 @@
           <b-radio :label="24"></b-radio>
         </b-radio-group>
       </b-space>
-    </cfg-field>
-    <cfg-field label="下边距">
+    </CfgField>
+    <CfgField label="下边距">
       <b-space>
         <b-input-number
           v-model="data.config.margin"
@@ -38,24 +38,24 @@
           <b-radio :label="24"></b-radio>
         </b-radio-group>
       </b-space>
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field label="默认选中">
+    <CfgField label="默认选中">
       <b-select v-model="data.config.defaultTab" size="small">
         <b-option v-for="item in data.tabs" :key="item.key" :value="item.key" :label="item.title" />
       </b-select>
-    </cfg-field>
+    </CfgField>
 
     <b-table
       edit-table
       :columns="columns"
       :data="data.tabs"
       draggable
-      drag-handle=".handle"
+      DragHandle=".handle"
       @drag-drop="handleDragDrop"
     >
       <template #handle>
-        <drag-handle />
+        <DragHandle />
       </template>
       <template #span="{ index }">
         <b-input v-model="data.tabs[index].title" clearable></b-input>
@@ -81,8 +81,10 @@
 
 <script setup>
 defineOptions({ name: 'TabContainerConfig' })
-import { generateId } from '../../../core/utils/utils'
+import { generateId } from '../../core/utils/utils'
 import { Message } from 'bin-ui-design'
+import DragHandle from '../components/DragHandle/index.vue'
+import CfgField from '../components/Gui/CfgField.vue'
 
 const data = defineModel({ type: Object })
 

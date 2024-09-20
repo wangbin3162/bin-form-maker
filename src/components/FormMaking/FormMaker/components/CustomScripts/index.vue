@@ -20,11 +20,12 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+import CustomScriptsEditor from './EditorModal.vue'
 
 defineOptions({ name: 'CustomScripts' })
 
-const props = defineProps({
+defineProps({
   // 标题显示标签
   label: {
     type: String,

@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-defineOptions({ name: 'RenderFormItem' })
+defineOptions({ name: 'BFRenderFormItem' })
 import useRenderStore from '../../core/hooks/use-render-store'
 
 const { widgetForm, slotsWedigets } = useRenderStore()

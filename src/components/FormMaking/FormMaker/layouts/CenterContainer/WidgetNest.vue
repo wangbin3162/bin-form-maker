@@ -66,6 +66,7 @@ defineOptions({ name: 'WidgetNest' })
 import Draggable from 'vuedraggable'
 import { isLayouts } from '../../../core/config/component-list'
 import useMakerStore from '../../hooks/useMakerStore'
+import WidgetFormItem from './WidgetFormItem.vue'
 
 defineProps({
   widgets: {

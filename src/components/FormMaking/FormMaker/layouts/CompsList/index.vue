@@ -36,6 +36,7 @@ defineOptions({ name: 'CompsList' })
 import { ref } from 'vue'
 import { basicComponents, layoutComponents } from '../../../core/config/component-list'
 import useMakerStore from '../../hooks/useMakerStore'
+import CompList from './comp-list.vue'
 
 const activeTab = ref('comps')
 const treeRef = ref(null)

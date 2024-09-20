@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cfg-field label="控件类型" :labelWidth="labelWidth">
+    <CfgField label="控件类型" :labelWidth="labelWidth">
       <b-space>
         <b-tag>{{ data.name }}</b-tag>
         <b-dropdown @command="changeType">
@@ -36,7 +36,7 @@
           </b-dropdown-menu>
         </template>
       </b-dropdown>
-    </cfg-field>
+    </CfgField>
     <b-form ref="formRef" :model="data" :labelWidth="labelWidth" :size="size" label-position="left">
       <b-form-item
         label="字段标识"
@@ -56,18 +56,18 @@
         <b-input v-model="data.model" :size="size" clearable placeholder="字段名称，必填" />
       </b-form-item>
     </b-form>
-    <cfg-field label="字段标题" :labelWidth="labelWidth">
+    <CfgField label="字段标题" :labelWidth="labelWidth">
       <b-input v-model="data.label" :size="size" clearable placeholder="字段的标题" />
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field
+    <CfgField
       label="提示说明"
       tooltip="字段的一些提示内容，会在标签后增加一个问好提示。"
       :labelWidth="labelWidth"
       style="padding-bottom: 16px"
     >
       <b-input v-model="data.config.tooltip" :size="size" clearable placeholder="请输入" />
-    </cfg-field>
+    </CfgField>
   </div>
 </template>
 
@@ -76,7 +76,8 @@ defineOptions({ name: 'FieldCfg' })
 import useMakerStore from '../../hooks/useMakerStore'
 import { basicComponents } from '../../../core/config/component-list'
 import { createComponent } from '../../../core/config/component-cfg'
-import { deepCopy } from '@/components/FormMaking/core/utils/utils'
+import { deepCopy } from '../../../core/utils/utils'
+import CfgField from '../Gui/CfgField.vue'
 
 const data = defineModel({ type: Object })
 

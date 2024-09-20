@@ -4,32 +4,32 @@
       <!-- 基础字段配置 -->
       <FieldCfg v-model="data" :labelWidth="labelWidth" :size="size" />
 
-      <cfg-field label="占位内容" :labelWidth="labelWidth">
+      <CfgField label="输入类型" :labelWidth="labelWidth">
+        <b-radio-group v-model="data.config.type" type="button" :size="size">
+          <b-radio label="text">文本</b-radio>
+          <b-radio label="password">密码</b-radio>
+        </b-radio-group>
+      </CfgField>
+      <CfgField label="占位内容" :labelWidth="labelWidth">
         <b-input v-model="data.config.placeholder" :size="size" clearable />
-      </cfg-field>
-      <div flex="cross:center box:mean">
-        <cfg-field label="多选配置" :labelWidth="labelWidth">
-          <b-switch v-model="data.config.multiple" :size="size"></b-switch>
-        </cfg-field>
+      </CfgField>
+      <CfgField label="最大长度" :labelWidth="labelWidth">
+        <b-input-number v-model="data.config.maxlength" :size="size" :min="0" :precision="0" />
+      </CfgField>
+      <CfgField label="默认值" :labelWidth="labelWidth">
+        <b-input v-model="data.config.defaultValue" :size="size" clearable />
+      </CfgField>
 
-        <cfg-field v-if="data.config.multiple" label="多选折叠" :labelWidth="labelWidth">
-          <b-switch v-model="data.config.collapseTags" :size="size"></b-switch>
-        </cfg-field>
-      </div>
       <StatusCfg v-model="data" :labelWidth="labelWidth" :size="size" />
 
       <div class="status-container">
         <div class="mb-10">操作属性</div>
         <div class="checkbox">
           <b-checkbox v-model="data.config.clearable">显示清除按钮</b-checkbox>
-          <b-checkbox v-model="data.config.filterable">可搜索</b-checkbox>
         </div>
       </div>
     </div>
 
-    <div v-if="tab === 'options'">
-      <DatasourceCfg v-model="data" :labelWidth="labelWidth" :size="size" />
-    </div>
     <div v-if="tab === 'validate'">
       <ValidateCfg v-model="data" :labelWidth="labelWidth" :size="size" />
     </div>
@@ -37,7 +37,11 @@
 </template>
 
 <script setup>
-defineOptions({ name: 'SelectConfig' })
+import CfgField from '../components/Gui/CfgField.vue'
+import FieldCfg from '../components/FieldCfg/index.vue'
+import ValidateCfg from '../components/ValidateCfg/index.vue'
+import StatusCfg from '../components/StatusCfg/index.vue'
+defineOptions({ name: 'InputConfig' })
 
 const data = defineModel({ type: Object })
 

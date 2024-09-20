@@ -3,17 +3,17 @@
     <div v-if="tab === 'base'">
       <!-- 基础字段配置 -->
       <FieldCfg v-model="data" :labelWidth="labelWidth" :size="size" />
-      <cfg-field
+      <CfgField
         label="组件名称"
         tooltip="自定义组件名称，支持动态插槽插入，在根组件使用 #custom-[当前名称]来进行插入"
         :labelWidth="labelWidth"
       >
         <b-input v-model="data.config.compName" :size="size" disabled />
-      </cfg-field>
+      </CfgField>
 
-      <cfg-field label="默认值" :labelWidth="labelWidth">
+      <CfgField label="默认值" :labelWidth="labelWidth">
         <b-input v-model="data.config.defaultValue" :size="size" clearable />
-      </cfg-field>
+      </CfgField>
 
       <StatusCfg v-model="data" :labelWidth="labelWidth" :size="size" />
     </div>

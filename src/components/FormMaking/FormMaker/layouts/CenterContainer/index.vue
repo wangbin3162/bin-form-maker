@@ -24,7 +24,7 @@
         <b-divider type="vertical" />
         <b-button type="text" icon="save" @click="handleSave">保存</b-button>
         <b-divider type="vertical" />
-        <action-button
+        <ActionButton
           type="text"
           color="#f5222d"
           icon="delete"
@@ -33,7 +33,7 @@
           @click="clearSchema"
         >
           清空
-        </action-button>
+        </ActionButton>
       </div>
     </div>
     <div class="scroll-content">
@@ -61,6 +61,11 @@
 defineOptions({ name: 'CenterContainer' })
 import useMakerStore from '../../hooks/useMakerStore'
 import { generateId } from '../../../core/utils/utils'
+import WidgetForm from './WidgetForm.vue'
+import FormPreview from '../FormPreview/index.vue'
+import ActionButton from '../../components/ActionButton/index.vue'
+import DebugModal from '../../components/DebugModal/index.vue'
+
 import { Message } from 'bin-ui-design'
 import { ref } from 'vue'
 

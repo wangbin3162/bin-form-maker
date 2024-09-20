@@ -8,11 +8,11 @@
       :size="widgetForm.config.size"
     >
       <!-- 附加递归嵌套控件 -->
-      <widget-nest class="widget-form-list" :widgets="widgetForm.list">
+      <WidgetNest class="widget-form-list" :widgets="widgetForm.list">
         <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
           <slot :name="slot.type" v-bind:node="node"></slot>
         </template>
-      </widget-nest>
+      </WidgetNest>
     </b-form>
   </div>
 </template>
@@ -20,6 +20,7 @@
 <script setup>
 defineOptions({ name: 'WidgetForm' })
 import useMakerStore from '../../hooks/useMakerStore'
+import WidgetNest from './WidgetNest.vue'
 
 const { widgetForm, slotsWedigets } = useMakerStore()
 </script>

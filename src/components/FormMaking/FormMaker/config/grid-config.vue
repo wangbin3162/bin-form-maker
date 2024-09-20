@@ -1,9 +1,9 @@
 <template>
   <div class="comp-config-container">
-    <cfg-field label="控件类型" :labelWidth="labelWidth">
+    <CfgField label="控件类型" :labelWidth="labelWidth">
       <b-tag>{{ data.name }}</b-tag>
-    </cfg-field>
-    <cfg-field label="控件间距" :labelWidth="labelWidth">
+    </CfgField>
+    <CfgField label="控件间距" :labelWidth="labelWidth">
       <b-space>
         <b-input-number v-model="data.config.gutter" :min="4" :step="2" :max="24" :size="size" />
 
@@ -13,8 +13,8 @@
           <b-radio :label="24">24</b-radio>
         </b-radio-group>
       </b-space>
-    </cfg-field>
-    <cfg-field label="水平方向">
+    </CfgField>
+    <CfgField label="水平方向">
       <b-select v-model="data.config.justify" size="small">
         <b-option
           v-for="item in justifyOptions"
@@ -23,8 +23,8 @@
           :label="item.label"
         ></b-option>
       </b-select>
-    </cfg-field>
-    <cfg-field label="垂直方向">
+    </CfgField>
+    <CfgField label="垂直方向">
       <b-select v-model="data.config.align" size="small">
         <b-option
           v-for="item in alignOptions"
@@ -33,9 +33,9 @@
           :label="item.label"
         ></b-option>
       </b-select>
-    </cfg-field>
+    </CfgField>
 
-    <cfg-field
+    <CfgField
       label="列配置项"
       tooltip="24栏栅格模式，需要自定义每列所占的栅格数。"
       labelPosition="right"
@@ -45,18 +45,18 @@
         <b-radio :label="3">3列</b-radio>
         <b-radio :label="4">4列</b-radio>
       </b-radio-group>
-    </cfg-field>
+    </CfgField>
 
     <b-table
       edit-table
       :columns="columns"
       :data="data.columns"
       draggable
-      drag-handle=".handle"
+      DragHandle=".handle"
       @drag-drop="handleDragDrop"
     >
       <template #handle>
-        <drag-handle />
+        <DragHandle />
       </template>
       <template #span="{ index }">
         <b-input-number
@@ -88,7 +88,9 @@
 
 <script setup>
 defineOptions({ name: 'GridConfig' })
-import { deepCopy } from '../../../core/utils/utils'
+import { deepCopy } from '../../core/utils/utils'
+import DragHandle from '../components/DragHandle/index.vue'
+import CfgField from '../components/Gui/CfgField.vue'
 import { ref } from 'vue'
 
 const data = defineModel({ type: Object })

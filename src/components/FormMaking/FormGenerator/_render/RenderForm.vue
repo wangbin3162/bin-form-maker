@@ -10,19 +10,19 @@
       :size="widgetForm.config.size"
     >
       <!-- 附加递归嵌套控件 -->
-      <RenderNest class="widget-form-list" :widgets="widgetForm.list" v-model="formModels">
+      <BFRenderNest class="widget-form-list" :widgets="widgetForm.list" v-model="formModels">
         <template v-for="slot in slotsWedigets" :key="slot.type" v-slot:[slot.type]="{ node }">
           <slot :name="slot.type" v-bind:node="node"></slot>
         </template>
-      </RenderNest>
+      </BFRenderNest>
     </b-form>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { useFormEvents } from '../../core/hooks/use-form-events'
-defineOptions({ name: 'RenderForm' })
+defineOptions({ name: 'BFRenderForm' })
 
 const props = defineProps({
   defaultModel: {
@@ -32,7 +32,6 @@ const props = defineProps({
 })
 
 import useRenderStore from '../../core/hooks/use-render-store'
-import RenderNest from './RenderNest.vue'
 
 const { widgetForm, formConfig, slotsWedigets, initForm, formModels, formRules } = useRenderStore()
 

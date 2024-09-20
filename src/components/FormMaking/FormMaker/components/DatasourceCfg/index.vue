@@ -1,14 +1,14 @@
 <template>
   <div class="datasource-container">
-    <cfg-field label="选项来源" :labelWidth="labelWidth" style="padding-bottom: 8px">
+    <CfgField label="选项来源" :labelWidth="labelWidth" style="padding-bottom: 8px">
       <b-radio-group v-model="dataSource.type" type="button" :size="size">
         <b-radio label="static">静态数据</b-radio>
         <b-radio label="dynamic">动态数据</b-radio>
       </b-radio-group>
-    </cfg-field>
+    </CfgField>
     <!-- 静态数据编辑 -->
     <div v-if="dataSource.type === 'static'">
-      <cfg-field label="数据选项" :labelWidth="labelWidth" style="padding-bottom: 8px"></cfg-field>
+      <CfgField label="数据选项" :labelWidth="labelWidth" style="padding-bottom: 8px"></CfgField>
       <b-radio-group v-if="isSingle" v-model="data.config.defaultValue">
         <Draggable
           tag="ul"
@@ -36,7 +36,7 @@
                 <b-input v-model="element.label" placeholder="选项标题" :size="size" />
               </label>
 
-              <drag-handle />
+              <DragHandle />
               <i class="destroy b-iconfont b-icon-delete" @click="handleRemove(index)" />
             </li>
           </template>
@@ -74,7 +74,7 @@
                 <b-input v-model="element.label" placeholder="选项标题" :size="size" />
               </label>
 
-              <drag-handle />
+              <DragHandle />
               <i class="destroy b-iconfont b-icon-delete" @click="handleRemove(index)" />
             </li>
           </template>
@@ -82,7 +82,7 @@
       </b-checkbox-group>
     </div>
     <div v-else>
-      <cfg-field label="数据源" :labelWidth="labelWidth">
+      <CfgField label="数据源" :labelWidth="labelWidth">
         <b-select
           v-model="dataSource.confCode"
           :size="size"
@@ -97,9 +97,9 @@
             :value="item.key"
           ></b-option>
         </b-select>
-      </cfg-field>
+      </CfgField>
 
-      <cfg-field label="数据选项" :labelWidth="labelWidth" style="padding-bottom: 8px"></cfg-field>
+      <CfgField label="数据选项" :labelWidth="labelWidth" style="padding-bottom: 8px"></CfgField>
       <b-radio-group v-if="isSingle" v-model="data.config.defaultValue">
         <ul style="width: 100%">
           <template v-for="element in getOptionsByDict(dataSource.confCode)" :key="element.key">
@@ -146,6 +146,7 @@
 <script setup>
 import { computed } from 'vue'
 import Draggable from 'vuedraggable'
+import DragHandle from '../../components/DragHandle/index.vue'
 import { splitValue, joinValue, generateId } from '../../../core/utils/utils'
 import useMakerStore from '../../hooks/useMakerStore'
 

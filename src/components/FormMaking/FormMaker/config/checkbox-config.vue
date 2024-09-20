@@ -28,6 +28,11 @@
 </template>
 
 <script setup>
+import FieldCfg from '../components/FieldCfg/index.vue'
+import DatasourceCfg from '../components/DatasourceCfg/index.vue'
+import ValidateCfg from '../components/ValidateCfg/index.vue'
+import StatusCfg from '../components/StatusCfg/index.vue'
+
 defineOptions({ name: 'CheckboxConfig' })
 
 const data = defineModel({ type: Object })

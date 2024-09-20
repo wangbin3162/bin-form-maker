@@ -1,11 +1,11 @@
 <template>
   <b-modal v-model="previewModal" title="表单预览" width="1400px" screen-center>
     <div class="preview" style="min-height: 520px">
-      <RenderForm v-if="previewModal" :default-model="defaultModel" ref="renderFormRef">
+      <BFRenderForm v-if="previewModal" :default-model="defaultModel" ref="renderFormRef">
         <template #custom-comp="{ node }">
           <CustomNode v-bind="node" v-model="formModels[node.data.model]" />
         </template>
-      </RenderForm>
+      </BFRenderForm>
     </div>
     <template #footer>
       <div flex="main:center cross:center">
@@ -30,6 +30,7 @@
 import { ref } from 'vue'
 import useRenderStore from '../../../core/hooks/use-render-store'
 import CustomNode from '@/views/CustomNode.vue'
+import DebugModal from '../../components/DebugModal/index.vue'
 import { Message } from 'bin-ui-design'
 defineOptions({ name: 'FormPreview' })
 

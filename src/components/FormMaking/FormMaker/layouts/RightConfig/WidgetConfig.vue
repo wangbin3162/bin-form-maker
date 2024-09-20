@@ -10,7 +10,7 @@
 
     <div class="config-content">
       <b-scrollbar>
-        <component :is="`${data.type}-config`" v-model="data" :tab="curTabActive" />
+        <component :is="`BF-${data.type}-config`" v-model="data" :tab="curTabActive" />
       </b-scrollbar>
     </div>
   </div>

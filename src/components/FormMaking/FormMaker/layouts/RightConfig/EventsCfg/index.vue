@@ -1,11 +1,11 @@
 <template>
   <div class="events-cfg">
-    <cfg-field label="事件类型" :labelWidth="labelWidth">
+    <CfgField label="事件类型" :labelWidth="labelWidth">
       <b-radio-group v-model="eventCfg.type" type="button" :size="size">
         <b-radio label="simple">配置模式</b-radio>
         <b-radio label="script">高级脚本</b-radio>
       </b-radio-group>
-    </cfg-field>
+    </CfgField>
 
     <template v-if="eventCfg.type === 'simple'">
       <b-table
@@ -13,31 +13,31 @@
         :data="eventCfg.onEvents"
         edit-table
         draggable
-        drag-handle=".handle"
+        DragHandle=".handle"
         @drag-drop="handleDragDrop"
       >
         <template #handle>
-          <drag-handle />
+          <DragHandle />
         </template>
         <template #name="{ index }">
           <b-input v-model="eventCfg.onEvents[index].name" />
         </template>
         <template #action="{ index }">
-          <action-button
+          <ActionButton
             type="text"
             icon="edit"
             is-icon
             tooltip="编辑"
             @click="handleEdit(index)"
-          ></action-button>
-          <action-button
+          ></ActionButton>
+          <ActionButton
             type="text"
             icon="minus-circle"
             color="danger"
             is-icon
             tooltip="删除"
             @click="remove(index)"
-          ></action-button>
+          ></ActionButton>
         </template>
       </b-table>
       <div class="pt-10 pb-5">
@@ -53,7 +53,7 @@
       </div>
     </template>
 
-    <cfg-field
+    <CfgField
       v-if="eventCfg.type === 'script'"
       label="脚本函数"
       tooltip="脚本函数作为高级用法，可以满足更多自定义设置"
@@ -69,7 +69,7 @@
         label=""
         funcExplain="通过提供的参数编写脚本，可以实现更灵活的表单界面控制。"
       />
-    </cfg-field>
+    </CfgField>
 
     <EventConfigModal ref="eventRef" />
   </div>
@@ -78,8 +78,13 @@
 <script setup>
 defineOptions({ name: 'EventsCfg' })
 import { computed, ref } from 'vue'
-import { useParamsDesc } from '../../hooks/useParamsDesc'
-import { deepCopy } from '../../../core/utils/utils'
+import { useParamsDesc } from '../../../hooks/useParamsDesc'
+import { deepCopy } from '../../../../core/utils/utils'
+import EventConfigModal from './ConfigModal.vue'
+import ActionButton from '../../../components/ActionButton/index.vue'
+import DragHandle from '../../../components/DragHandle/index.vue'
+import CustomScripts from '../../../components/CustomScripts/index.vue'
+import CfgField from '../../../components/Gui/CfgField.vue'
 
 const data = defineModel({ type: Object })
 

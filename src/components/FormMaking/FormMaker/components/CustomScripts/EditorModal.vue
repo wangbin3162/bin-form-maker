@@ -74,6 +74,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import CustomScriptsParams from './Params.vue'
+import CustomScriptsExamples from './Examples.vue'
 defineOptions({ name: 'CustomScriptsEditor' })
 
 const props = defineProps({

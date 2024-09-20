@@ -1,6 +1,6 @@
 import { watch } from 'vue'
 import useRenderStore from './use-render-store'
-import { buildCompareStr } from '../../FormMaker/components/EventsCfg/events-enum'
+import { buildCompareStr } from '../utils/events-enum'
 
 /**
  * 创建并提供运行时事件交互所需的事件总线对象
