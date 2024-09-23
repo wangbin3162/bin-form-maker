@@ -29,7 +29,7 @@
             <span class="field-name">{{ element.name }}</span>
           </a>
           <a v-else :class="{ required: element.required }">
-            <span class="field-name">{{ element.fieldTitle }}asdfasdfas</span>
+            <span class="field-name">{{ element.fieldTitle }}</span>
           </a>
         </li>
       </template>

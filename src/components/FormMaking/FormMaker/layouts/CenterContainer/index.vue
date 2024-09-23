@@ -62,9 +62,9 @@ defineOptions({ name: 'CenterContainer' })
 import useMakerStore from '../../hooks/useMakerStore'
 import { generateId } from '../../../core/utils/utils'
 import WidgetForm from './WidgetForm.vue'
-import FormPreview from '../FormPreview/index.vue'
 import ActionButton from '../../components/ActionButton/index.vue'
 import DebugModal from '../../components/DebugModal/index.vue'
+import FormPreview from '../../../FormPreview/index.vue'
 
 import { Message } from 'bin-ui-design'
 import { ref } from 'vue'

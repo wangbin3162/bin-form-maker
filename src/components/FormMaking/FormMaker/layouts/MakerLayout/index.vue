@@ -1,7 +1,7 @@
 <template>
-  <div class="maker-layout">
+  <teleport to="body" :disabled="!appendToBody">
     <transition name="move-right">
-      <div v-if="visible" class="fm-container" :class="{ inner }">
+      <div v-if="visible" class="fm-container maker-layout" :class="{ inner }">
         <div class="fm-header">
           <div class="title">
             <span class="logo">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </transition>
-  </div>
+  </teleport>
 </template>
 
 <script setup>
@@ -35,6 +35,10 @@ defineProps({
     default: 'FormMaker 表单设计器',
   },
   inner: Boolean,
+  appendToBody: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const visible = defineModel({ type: Boolean, default: false })

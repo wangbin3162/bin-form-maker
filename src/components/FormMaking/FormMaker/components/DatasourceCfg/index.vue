@@ -149,6 +149,7 @@ import Draggable from 'vuedraggable'
 import DragHandle from '../../components/DragHandle/index.vue'
 import { splitValue, joinValue, generateId } from '../../../core/utils/utils'
 import useMakerStore from '../../hooks/useMakerStore'
+import CfgField from '../../components/Gui/CfgField.vue'
 
 defineOptions({ name: 'DatasourceCfg' })
 

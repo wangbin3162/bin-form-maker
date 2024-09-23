@@ -25,6 +25,10 @@
 </template>
 
 <script setup>
+import CfgField from '../components/Gui/CfgField.vue'
+import FieldCfg from '../components/FieldCfg/index.vue'
+import ValidateCfg from '../components/ValidateCfg/index.vue'
+import StatusCfg from '../components/StatusCfg/index.vue'
 defineOptions({ name: 'CustomComponentConfig' })
 
 const data = defineModel({ type: Object })
