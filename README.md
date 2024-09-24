@@ -14,3 +14,5 @@
     "highlight.js": "^11.10.0",
 
 ![界面](/public/preview/desc.png)
+
+[预览](https://wangbin3162.github.io/bin-form-maker/)
