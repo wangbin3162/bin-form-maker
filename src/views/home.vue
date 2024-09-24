@@ -84,7 +84,7 @@ function handleSave(widgetForm) {
 }
 
 function open() {
-  initSchema({}, customFields, realFields) // 需要默认布局配置
+  initSchema({}, realFields, customFields) // 需要默认布局配置
   // initSchema({}) // 无需默认布局配置
   visible.value = true
 }

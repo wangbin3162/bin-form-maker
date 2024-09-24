@@ -26,11 +26,11 @@ export default function useRenderStore() {
   /**
    * 初始化事件,第一个是表单对象的内容，第二个是自定义字段的列表,第三个是实际的字段对象
    * @param {obj} form 通过json字符串转换的对象信息{}，获取的初始化配置
-   * @param {[]} customFields 自定义组件fields
    * @param {[]} fieldsDtos 实际字段的对象: { fieldName: '', fieldTitle: '', fieldLength: 10, fieldType: 'string|number', required: true },
+   * @param {[]} customFields 自定义组件fields
    * @param {number} col 实际默认分栏，默认4列布局
    */
-  function initSchema(form, customFields = [], fieldsDtos = [], col = 4) {
+  function initSchema(form, fieldsDtos = [], customFields = [], col = 4) {
     // 插入的自定义字段组件
     slotsWedigets.value = [...customFields]
     // 初始化

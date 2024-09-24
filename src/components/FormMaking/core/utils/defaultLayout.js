@@ -34,7 +34,7 @@ function formatFieldComp(item) {
 function setDefaultLayouts(widgetForm, realFieldsDtos, col = 4) {
   // 如果已经存在list配置
   if (widgetForm.value.list.length > 0 || realFieldsDtos.length === 0) return
-  console.log(`-----------------设置默认[${col}】列布局------------------`)
+  console.log(`-----------------设置默认[${col}]列布局------------------`)
   // 通栏布局，相当于每个属性字段点击一遍
   if (col === 1) {
     realFieldsDtos.forEach(item => {
