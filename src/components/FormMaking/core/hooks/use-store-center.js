@@ -30,6 +30,8 @@ export default function useStoreCenter() {
    * @param {number} col 实际默认分栏，默认4列布局
    */
   function initSchema(form, fieldsDtos = [], customFields = [], col = 4) {
+    selectWidget.value = null
+    currentCfgTab.value = 'form'
     // 插入的自定义字段组件
     realFieldsDtos.value = [...fieldsDtos]
     slotsWedigets.value = [...customFields]
