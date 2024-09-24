@@ -117,8 +117,8 @@ const { widgetForm, slotsWedigets } = useMakerStore()
 
       .widget-view-field-name {
         position: absolute;
-        top: 0;
-        right: 4px;
+        top: -3px;
+        right: 2px;
         font-size: 12px;
         color: #67c23a;
         z-index: 9;

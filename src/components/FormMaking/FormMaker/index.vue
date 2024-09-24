@@ -45,7 +45,7 @@ const props = defineProps({
 
 const visible = defineModel({ type: Boolean, default: false })
 
-const { widgetForm, slotsWedigets, realFieldsDtos, quickCfg } = useMakerStore()
+const { widgetForm, slotsWedigets, realFieldsDtos } = useMakerStore()
 
 slotsWedigets.value = [...props.customFields]
 realFieldsDtos.value = [...props.realFields]
@@ -53,13 +53,4 @@ realFieldsDtos.value = [...props.realFields]
 function handleSave() {
   emit('onSave', widgetForm.value)
 }
-
-function quickLayout(num) {
-  realFieldsDtos.value = [...props.realFields]
-  quickCfg(num)
-}
-
-defineExpose({
-  quickLayout,
-})
 </script>

@@ -2,7 +2,7 @@
   <div class="center-container">
     <div class="top-fix" flex="main:justify cross:center">
       <div class="top-fix-left" flex="cross:center">
-        <b-dropdown @command="quickCfg" v-if="realFieldsDtos.length">
+        <b-dropdown @command="quickLayout" v-if="realFieldsDtos.length">
           <b-button icon="layout" type="text">快速配置</b-button>
           <template #dropdown>
             <b-dropdown-menu>
@@ -71,7 +71,7 @@ import { ref } from 'vue'
 
 const emit = defineEmits(['onSave'])
 
-const { widgetForm, slotsWedigets, clearSchema, quickCfg, realFieldsDtos } = useMakerStore()
+const { widgetForm, slotsWedigets, clearSchema, quickLayout, realFieldsDtos } = useMakerStore()
 
 function downloadFile(content, fileName) {
   // filename，摘取了常用的部分，其实还有其他一些

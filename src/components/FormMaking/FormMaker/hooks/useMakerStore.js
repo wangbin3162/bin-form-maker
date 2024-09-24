@@ -1,13 +1,13 @@
 import useStoreCenter from '../../core/hooks/use-store-center'
+import { setDefaultLayouts } from '../../core/utils/defaultLayout'
 import { nextTick, computed } from 'vue'
-import { createComponent } from '../../core/config/component-cfg'
-import { chunkArray } from '../../core/utils/utils'
 
 /**
  * maker设计器专用store hook，用于操作和获取不同的数据信息。
  */
 export default function useMakerStore() {
   const {
+    initSchema,
     widgetForm,
     selectWidget,
     currentCfgTab,
@@ -75,61 +75,11 @@ export default function useMakerStore() {
     handleSelectWidget(list[newIndex])
   }
 
-  function formatFieldComp(item) {
-    // 如果是实际字段，则根据字段的标识来创建一个字符串或者一个数字输入
-    const type = item.fieldType === 'number' ? 'input-number' : 'input'
-    const com = createComponent(type, item.fieldTitle, false)
-    // 追加字段和定义
-    com.label = item.fieldTitle
-    com.model = item.fieldName
-    com.config.maxlength = +item.fieldLength
-    if (item.required) {
-      // 如果有必填，则追加一个必填校验
-      com.config.required = true
-      com.rules = [
-        {
-          name: '$required',
-          type: 'string',
-          trigger: 'blur',
-          message: '必填项',
-        },
-      ]
-    }
-    return com
-  }
-
   // 快速配置
-  function quickCfg(num = 4) {
+  function quickLayout(col = 4) {
     clearSchema()
 
-    // 通栏布局，相当于每个属性字段点击一遍
-    if (num === 1) {
-      realFieldsDtos.value.forEach(item => {
-        const com = formatFieldComp(item)
-        widgetForm.value.list.push(com)
-      })
-      // 配置表单属性
-      widgetForm.value.config.labelPosition = 'left'
-      widgetForm.value.config.labelSuffix = ':'
-    } else {
-      // 超过两栏，这里需要分割数组，按照，个数分割好
-      const list = chunkArray(realFieldsDtos.value, num)
-      // 遍历列，增加grid组件
-      list.forEach(row => {
-        const grid = createComponent('grid', '', false)
-        // 设置栅格属性
-        const span = 24 / num
-        grid.columns = []
-        row.forEach(col => {
-          grid.columns.push({ span, list: [formatFieldComp(col)] })
-        })
-        console.log(grid)
-        widgetForm.value.list.push(grid)
-      })
-      // 配置表单属性
-      widgetForm.value.config.labelPosition = 'top'
-      widgetForm.value.config.labelSuffix = ''
-    }
+    setDefaultLayouts(widgetForm, realFieldsDtos.value, col)
   }
 
   return {
@@ -152,7 +102,7 @@ export default function useMakerStore() {
     isComSelected,
     handleSelectWidget,
     handleWidgetAdd,
-    quickCfg,
-    formatFieldComp,
+    quickLayout,
+    initSchema,
   }
 }

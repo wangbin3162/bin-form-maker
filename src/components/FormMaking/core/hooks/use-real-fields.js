@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { getFieldsCfgByList, getTreeList } from './getRealFields'
+import { getFieldsCfgByList, getTreeList } from '../utils/getRealFields'
 /**
  * 获取真实的字段/控件列表
  * @param {控件对象} widgetForm Ref

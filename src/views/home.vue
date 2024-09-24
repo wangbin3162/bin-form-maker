@@ -20,13 +20,13 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 import BFormMaker from '@/components/FormMaking/FormMaker/index.vue'
 import CustomNode from './CustomNode.vue'
 import DatasetCfg from './DatasetCfg.vue'
 import useStoreCenter from '@/components/FormMaking/core/hooks/use-store-center'
 
-const visible = ref(true)
+const visible = ref(false)
 const makerRef = ref(null)
 
 const { formConfig, initSchema } = useStoreCenter()
@@ -84,11 +84,11 @@ function handleSave(widgetForm) {
 }
 
 function open() {
-  initSchema({})
+  initSchema({}, customFields, realFields) // 需要默认布局配置
+  // initSchema({}) // 无需默认布局配置
   visible.value = true
-
-  nextTick(() => {
-    makerRef.value.quickLayout(4)
-  })
 }
+
+initSchema({}) // 无需默认布局配置
+visible.value = true
 </script>

@@ -1,6 +1,7 @@
 import { getNewFromCfg } from '../config/component-cfg'
 import { ref, computed } from 'vue'
 import useRealFields from './use-real-fields'
+import { setDefaultLayouts } from '../utils/defaultLayout'
 
 const status = {
   // 控件form对象配置信息
@@ -22,11 +23,15 @@ export default function useStoreCenter() {
   const formConfig = computed(() => widgetForm.value.config)
 
   // 初始化事件
-  function initSchema(form) {
+  function initSchema(form, customFields = [], fieldsDtos = [], col = 4) {
+    // 插入的自定义字段组件
+    slotsWedigets.value = [...customFields]
+    realFieldsDtos.value = [...fieldsDtos]
+    // 初始化
     widgetForm.value = getNewFromCfg(form)
-    console.log('------------------- 初始化schema -------------------')
-    console.log(widgetForm.value)
-    console.log('-----------------------------------------------------')
+    // 设置初始化布局
+    setDefaultLayouts(widgetForm, fieldsDtos, col)
+    console.log('------------------- 初始化schema -------------------', widgetForm.value)
   }
 
   return {

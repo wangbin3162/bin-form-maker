@@ -3,8 +3,7 @@ import { ref, computed, toRaw } from 'vue'
 import useRealFields from './use-real-fields'
 import { buildRules } from '../utils/validator'
 import { buildFun, isEmpty } from '../utils/utils'
-import { createComponent } from '../../core/config/component-cfg'
-import { chunkArray } from '../../core/utils/utils'
+import { setDefaultLayouts } from '../utils/defaultLayout'
 
 const renderStatus = {
   // 控件form对象配置信息
@@ -24,15 +23,21 @@ export default function useRenderStore() {
 
   const formConfig = computed(() => widgetForm.value.config)
 
-  // 初始化事件,第一个是表单对象的内容，第二个是自定义字段的列表,第三个是实际的字段对象
-  function initSchema(form, customFields = [], realFieldsDtos = [], col = 4) {
-    widgetForm.value = getNewFromCfg(form)
-    if (widgetForm.value.list.length === 0) {
-      console.log('-----------------默认四列布局------------------')
-      getDefaultLayouts(col, realFieldsDtos)
-    }
-    // console.log(widgetForm.value)
+  /**
+   * 初始化事件,第一个是表单对象的内容，第二个是自定义字段的列表,第三个是实际的字段对象
+   * @param {obj} form 通过json字符串转换的对象信息{}，获取的初始化配置
+   * @param {[]} customFields 自定义组件fields
+   * @param {[]} fieldsDtos 实际字段的对象: { fieldName: '', fieldTitle: '', fieldLength: 10, fieldType: 'string|number', required: true },
+   * @param {number} col 实际默认分栏，默认4列布局
+   */
+  function initSchema(form, customFields = [], fieldsDtos = [], col = 4) {
+    // 插入的自定义字段组件
     slotsWedigets.value = [...customFields]
+    // 初始化
+    widgetForm.value = getNewFromCfg(form)
+
+    // 设置初始化布局
+    setDefaultLayouts(widgetForm, fieldsDtos, col)
     console.log('------------------- 初始化schema -------------------', widgetForm.value)
   }
 
@@ -93,8 +98,6 @@ export default function useRenderStore() {
     console.log('-------------------------------- 初始化完成 --------------------------------')
     console.log('----> 最终 [models]: ', toRaw(formModels.value))
     console.log('---------------------------------------------------------------------------')
-
-    console.log(formConfig.value)
   }
 
   /**
@@ -110,62 +113,6 @@ export default function useRenderStore() {
     const customScript = formConfig.value.globalEvents.customScript
     const fun = buildFun(str, customScript.arguments)
     fun(formModels.value, ctrlCfgs.value)
-  }
-
-  function formatFieldComp(item) {
-    console.log(item)
-    // 如果是实际字段，则根据字段的标识来创建一个字符串或者一个数字输入
-    const type = item.fieldType === 'number' ? 'input-number' : 'input'
-    const com = createComponent(type, item.fieldTitle, false)
-    // 追加字段和定义
-    com.label = item.fieldTitle
-    com.model = item.fieldName
-    com.config.maxlength = +item.fieldLength
-    if (item.required) {
-      // 如果有必填，则追加一个必填校验
-      com.config.required = true
-      com.rules = [
-        {
-          name: '$required',
-          type: 'string',
-          trigger: 'blur',
-          message: '必填项',
-        },
-      ]
-    }
-    return com
-  }
-
-  // 获取默认布局（根据实际字段和默认列数
-  function getDefaultLayouts(num = 4, realFieldsDtos) {
-    // 通栏布局，相当于每个属性字段点击一遍
-    if (num === 1) {
-      realFieldsDtos.forEach(item => {
-        const com = formatFieldComp(item)
-        widgetForm.value.list.push(com)
-      })
-      // 配置表单属性
-      widgetForm.value.config.labelPosition = 'left'
-      widgetForm.value.config.labelSuffix = ':'
-    } else {
-      // 超过两栏，这里需要分割数组，按照，个数分割好
-      const list = chunkArray(realFieldsDtos, num)
-      // 遍历列，增加grid组件
-      list.forEach(row => {
-        const grid = createComponent('grid', '', false)
-        // 设置栅格属性
-        const span = 24 / num
-        grid.columns = []
-        row.forEach(col => {
-          grid.columns.push({ span, list: [formatFieldComp(col)] })
-        })
-        console.log(grid)
-        widgetForm.value.list.push(grid)
-      })
-      // 配置表单属性
-      widgetForm.value.config.labelPosition = 'top'
-      widgetForm.value.config.labelSuffix = ''
-    }
   }
 
   return {
