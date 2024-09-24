@@ -1,15 +1,20 @@
 import { createComponent } from '../config/component-cfg'
 import { chunkArray } from './utils'
 
-// 根据默认配置来处理必填项和追加定义
+// 根据默认配置来处理必填项和追加定义 number ,string, date 默认三个类型
 function formatFieldComp(item) {
   // 如果是实际字段，则根据字段的标识来创建一个字符串或者一个数字输入
-  const type = item.fieldType === 'number' ? 'input-number' : 'input'
+  const typeMap = {
+    string: 'input',
+    number: 'input-number',
+    date: 'date-picker',
+  }
+  const type = typeMap[item.fieldType]
   const com = createComponent(type, item.fieldTitle, false)
   // 追加字段和定义
   com.label = item.fieldTitle
   com.model = item.fieldName
-  com.config.maxlength = +item.fieldLength
+  com.config.maxlength = item.fieldType === 'date' ? 50 : +item.fieldLength
   if (item.required) {
     // 如果有必填，则追加一个必填校验
     com.config.required = true
@@ -65,4 +70,4 @@ function setDefaultLayouts(widgetForm, realFieldsDtos, col = 4) {
   }
 }
 
-export { setDefaultLayouts }
+export { setDefaultLayouts, formatFieldComp }

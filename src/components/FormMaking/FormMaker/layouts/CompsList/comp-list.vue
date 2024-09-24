@@ -41,6 +41,7 @@
 import Draggable from 'vuedraggable'
 import useMakerStore from '../../hooks/useMakerStore'
 import { createComponent } from '../../../core/config/component-cfg'
+import { formatFieldComp } from '../../../core/utils/defaultLayout'
 defineOptions({ name: 'CompList' })
 
 const props = defineProps({
@@ -64,10 +65,11 @@ const props = defineProps({
   },
 })
 
-const { addWidget, alreadyInFieldModels, formatFieldComp } = useMakerStore()
+const { addWidget, alreadyInFieldModels } = useMakerStore()
 
 // 点击增加事件
 function addOne(ele) {
+  if (alreadyInFieldModels.value.includes(ele.fieldName)) return
   const com = props.isField
     ? formatFieldComp(ele)
     : createComponent(ele.type, ele.name, props.isCustom)

@@ -77,6 +77,13 @@ const realFields = [
     fieldType: 'string', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
     required: false,
   },
+  {
+    fieldName: 'birthday',
+    fieldTitle: '出生日期',
+    fieldLength: null,
+    fieldType: 'date', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
+    required: false,
+  },
 ]
 
 function handleSave(widgetForm) {
