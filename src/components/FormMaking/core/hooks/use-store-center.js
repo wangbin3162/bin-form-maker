@@ -35,6 +35,7 @@ export default function useStoreCenter() {
     // 插入的自定义字段组件
     realFieldsDtos.value = [...fieldsDtos]
     slotsWedigets.value = [...customFields]
+
     // 初始化
     widgetForm.value = getNewFromCfg(form)
     // 设置初始化布局

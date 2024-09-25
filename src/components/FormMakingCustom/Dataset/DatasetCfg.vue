@@ -38,7 +38,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import ActionButton from '../components/FormMaking/FormMaker/components/ActionButton/index.vue'
+import ActionButton from '@/components/FormMaking/FormMaker/components/ActionButton/index.vue'
 const data = defineModel({ type: Object })
 
 const columns = [

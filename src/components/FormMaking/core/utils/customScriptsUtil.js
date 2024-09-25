@@ -12,7 +12,7 @@ function logRef(...params) {
 }
 
 // 生成运行时可调用的函数，附加通用参数。
-export function buildFun(funcBody, args) {
+export function buildFun(funcBody, ...args) {
   const paramsStr = new Set([...args, 'fetchData', 'util'])
   const AsyncFunction = async function () {}.constructor
   const fun = new AsyncFunction(...paramsStr, funcBody)

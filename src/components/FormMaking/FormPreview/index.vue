@@ -27,14 +27,14 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'FormPreview' })
 import { ref } from 'vue'
 import useRenderStore from '../core/hooks/use-render-store'
 import DebugModal from '../FormMaker/components/DebugModal/index.vue'
 import { Message } from 'bin-ui-design'
 
 // 表单预览，这里需要根据实际情况，看是否需要插入自定义组件
-import CustomNode from '@/views/CustomNode.vue'
-defineOptions({ name: 'FormPreview' })
+import CustomNode from '@/components/FormMakingCustom/Custom/CustomNode.vue'
 
 const previewModal = ref(false)
 const viewType = ref('EDIT')
@@ -44,9 +44,9 @@ const { initSchema, formModels } = useRenderStore()
 const defaultModel = ref({}) // 默认对象
 const renderFormRef = ref(null)
 
-function open(formData, customFields) {
+function open(formData, realFields, customFields) {
   previewModal.value = true
-  initSchema(formData, customFields)
+  initSchema(formData, realFields, customFields)
 }
 
 async function formSubmit() {

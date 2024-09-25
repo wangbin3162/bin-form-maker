@@ -16,7 +16,7 @@
       <div class="top-fix-right">
         <b-button type="text" icon="eye" @click="handlePreview">预览</b-button>
         <b-divider type="vertical" />
-        <DebugModal style="display: inline-block" :data="{ widgetForm }">
+        <DebugModal style="display: inline-block" :data="widgetForm" title="widgetForm配置信息">
           <b-button type="text" icon="edit-square">查看JSON</b-button>
         </DebugModal>
         <b-divider type="vertical" />
@@ -123,7 +123,7 @@ function handleSave() {
 const previewRef = ref(null)
 
 function handlePreview() {
-  previewRef.value?.open(widgetForm.value, slotsWedigets.value)
+  previewRef.value?.open(widgetForm.value, realFieldsDtos.value, slotsWedigets.value)
 }
 </script>
 

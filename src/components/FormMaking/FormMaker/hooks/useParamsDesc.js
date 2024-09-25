@@ -45,13 +45,21 @@ export function useParamsDesc() {
     {
       name: 'fetchData 异步请求函数',
       code: `// 举例：验证重复
-  fetchData({
-    url: '/checkCodeExists',
-    method: 'post',
-    // data: 有参数时传入对应参数,
-  })
-  .then(res => (console.log('调用成功')))
-  .catch(e => (console.log('调用失败')))
+  try {
+    const hasSame = await fetchData({
+      url: '/checkNameExists',
+      method: 'post',
+      data: {
+        id: formModel.id || '',
+        name: formModel.name,
+        type: 'aqgf'
+      },
+    })
+    if(hasSame === 0) return true
+  } catch (e) {
+    console.log(e)
+  }
+  return false
   
   /**
    * 异步请求包装（会返回包装后的请求结果）
