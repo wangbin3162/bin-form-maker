@@ -57,7 +57,12 @@
           </span>
           <template #dropdown>
             <b-dropdown-menu>
-              <b-dropdown-item v-for="(name, key) in MULTIPLE_RULE" :key="key" :name="name">
+              <b-dropdown-item
+                v-for="(name, key) in MULTIPLE_RULE"
+                :key="key"
+                :name="name"
+                :divided="name === RULE.customFun"
+              >
                 {{ RULE_NAME_MAP[name] }}
               </b-dropdown-item>
             </b-dropdown-menu>

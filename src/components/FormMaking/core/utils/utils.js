@@ -18,6 +18,8 @@ export const isEqual = Utils.util.isEqual
 
 export const isEmpty = Utils.helper.isEmpty
 
+export const parseTime = Utils.util.parseTime
+
 /**
  * 转换为json对象
  * @param data
@@ -58,13 +60,4 @@ export function chunkArray(array, chunkSize) {
     result.push(array.slice(i, i + chunkSize))
   }
   return result
-}
-
-// 生成运行时可调用的函数，附加通用参数。
-export function buildFun(funcBody, augments) {
-  const AsyncFunction = async function () {}.constructor
-  const fun = new AsyncFunction(...augments, funcBody)
-  return async (...params) => {
-    return await fun(...params)
-  }
 }

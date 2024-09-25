@@ -113,7 +113,8 @@ const visible = ref(false)
 const render = ref(false)
 const funcBodyStr = ref('')
 const tipType = ref(0) //  { 0: '变量说明', 1: '介绍案例' }
-const params = computed(() => [...props.arguments].join(', '))
+
+const params = computed(() => [...props.arguments, 'fetchData', 'util'].join(', '))
 
 function open() {
   funcBodyStr.value = data.value

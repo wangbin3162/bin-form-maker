@@ -17,9 +17,10 @@ export function useFormEvents() {
     } else {
       // 否则查看onEvents中是否存在规则对象，存在则需要动态拼接字段进行脚本生成并执行
       const eventList = formConfig.value.globalEvents.onEvents
+      const args = formConfig.value.globalEvents.customScript.arguments
       const str = buildCompareStr(eventList)
       // console.log(str)
-      customFunByStr(str)
+      customFunByStr(str, args)
     }
   }
 

@@ -46,42 +46,42 @@ const realFields = [
     fieldName: 'fname',
     fieldTitle: '员工姓名',
     fieldLength: 10,
-    fieldType: 'string', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
+    fieldType: 'string',
     required: true,
   },
   {
     fieldName: 'fnumber',
     fieldTitle: '员工编号',
     fieldLength: 10,
-    fieldType: 'string', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
+    fieldType: 'string',
     required: true,
   },
   {
     fieldName: 'fage',
     fieldTitle: '员工年龄',
     fieldLength: 10,
-    fieldType: 'number', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
+    fieldType: 'number',
     required: false,
   },
   {
     fieldName: 'merit_pay',
     fieldTitle: '基本工资',
     fieldLength: 10,
-    fieldType: 'number', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
+    fieldType: 'number',
     required: false,
   },
   {
     fieldName: 'year_month',
     fieldTitle: '薪资周期',
-    fieldLength: 10,
-    fieldType: 'string', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
+    fieldLength: 0,
+    fieldType: 'string',
     required: false,
   },
   {
     fieldName: 'birthday',
     fieldTitle: '出生日期',
     fieldLength: null,
-    fieldType: 'date', // 根据实际需求，根据字段的类型，进行初步筛选并定义 string, number
+    fieldType: 'date',
     required: false,
   },
 ]

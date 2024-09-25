@@ -12,7 +12,7 @@
       v-model="data"
       :title="label + '编辑器'"
       :funcExplain="funcExplain"
-      :arguments="arguments"
+      :arguments="params"
       :paramsDesc="paramsDesc"
       :exampleDesc="exampleDesc"
     />
@@ -20,12 +20,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import CustomScriptsEditor from './EditorModal.vue'
 
 defineOptions({ name: 'CustomScripts' })
 
-defineProps({
+const props = defineProps({
   // 标题显示标签
   label: {
     type: String,
@@ -64,6 +64,8 @@ defineProps({
 })
 
 const data = defineModel()
+// 参数
+const params = computed(() => [...props.arguments])
 
 const editorRef = ref(null)
 

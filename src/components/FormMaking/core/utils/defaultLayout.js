@@ -14,7 +14,7 @@ function formatFieldComp(item) {
   // 追加字段和定义
   com.label = item.fieldTitle
   com.model = item.fieldName
-  com.config.maxlength = item.fieldType === 'date' ? 50 : +item.fieldLength
+  com.config.maxlength = item.fieldLength || 256
   if (item.required) {
     // 如果有必填，则追加一个必填校验
     com.config.required = true

@@ -2,7 +2,8 @@ import { getNewFromCfg } from '../config/component-cfg'
 import { ref, computed, toRaw } from 'vue'
 import useRealFields from './use-real-fields'
 import { buildRules } from '../utils/validator'
-import { buildFun, isEmpty } from '../utils/utils'
+import { buildFun } from '../utils/customScriptsUtil'
+import { isEmpty } from '../utils/utils'
 import { setDefaultLayouts } from '../utils/defaultLayout'
 
 const renderStatus = {
@@ -47,7 +48,7 @@ export default function useRenderStore() {
   function generateModel() {
     // 实体字段进行初始化属性
     realFieldWedgits.value.forEach(item => {
-      formModels.value[item.model.toLowerCase()] = item.config.defaultValue ?? null
+      formModels.value[item.model] = item.config.defaultValue ?? null
     })
     console.log('----> 初始化 [models]: ', toRaw(formModels.value))
   }
@@ -78,7 +79,7 @@ export default function useRenderStore() {
 
       // 填充基本表单属性值
       realFieldWedgits.value.forEach(item => {
-        const key = item.model.toLowerCase()
+        const key = item.model
         // 判断是否有默认对象，如果有表示是修改时的回显数据填充
         if (normalObj && normalObj[key]) {
           formModels.value[key] = normalObj[key]
@@ -105,13 +106,11 @@ export default function useRenderStore() {
    */
   function customFun() {
     const customScript = formConfig.value.globalEvents.customScript
-    const fun = buildFun(customScript.funcBody, customScript.arguments)
-    fun(formModels.value, ctrlCfgs.value)
+    customFunByStr(customScript.funcBody, customScript.arguments)
   }
 
-  function customFunByStr(str) {
-    const customScript = formConfig.value.globalEvents.customScript
-    const fun = buildFun(str, customScript.arguments)
+  function customFunByStr(str, args) {
+    const fun = buildFun(str, args)
     fun(formModels.value, ctrlCfgs.value)
   }
 

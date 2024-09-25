@@ -1,8 +1,8 @@
-import { ACCESS_TOKEN } from '@/config/token-const'
+// import { ACCESS_TOKEN } from '@/config/token-const'
 import request from 'axios'
-import cookies from '../utils/util.cookies'
+// import cookies from '../utils/util.cookies'
 import router from '@/router'
-import { throwError } from '@/utils/util'
+// import { throwError } from '@/utils/util'
 
 const baseUrl = process.env.NODE_ENV === 'production' ? '/' : '/mock'
 
@@ -30,10 +30,10 @@ export async function fetchData(config) {
 
 const err = error => {
   if (error.response) {
-    const data = error.response.data
+    // const data = error.response.data
     // const token = cookies.get(ACCESS_TOKEN)
     // 响应时触发错误
-    throwError('request/error', data)
+    // throwError('request/error', data)
   }
   return Promise.reject(error)
 }
@@ -41,10 +41,10 @@ const err = error => {
  * request interceptor
  */
 service.interceptors.request.use(config => {
-  const token = cookies.get(ACCESS_TOKEN)
-  if (token && token !== 'undefined') {
-    config.headers.Authorization = 'Bearer ' + token // 让每个请求携带自定义 token 请根据实际情况自行修改
-  }
+  // const token = cookies.get(ACCESS_TOKEN)
+  // if (token && token !== 'undefined') {
+  //   config.headers.Authorization = 'Bearer ' + token // 让每个请求携带自定义 token 请根据实际情况自行修改
+  // }
   return config
 }, err)
 

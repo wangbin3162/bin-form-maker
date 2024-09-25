@@ -1,3 +1,4 @@
+import { buildFun } from './customScriptsUtil'
 import { isEmpty } from './utils'
 import { isIdCard, isUnifiedCode, isDate } from './validate'
 /**
@@ -65,9 +66,9 @@ export const RULE_NAME_MAP = {
   $length: '长度参数',
   $email: '邮箱参数',
   $phone: '手机号码',
-  $regexp: '自定义', //'正则匹配'
+  $regexp: '正则表达式', //'正则匹配'
   $idCode: '身份证',
-  $unifiedCode: '纳税人识别号', //'统一社会信用代码',
+  $unifiedCode: '统一社会信用代码',
   $conditionRequired: '条件必填',
   $conditionNotRequired: '条件必不填',
   $conditionNotBe: '条件不为某值',
@@ -80,7 +81,7 @@ export const RULE_NAME_MAP = {
   $alphanumeric: '数字字母',
   $date: '日期参数',
   $dateTime: '时间参数',
-  $customFun: '脚本函数',
+  $customFun: '自定义函数',
 }
 
 /**
@@ -349,8 +350,7 @@ export const validatorBuild = {
   },
   // 脚本函数, 需要传入编辑对象，和所有控件的配置项
   $customFun: function (opts, obj, ctrlCfgs) {
-    const AsyncFunction = async function () {}.constructor
-    const fun = new AsyncFunction(...opts.arguments, opts.funcBody)
+    const fun = buildFun(opts.funcBody, ...opts.arguments)
     return {
       validator: async (rule, value, callback) => {
         try {
