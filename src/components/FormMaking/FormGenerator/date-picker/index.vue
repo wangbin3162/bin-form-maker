@@ -53,6 +53,10 @@ watch(
 const config = computed(() => props.data.config)
 
 function dateChange(val) {
+  if (!val) {
+    model.value = ''
+    return
+  }
   model.value = dayjs(val).format(valueMap[config.value.type])
 }
 </script>
