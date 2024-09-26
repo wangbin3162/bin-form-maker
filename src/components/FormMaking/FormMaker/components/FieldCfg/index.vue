@@ -97,7 +97,7 @@ const { realFieldsDtos, alreadyInFieldModels, changeWidget } = useMakerStore()
 function changeType(type) {
   const com = createComponent(type, '', false)
   data.value.type = type
-  data.value.name = data.value.label = com.name
+  data.value.name = com.name
   data.value.config = deepCopy(com.config)
   data.value.rules = []
 

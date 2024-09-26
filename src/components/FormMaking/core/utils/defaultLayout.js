@@ -33,7 +33,7 @@ function setDefaultLayouts(widgetForm, realFieldsDtos, col = 4) {
       row.forEach(col => {
         grid.columns.push({ span, list: [formatFieldComp(col)] })
       })
-      console.log(grid)
+      // console.log(grid)
       widgetForm.value.list.push(grid)
     })
     // 配置表单属性

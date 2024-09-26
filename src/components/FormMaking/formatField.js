@@ -14,23 +14,26 @@ export function formatFieldComp(item) {
     number: 'input-number',
     date: 'date-picker',
   }
-  const type = typeMap[item.fieldType]
-  const com = createComponent(type, item.fieldTitle, false)
+  const ctrlType = typeMap[item.fieldType] ?? 'input'
+  const com = createComponent(ctrlType, item.fieldTitle, false)
   // 追加字段和定义
   com.label = item.fieldTitle
   com.model = item.fieldName
-  com.config.maxlength = item.fieldLength || 256
+  com.config.maxlength = item.fieldLength ? +item.fieldLength : 256
   if (item.required) {
     // 如果有必填，则追加一个必填校验
     com.config.required = true
-    com.rules = [
-      {
-        name: '$required',
-        type: 'string',
-        trigger: 'blur',
-        message: '必填项',
-      },
-    ]
+    const ruleType = ctrlType === 'input-number' ? 'number' : 'string'
+    const trigger = ['input', 'textArea'].includes(ctrlType) ? 'blur' : 'change'
+    com.rules = [{ name: '$required', type: ruleType, trigger, message: '必填项' }]
   }
+  // 扩展默认值或者长度精度带入
+  if (ctrlType === 'input-number') {
+    com.config.defaultValue = item.defaultValue ? +item.defaultValue : null
+    com.config.precision = item.precision ? +item.precision : null
+  } else {
+    com.config.defaultValue = item.defaultValue ?? ''
+  }
+
   return com
 }
