@@ -16,6 +16,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import dayjs from 'dayjs'
+import { isEmpty } from '../../core/utils/utils'
 defineOptions({ name: 'BFDatePicker' })
 
 const props = defineProps({
@@ -44,7 +45,7 @@ const valueMap = {
 watch(
   () => model.value,
   val => {
-    realValue.value = val === '' ? '' : new Date(val)
+    realValue.value = !val || val === '' ? '' : new Date(val)
   },
   { immediate: true },
 )
@@ -53,7 +54,7 @@ watch(
 const config = computed(() => props.data.config)
 
 function dateChange(val) {
-  if (!val) {
+  if (!val || val === '') {
     model.value = ''
     return
   }

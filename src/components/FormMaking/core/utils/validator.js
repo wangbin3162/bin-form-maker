@@ -1,5 +1,5 @@
 import { buildFun } from './customScriptsUtil'
-import { isEmpty } from './utils'
+import { dateCompare, isEmpty } from './utils'
 import { isIdCard, isUnifiedCode, isDate } from './validate'
 /**
  * 触发条件枚举
@@ -307,41 +307,17 @@ export const validatorBuild = {
           return
         }
         // 计算实际时间 // 获取实际时间，$now 当前时间，or 2099-01-01 or preField前置字段
-        let otherTime
-        if (opts.time === '$now') {
-          otherTime = new Date()
-          // console.log('time is $now')
-        } else {
+        let otherTime = '$now'
+        if (opts.time !== '$now') {
           if (isDate(opts.time)) {
-            // 转换2020-01-01 中划线，转换date时取东八区8点补全
-            otherTime = new Date(opts.time.replace(/-/g, '/'))
-            // console.log(otherTime)
-            // console.log('time is date string')
+            otherTime = opts.time
           } else {
             const preField = obj[opts.time] // 前置字段当前值
-            otherTime = isDate(preField) ? new Date(preField.replace(/-/g, '/')) : null
-            // console.log('time is field[' + opts.time + ']:' + preField)
+            otherTime = isDate(preField) ? preField : null
           }
         }
-        const mode = opts.compareMode // 比较模式
-        const thisTime = new Date(value.replace(/-/g, '/'))
-        let result = true // 校验结果
-        if (otherTime) {
-          switch (mode) {
-            case 'gt':
-              result = thisTime > otherTime
-              break
-            case 'ge':
-              result = thisTime >= otherTime
-              break
-            case 'lt':
-              result = thisTime < otherTime
-              break
-            case 'le':
-              result = thisTime <= otherTime
-              break
-          }
-        }
+        let result = dateCompare(value, otherTime, opts.compareMode, opts.format)
+
         if (!result) callback(new Error(opts.message))
         callback()
       },

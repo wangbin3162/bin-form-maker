@@ -210,6 +210,7 @@
                 <b-select v-model="checkRules[index].compareMode" append-to-body size="small">
                   <b-option value="gt" label="&gt;"></b-option>
                   <b-option value="ge" label="&ge;"></b-option>
+                  <b-option value="eq" label="="></b-option>
                   <b-option value="lt" label="&lt;"></b-option>
                   <b-option value="le" label="&le;"></b-option>
                 </b-select>
@@ -219,6 +220,10 @@
                   比较取值
                 </span>
                 <b-input v-model.trim="checkRules[index].time" size="small"></b-input>
+              </div>
+              <div class="title-box" style="width: 100%; flex: auto">
+                <span title="比较格式">比较格式</span>
+                <b-input v-model.trim="checkRules[index].format" size="small"></b-input>
               </div>
             </template>
 

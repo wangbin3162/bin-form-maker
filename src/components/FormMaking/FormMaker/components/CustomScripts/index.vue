@@ -80,12 +80,14 @@ function openEditor() {
   .func-name {
     font-size: 12px;
     .tip {
-      padding: 2px 7px;
-      line-height: 22px;
+      padding: 0 7px;
+      height: 28px;
+      line-height: 26px;
       background-color: var(--bin-color-info-light6);
       border: 1px solid var(--bin-color-info-light4);
-      color: var(--bin-color-info-light1);
+      color: rgba(0, 0, 0, 0.65);
       border-radius: var(--bin-border-radius-default);
+      font-size: 12px;
     }
   }
   .fun {

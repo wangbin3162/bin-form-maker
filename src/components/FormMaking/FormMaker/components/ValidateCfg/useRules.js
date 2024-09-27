@@ -2,6 +2,11 @@ import { computed, ref, watch } from 'vue'
 import { MULTIPLE_RULE, RULE, TYPE, TRIGGER } from '../../../core/utils/validator'
 import { deepCopy } from '@/components/FormMaking/core/utils/utils'
 
+/**
+ * 校验参数
+ * @param {ref} data
+ * @returns
+ */
 export function useRules(data) {
   const checkRules = ref(deepCopy(data.value.rules))
 
@@ -159,6 +164,7 @@ export function useRules(data) {
           ...normalCfg(ruleType),
           time: '$now',
           compareMode: 'gt',
+          format: data.value.config.format, //  追加当前的选项格式
           message: '日期不符合区间设置',
         })
         break
