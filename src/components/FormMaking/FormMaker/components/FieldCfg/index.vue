@@ -62,7 +62,7 @@
 
     <CfgField
       label="提示说明"
-      tooltip="字段的一些提示内容，会在标签后增加一个问好提示。"
+      tooltip="字段的一些提示内容，会在标签后增加一个提示。"
       :labelWidth="labelWidth"
       style="padding-bottom: 16px"
     >

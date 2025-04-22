@@ -74,4 +74,4 @@ export const isLayouts = type => layoutComponents.map(i => i.type).includes(type
 export const isBaseCtrl = type => basicComponents.map(i => i.type).includes(type)
 
 // 附带有字典选项的组件
-export const isOptionsCtrl = type => ['radio', 'checkbox', 'select', 'cascader'].includes(type)
+export const isOptionsCtrl = type => ['radio', 'checkbox', 'select'].includes(type)

@@ -20,6 +20,7 @@ export function formatFieldComp(item) {
   com.label = item.fieldTitle
   com.model = item.fieldName
   com.config.maxlength = item.fieldLength ? +item.fieldLength : 256
+
   if (item.required) {
     // 如果有必填，则追加一个必填校验
     com.config.required = true
@@ -27,6 +28,7 @@ export function formatFieldComp(item) {
     const trigger = ['input', 'textArea'].includes(ctrlType) ? 'blur' : 'change'
     com.rules = [{ name: '$required', type: ruleType, trigger, message: '必填项' }]
   }
+
   // 扩展默认值或者长度精度带入
   if (ctrlType === 'input-number') {
     com.config.defaultValue = item.defaultValue ? +item.defaultValue : null
