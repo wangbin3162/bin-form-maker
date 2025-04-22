@@ -13,7 +13,6 @@
         <b-icon name="question-circle" style="margin-left: 2px" size="14" />
       </b-tooltip>
     </template>
-
     <component
       :is="`BF-${element.type}`"
       :data="element"

@@ -6,6 +6,8 @@ import { buildFun } from '../utils/customScriptsUtil'
 import { isEmpty } from '../utils/utils'
 import { setDefaultLayouts } from '../utils/defaultLayout'
 
+const pageStatus = ref('create') // 新增or编辑
+
 const renderStatus = {
   // 控件form对象配置信息
   widgetForm: ref({}),
@@ -85,12 +87,18 @@ export default function useRenderStore() {
           formModels.value[key] = normalObj[key]
           // console.log('--->填充key: ' + key + ', value: ' + models.value[key])
         }
+        // normalObj[key]为0时，表示是数字类型，需要特殊处理
+        if (normalObj[key] === 0) {
+          formModels.value[key] = 0
+        }
       })
     }
   }
 
   // 初始化表单必要的配置models和rulus
   function initForm(defaultModel) {
+    console.log('defaultModel', defaultModel)
+
     formModels.value = {}
     formRules.value = {}
     generateModel()
@@ -115,6 +123,7 @@ export default function useRenderStore() {
   }
 
   return {
+    pageStatus,
     widgetForm,
     formConfig,
     // form

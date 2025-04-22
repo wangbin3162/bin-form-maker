@@ -29,7 +29,7 @@ export function getFieldsCfgByList(configList) {
     fieldCfg.ctrlCfgs[node.model] = node
   }
 
-  configList.forEach(item => mapper(item))
+  configList?.forEach(item => mapper(item))
 
   return fieldCfg
 }

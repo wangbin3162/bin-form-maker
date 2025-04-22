@@ -50,7 +50,7 @@ function resetForm() {
   formRef.value?.resetFields()
 }
 
-if (formConfig.value.globalEvents) {
+if (formConfig.value?.globalEvents) {
   useFormEvents()
 }
 
