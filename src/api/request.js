@@ -3,11 +3,10 @@ import request from 'axios'
 // import cookies from '../utils/util.cookies'
 import router from '@/router'
 // import { throwError } from '@/utils/util'
-
-const baseUrl = process.env.NODE_ENV === 'production' ? '/' : '/mock'
+let baseURL = import.meta.env.VITE_APP_BASE_API
 
 const service = request.create({
-  baseUrl,
+  baseURL,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
   },

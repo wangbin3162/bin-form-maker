@@ -1,6 +1,5 @@
 import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import copy from 'rollup-plugin-copy'
 import { resolve } from 'path'
 
 function pathResolve(dir) {
@@ -9,14 +8,12 @@ function pathResolve(dir) {
 
 // const proxyAddress = 'http://192.168.0.121:8850/'
 // https://vitejs.dev/config/
-export default ({ mode }) => {
+export default defineConfig(({ mode }) => {
   const dirRoot = process.cwd()
-
   const env = loadEnv(mode, dirRoot)
-  const isProd = process.env.NODE_ENV === 'production'
 
-  return defineConfig({
-    base: isProd ? env.VITE_PUBLIC_PATH : '/',
+  return {
+    base: env.VITE_PUBLIC_PATH,
     plugins: [vue()],
     server: {
       host: '0.0.0.0',
@@ -60,5 +57,5 @@ export default ({ mode }) => {
       // enable hydration mismatch details in production build
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
     },
-  })
-}
+  }
+})
