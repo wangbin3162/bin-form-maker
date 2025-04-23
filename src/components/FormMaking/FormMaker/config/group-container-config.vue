@@ -58,6 +58,12 @@
       </b-space>
     </CfgField>
 
+    <CfgField label="边框">
+      <b-radio-group v-model="data.config.shadow" type="button" :size="size">
+        <b-radio label="shadow">有边框</b-radio>
+        <b-radio label="none">无边框</b-radio>
+      </b-radio-group>
+    </CfgField>
     <CfgField label="可收起">
       <b-switch v-model="data.config.collapse" :size="size" />
     </CfgField>

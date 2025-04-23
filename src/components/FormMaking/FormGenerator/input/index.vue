@@ -1,11 +1,13 @@
 <template>
   <b-input
+    v-if="!config.isLabel"
     v-model="model"
     :size="formConfig.size"
     :type="config.type"
     :max-length="config.maxlength"
     v-bind="config"
   ></b-input>
+  <label v-else>{{ model }}</label>
 </template>
 
 <script setup>

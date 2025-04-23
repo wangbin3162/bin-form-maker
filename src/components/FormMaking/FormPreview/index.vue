@@ -1,5 +1,11 @@
 <template>
-  <b-modal v-model="previewModal" title="表单预览" width="1400px" screen-center>
+  <b-modal
+    v-model="previewModal"
+    title="表单预览"
+    width="1400px"
+    top="52px"
+    :body-styles="{ padding: '24px' }"
+  >
     <div class="preview" style="min-height: 520px">
       <BFRenderForm v-if="previewModal" :default-model="defaultModel" ref="renderFormRef">
         <template #custom-comp="{ node }">

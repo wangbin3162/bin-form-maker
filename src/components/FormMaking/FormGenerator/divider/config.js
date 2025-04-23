@@ -8,5 +8,7 @@ export default {
     margin: '24px 0',
     dashed: false,
     type: 'horizontal', //"vertical"
+    hideLine: false,
+    fontSize: '14px',
   },
 }

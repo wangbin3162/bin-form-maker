@@ -27,6 +27,9 @@
         <div class="checkbox">
           <b-checkbox v-model="data.config.clearable">显示清除按钮</b-checkbox>
         </div>
+        <div class="checkbox">
+          <b-checkbox v-model="data.config.isLabel">显示标签</b-checkbox>
+        </div>
       </div>
     </div>
 
