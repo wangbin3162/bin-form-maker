@@ -1,18 +1,7 @@
 <template>
   <div class="center-container">
     <div class="top-fix" flex="main:justify cross:center">
-      <div class="top-fix-left" flex="cross:center">
-        <b-dropdown @command="quickLayout" v-if="realFieldsDtos.length">
-          <b-button icon="layout" type="text">快速配置</b-button>
-          <template #dropdown>
-            <b-dropdown-menu>
-              <b-dropdown-item :name="1">通栏布局</b-dropdown-item>
-              <b-dropdown-item :name="2">双列布局</b-dropdown-item>
-              <b-dropdown-item :name="4">四列布局</b-dropdown-item>
-            </b-dropdown-menu>
-          </template>
-        </b-dropdown>
-      </div>
+      <div class="top-fix-left" flex="cross:center"></div>
       <div class="top-fix-right">
         <b-button type="text" icon="eye" @click="handlePreview">预览</b-button>
         <b-divider type="vertical" />
@@ -71,7 +60,7 @@ import { ref } from 'vue'
 
 const emit = defineEmits(['onSave'])
 
-const { widgetForm, slotsWedigets, clearSchema, quickLayout, realFieldsDtos } = useMakerStore()
+const { widgetForm, slotsWedigets, clearSchema } = useMakerStore()
 
 function downloadFile(content, fileName) {
   // filename，摘取了常用的部分，其实还有其他一些
@@ -123,7 +112,7 @@ function handleSave() {
 const previewRef = ref(null)
 
 function handlePreview() {
-  previewRef.value?.open(widgetForm.value, realFieldsDtos.value, slotsWedigets.value)
+  previewRef.value?.open(widgetForm.value, slotsWedigets.value)
 }
 </script>
 

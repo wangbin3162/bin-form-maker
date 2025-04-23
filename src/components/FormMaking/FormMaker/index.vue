@@ -36,8 +36,8 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  // 实际字段集合
-  realFields: {
+  // 表模型数据
+  modelData: {
     type: Array,
     default: () => [],
   },
@@ -45,10 +45,10 @@ const props = defineProps({
 
 const visible = defineModel({ type: Boolean, default: false })
 
-const { widgetForm, slotsWedigets, realFieldsDtos } = useMakerStore()
+const { widgetForm, slotsWedigets, modelDataDtos } = useMakerStore()
 
 slotsWedigets.value = [...props.customFields]
-realFieldsDtos.value = [...props.realFields]
+modelDataDtos.value = [...props.modelData]
 
 function handleSave() {
   emit('onSave', widgetForm.value)

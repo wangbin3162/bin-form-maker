@@ -1,9 +1,9 @@
 <template>
   <div class="p24">
     <MakerDesign
-      :real-fields="realFields"
-      :custom-fields="customFields"
-      :json-str="jsonStr"
+      :customFields="customFields"
+      :modelData="modelData"
+      :jsonStr="jsonStr"
       default-open
       ref="renderFormRef"
       @on-save="handleSave"
@@ -14,7 +14,7 @@
 <script setup>
 import { useRenderEdit } from './useRenderEdit'
 // 动态表单设计器相关操作
-const { MakerDesign, jsonStr, realFields, customFields, renderFormRef } = useRenderEdit()
+const { MakerDesign, jsonStr, modelData, customFields, renderFormRef } = useRenderEdit()
 
 function handleSave(widgetForm) {
   console.log(widgetForm)

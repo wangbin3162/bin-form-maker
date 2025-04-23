@@ -4,9 +4,6 @@ import useRealFields from './use-real-fields'
 import { buildRules } from '../utils/validator'
 import { buildFun } from '../utils/customScriptsUtil'
 import { isEmpty } from '../utils/utils'
-import { setDefaultLayouts } from '../utils/defaultLayout'
-
-const pageStatus = ref('create') // 新增or编辑
 
 const renderStatus = {
   // 控件form对象配置信息
@@ -29,18 +26,14 @@ export default function useRenderStore() {
   /**
    * 初始化事件,第一个是表单对象的内容，第二个是自定义字段的列表,第三个是实际的字段对象
    * @param {obj} form 通过json字符串转换的对象信息{}，获取的初始化配置
-   * @param {[]} fieldsDtos 实际字段的对象: { fieldName: '', fieldTitle: '', fieldLength: 10, fieldType: 'string|number', required: true },
    * @param {[]} customFields 自定义组件fields
-   * @param {number} col 实际默认分栏，默认4列布局
    */
-  function initSchema(form, fieldsDtos = [], customFields = [], col = 4) {
+  function initSchema(form, customFields = []) {
     // 插入的自定义字段组件
     slotsWedigets.value = [...customFields]
     // 初始化
     widgetForm.value = getNewFromCfg(form)
 
-    // 设置初始化布局
-    setDefaultLayouts(widgetForm, fieldsDtos, col)
     console.log('------------------- 初始化schema -------------------', widgetForm.value)
   }
 
@@ -123,7 +116,6 @@ export default function useRenderStore() {
   }
 
   return {
-    pageStatus,
     widgetForm,
     formConfig,
     // form

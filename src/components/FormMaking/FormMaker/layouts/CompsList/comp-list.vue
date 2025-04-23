@@ -24,12 +24,9 @@
           }"
           @click="addOne(element)"
         >
-          <a v-if="!isField">
+          <a>
             <b-icon :name="element.icon" />
             <span class="field-name">{{ element.name }}</span>
-          </a>
-          <a v-else :class="{ required: element.required }">
-            <span class="field-name">{{ element.fieldTitle }}</span>
           </a>
         </li>
       </template>
@@ -41,7 +38,6 @@
 import Draggable from 'vuedraggable'
 import useMakerStore from '../../hooks/useMakerStore'
 import { createComponent } from '../../../core/config/component-cfg'
-import { formatFieldComp } from '../../../core/utils/defaultLayout'
 defineOptions({ name: 'CompList' })
 
 const props = defineProps({
@@ -58,11 +54,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  // 是否是实际字段
-  isField: {
-    type: Boolean,
-    default: false,
-  },
 })
 
 const { addWidget, alreadyInFieldModels } = useMakerStore()
@@ -70,15 +61,12 @@ const { addWidget, alreadyInFieldModels } = useMakerStore()
 // 点击增加事件
 function addOne(ele) {
   if (alreadyInFieldModels.value.includes(ele.fieldName)) return
-  const com = props.isField
-    ? formatFieldComp(ele)
-    : createComponent(ele.type, ele.name, props.isCustom)
+  const com = createComponent(ele.type, ele.name, props.isCustom)
   addWidget(com)
 }
 
 function buildCompCfg(item) {
   // console.log(item)
-  if (props.isField) return formatFieldComp(item)
   return createComponent(item.type, item.name, props.isCustom)
 }
 </script>

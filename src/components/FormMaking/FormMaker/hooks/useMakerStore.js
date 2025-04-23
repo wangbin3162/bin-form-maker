@@ -1,5 +1,4 @@
 import useStoreCenter from '../../core/hooks/use-store-center'
-import { setDefaultLayouts } from '../../core/utils/defaultLayout'
 import { nextTick, computed } from 'vue'
 
 /**
@@ -12,7 +11,7 @@ export default function useMakerStore() {
     selectWidget,
     currentCfgTab,
     formConfig,
-    realFieldsDtos,
+    modelDataDtos,
     // realfields status
     realFieldWedgits,
     ctrlCfgs,
@@ -75,20 +74,13 @@ export default function useMakerStore() {
     handleSelectWidget(list[newIndex])
   }
 
-  // 快速配置
-  function quickLayout(col = 4) {
-    clearSchema()
-
-    setDefaultLayouts(widgetForm, realFieldsDtos.value, col)
-  }
-
   return {
     widgetForm,
     selectWidget,
     currentCfgTab,
     formConfig,
     slotsWedigets,
-    realFieldsDtos,
+    modelDataDtos,
     // realfields status
     realFieldWedgits,
     alreadyInFieldModels,
@@ -102,7 +94,6 @@ export default function useMakerStore() {
     isComSelected,
     handleSelectWidget,
     handleWidgetAdd,
-    quickLayout,
     initSchema,
   }
 }

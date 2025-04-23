@@ -8,9 +8,8 @@
 
     <BFormMaker
       v-model="visible"
-      top-title="表单设计"
       :customFields="customFields"
-      :realFields="realFields"
+      :modelData="modelData"
       ref="makerRef"
       @onSave="saveFormSchema"
     >
@@ -41,8 +40,8 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  // 实际字段集合
-  realFields: {
+  // 表模型数据
+  modelData: {
     type: Array,
     default: () => [],
   },
@@ -73,7 +72,7 @@ const visible = ref(false)
 // 开启设计器
 function openDesign(jsonStr) {
   const formSchema = toJson(jsonStr, {})
-  initSchema(formSchema, props.realFields, props.customFields)
+  initSchema(formSchema, props.modelData, props.customFields)
   visible.value = true
 }
 

@@ -20,22 +20,25 @@
         </b-dropdown>
       </b-space>
 
-      <b-dropdown @command="fillField" v-if="realFieldsDtos.length > 0" placement="bottom-start">
+      <b-popover
+        v-if="modelDataDtos.length > 0"
+        placement="bottom-end"
+        width="300px"
+        v-model:visible="fillVisible"
+      >
         <b-button icon="highlight" type="text">填充字段</b-button>
-        <template #dropdown>
-          <b-dropdown-menu>
-            <b-dropdown-item
-              v-for="field in realFieldsDtos"
-              :key="field.fieldName"
-              :name="field"
-              :disabled="alreadyInFieldModels.includes(field.fieldName)"
-            >
-              <b-icon :name="field.fieldType === 'number' ? 'Field-number' : 'Field-String'" />
-              {{ field.fieldTitle }}
-            </b-dropdown-item>
-          </b-dropdown-menu>
+        <template #content>
+          <div style="padding: 4px 0 0; max-height: 500px; overflow-y: auto">
+            <b-tree
+              :data="modelDataDtos"
+              :render="renderContent"
+              children-key="fields"
+              title-ellipsis
+              :lock-select="true"
+            ></b-tree>
+          </div>
         </template>
-      </b-dropdown>
+      </b-popover>
     </CfgField>
     <b-form ref="formRef" :model="data" :labelWidth="labelWidth" :size="size" label-position="left">
       <b-form-item
@@ -78,6 +81,7 @@ import { basicComponents } from '../../../core/config/component-list'
 import { createComponent } from '../../../core/config/component-cfg'
 import { deepCopy } from '../../../core/utils/utils'
 import CfgField from '../Gui/CfgField.vue'
+import { h, ref } from 'vue'
 
 const data = defineModel({ type: Object })
 
@@ -92,7 +96,7 @@ defineProps({
   },
 })
 
-const { realFieldsDtos, alreadyInFieldModels, changeWidget } = useMakerStore()
+const { modelDataDtos, changeWidget } = useMakerStore()
 
 function changeType(type) {
   const com = createComponent(type, '', false)
@@ -104,9 +108,37 @@ function changeType(type) {
   changeWidget(data.value)
 }
 
+const fillVisible = ref(false)
+function renderContent({ data }) {
+  const title = data.isLeaf ? `${data.fieldTitle}(${data.fieldName})` : data.modelName
+  const inline = [
+    h(
+      'span',
+      {
+        class: 't-ellipsis',
+        style: { width: 'calc(100% - 24px)' },
+        title,
+        onClick: () => {
+          if (data.isLeaf) fillField(data)
+        },
+      },
+      [
+        h('i', {
+          class: ['b-iconfont', `b-icon-${data.icon}`],
+          style: { marginRight: '4px' },
+        }),
+        title,
+      ],
+    ),
+  ]
+  return h('span', { style: { width: '100%', fontSize: '12px' }, flex: 'main:justify' }, inline)
+}
+
 function fillField(item) {
+  // console.log('item ========>', item)
   data.value.model = item.fieldName
   data.value.label = item.fieldTitle
+  fillVisible.value = false
 }
 </script>
 

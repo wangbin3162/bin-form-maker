@@ -15,13 +15,6 @@
             :list="slotsWedigets"
             is-custom
           />
-          <!-- 实际字段 -->
-          <CompList
-            title="属性字段"
-            v-if="realFieldsDtos.length > 0"
-            :list="realFieldsDtos"
-            is-field
-          />
         </div>
         <div v-else class="p8">
           <b-tree :data="treeList" ref="treeRef" @select-change="handleSelect"></b-tree>
@@ -46,7 +39,7 @@ const tabs = [
   { key: 'form', title: '大纲', icon: 'cluster' },
 ]
 
-const { handleSelectWidget, treeList, ctrlCfgs, slotsWedigets, realFieldsDtos } = useMakerStore()
+const { handleSelectWidget, treeList, ctrlCfgs, slotsWedigets } = useMakerStore()
 
 function handleSelect(selected, node) {
   if (['col', 'tag'].includes(node.type)) {

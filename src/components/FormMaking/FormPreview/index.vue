@@ -50,9 +50,9 @@ const { initSchema, formModels } = useRenderStore()
 const defaultModel = ref({}) // 默认对象
 const renderFormRef = ref(null)
 
-function open(formData, realFields, customFields) {
+function open(formData, customFields) {
   previewModal.value = true
-  initSchema(formData, realFields, customFields)
+  initSchema(formData, customFields)
 }
 
 async function formSubmit() {

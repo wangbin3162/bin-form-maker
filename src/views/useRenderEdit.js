@@ -57,20 +57,49 @@ const realFields = [
   },
 ]
 
+// 模型数据，
+const modelData = [
+  {
+    metadataKey: 'MetaData_1',
+    modelName: '员工信息表',
+    fields: realFields,
+  },
+  {
+    metadataKey: 'MetaData_12',
+    modelName: '家庭成员子表',
+    fields: [
+      {
+        fieldName: 'zname',
+        fieldTitle: '成员名称',
+        fieldLength: 10,
+        fieldType: 'string',
+        required: true,
+      },
+      {
+        fieldName: 'zphone',
+        fieldTitle: '手机号',
+        fieldLength: 10,
+        fieldType: 'string',
+        required: true,
+      },
+    ],
+  },
+]
+
 export function useRenderEdit() {
   const renderFormRef = ref(null)
   const defaultModel = ref({})
   const { initSchema } = useRenderStore()
 
   function init(defaultData) {
-    initSchema({}, realFields, customFields)
+    initSchema({}, customFields)
     defaultModel.value = { ...defaultData }
   }
 
   return {
     MakerDesign,
     jsonStr: null,
-    realFields,
+    modelData,
     customFields,
     renderFormRef,
     defaultModel,
