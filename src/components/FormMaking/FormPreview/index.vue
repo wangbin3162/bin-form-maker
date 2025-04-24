@@ -34,11 +34,11 @@
 
 <script setup>
 defineOptions({ name: 'FormPreview' })
+import { Message, Notice } from 'bin-ui-design'
 import { ref } from 'vue'
 import useRenderStore from '../core/hooks/use-render-store'
+import { emitter, SUPER_COMP_EVENT } from '../core/utils/eventBus'
 import DebugModal from '../FormMaker/components/DebugModal/index.vue'
-import { Message } from 'bin-ui-design'
-
 // 表单预览，这里需要根据实际情况，看是否需要插入自定义组件
 import CustomNode from '@/components/FormMakingCustom/Custom/CustomNode.vue'
 
@@ -67,6 +67,15 @@ async function formSubmit() {
 function formReset() {
   renderFormRef.value?.resetForm()
 }
+
+emitter.on(SUPER_COMP_EVENT, data => {
+  console.log('data ========>', data)
+
+  Notice.success({
+    title: `[${data.type}]触发事件`,
+    message: `数据：${data.data.value}`,
+  })
+})
 
 defineExpose({ open })
 </script>

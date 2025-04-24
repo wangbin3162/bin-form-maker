@@ -67,11 +67,26 @@ export const basicComponents = [
   },
 ]
 
+/**
+ * 高级的表单控件
+ * @type {*[]}
+ */
+export const advancedComponents = [
+  {
+    type: 'super-comp',
+    name: '超级组件',
+    icon: 'thunderbolt',
+  },
+]
+
 // 基础布局组件
 export const isLayouts = type => layoutComponents.map(i => i.type).includes(type)
 
 // 基础组件
 export const isBaseCtrl = type => basicComponents.map(i => i.type).includes(type)
+
+// 高级组件
+export const isAdvancedCtrl = type => advancedComponents.map(i => i.type).includes(type)
 
 // 附带有字典选项的组件
 export const isOptionsCtrl = type => ['radio', 'checkbox', 'select'].includes(type)

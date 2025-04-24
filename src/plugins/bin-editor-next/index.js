@@ -11,6 +11,8 @@ import 'brace/mode/stylus'
 import 'brace/snippets/stylus'
 import 'brace/mode/groovy'
 import 'brace/snippets/groovy'
+import 'brace/mode/html'
+import 'brace/snippets/html'
 
 import 'brace/mode/dot'
 import 'brace/snippets/dot'

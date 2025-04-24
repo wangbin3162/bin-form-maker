@@ -22,6 +22,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useFormEvents } from '../../core/hooks/use-form-events'
+import useRenderStore from '../../core/hooks/use-render-store'
 defineOptions({ name: 'BFRenderForm' })
 
 const props = defineProps({
@@ -30,8 +31,6 @@ const props = defineProps({
     default: () => ({}),
   },
 })
-
-import useRenderStore from '../../core/hooks/use-render-store'
 
 const { widgetForm, formConfig, slotsWedigets, initForm, formModels, formRules } = useRenderStore()
 

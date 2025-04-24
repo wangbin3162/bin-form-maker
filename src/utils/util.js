@@ -1,0 +1,207 @@
+import { Utils, Notice } from 'bin-ui-design'
+import dayjs from 'dayjs'
+
+export const Dayjs = dayjs
+
+export const generateId = Utils.helper.generateId
+
+export const uuid = Utils.util.uuid
+
+export const copyText = Utils.util.copy
+
+export const typeOf = Utils.util.typeOf
+
+export const deepCopy = Utils.util.deepCopy
+
+export const deepMerge = Utils.util.deepMerge
+
+export const throttle = Utils.util.throttle
+
+export const debounce = Utils.util.debounce
+
+export const isEqual = Utils.util.isEqual
+
+export const isEmpty = Utils.helper.isEmpty
+
+export const on = Utils.dom.on
+
+export const off = Utils.dom.off
+
+export const scrollTop = Utils.dom.scrollTop
+
+export const addClass = Utils.dom.addClass
+
+export const removeClass = Utils.dom.removeClass
+
+export const addResizeListener = Utils.resize.addResizeListener
+
+export const removeResizeListener = Utils.resize.removeResizeListener
+
+/**
+ * arraybuffer 流文件转换为base64图像
+ * @param data
+ */
+export function arraybuffer2Base64(data) {
+  return (
+    'data:image/png;base64,' +
+    window.btoa(new Uint8Array(data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+  )
+}
+
+/**
+ * 抛异常公共函数，用于请求接口或其他异常捕捉错误信息
+ * @param callFun 调用函数，用于记录错误调用来源 ，一般复制当前啊函数名称，或者填入说明信息 login/getVerifyCode
+ * @param e 错误消息
+ * @param title alert和notice模块选填，错误标题
+ * @param log 是否打印到控制台
+ */
+export function throwError(callFun, e, title, log = true) {
+  if (e.statusCode === 401) {
+    Notice.warning({ title: title || '提示', message: e.message || '操作错误！' })
+  } else {
+    Notice.error({ title: title || '错误', message: e.message || '操作错误！' })
+  }
+  if (log) {
+    const str = callFun.split('/')
+    if (str && str.length >= 2) {
+      Utils.log.pretty(str[0], str[1], 'danger')
+    }
+    console.log(e)
+    Utils.log.danger('----------------------------------------------------------')
+  }
+}
+
+// 数组转对象值
+export function arrToObj(arr = [], keyCode = 'key', valueCode = 'value') {
+  const map = new Map()
+  if (arr.length === 0) return {}
+  arr.forEach(item => {
+    map.set(item[keyCode], item[valueCode])
+  })
+  const obj = {}
+  for (const [k, v] of map) {
+    obj[k] = v
+  }
+  return obj
+}
+
+// 下载文件
+export function downloadFile(content, fileName) {
+  // filename，摘取了常用的部分，其实还有其他一些
+  const typeMap = {
+    pdf: 'application/pdf',
+    doc: 'application/vnd.ms-word',
+    docx: 'application/vnd.ms-word',
+    xls: 'application/vnd.ms-excel',
+    xlsx: 'application/vnd.ms-excel',
+    ppt: 'application/vnd.ms-powerpoint',
+    pptx: 'application/vnd.ms-powerpoint',
+    js: 'application/x-javascript',
+    zip: 'application/zip',
+    mp3: 'audio/mpeg',
+    gif: 'image/gif',
+    jpeg: 'image/jpeg',
+    jpg: 'image/jpeg',
+    png: 'image/png',
+    txt: 'text/plain',
+    xml: 'image/text/xml',
+  }
+  const hg = fileName.split('.').pop().toLocaleLowerCase() || ''
+
+  const data = new Blob([content], { type: typeMap[hg] })
+  if (window.navigator.msSaveOrOpenBlob) {
+    navigator.msSaveBlob(data, fileName)
+  } else {
+    const link = document.createElement('a')
+    link.href = window.URL.createObjectURL(data)
+    link.setAttribute('download', fileName)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(link.href)
+  }
+}
+
+// 判断是否包含属性
+export function hasKey(obj, key) {
+  return Object.keys(obj).includes(key)
+}
+
+/**
+ * 处理拉平树结构
+ * @param stateTree
+ * @returns {*[]}
+ */
+export function compileFlatState(stateTree) {
+  let keyCounter = 0
+  let childrenKey = 'children'
+  const flatTree = []
+
+  const flattenChildren = (node, parent, parentKeys) => {
+    if (isEmpty(node)) return
+    node.nodeKey = keyCounter++
+    flatTree[node.nodeKey] = { node: node, nodeKey: node.nodeKey }
+    if (typeof parent !== 'undefined') {
+      flatTree[node.nodeKey].parent = parent.nodeKey
+      flatTree[parent.nodeKey][childrenKey].push(node.nodeKey)
+    }
+    let parents = parentKeys ? parentKeys.split(',').map(i => +i) : []
+    // 拼接parents
+    if (typeof parentKeys !== 'undefined') {
+      parents.push(parent.nodeKey)
+      flatTree[node.nodeKey].parents = parents
+    }
+
+    if (node[childrenKey]) {
+      flatTree[node.nodeKey][childrenKey] = []
+      node[childrenKey].forEach(child => flattenChildren(child, node, parents.join(',')))
+    }
+  }
+
+  stateTree.map(i => flattenChildren(i))
+  return flatTree
+}
+
+// 字符串转为unicode编码后的字符串
+export function strToUnicode(str) {
+  const arr = []
+  for (let i = 0; i < str.length; i++) {
+    arr.push(str.charCodeAt(i))
+  }
+  return arr.join('-')
+}
+
+// unicode转为字符串
+export function unicodeToStr(str) {
+  return String.fromCharCode(...str.split('-'))
+}
+
+export function getNow() {
+  return Utils.util.parseTime(new Date())
+}
+
+/**
+ * 从json字符串中获取数据
+ * @param jsonStr json字符串
+ * @param defaultValue 默认值，必须填写，用于初始化失败的时候使用
+ * @returns {any} // 返回json字符串中的数据
+ */
+export function fromJson(jsonStr, defaultValue) {
+  // 如果jsonStr不存在或者jsonStr的长度为0或者jsonStr的类型不是字符串，则返回defaultValue
+  if (!jsonStr || typeOf(jsonStr) !== 'string' || !jsonStr.length) return defaultValue
+  try {
+    return JSON.parse(jsonStr)
+  } catch {
+    return defaultValue
+  }
+}
+
+/**
+ * 转换为json字符串
+ * @param {*} obj 对象
+ * @param {*} format 是否格式化
+ * @returns json字符串
+ */
+export function toJson(obj, format = false) {
+  return format ? JSON.stringify(obj, null, 2) : JSON.stringify(obj)
+}

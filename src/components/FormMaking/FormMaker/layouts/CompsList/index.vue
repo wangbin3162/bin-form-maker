@@ -8,7 +8,7 @@
         <div v-if="activeTab === 'comps'">
           <CompList title="布局控件" :list="layoutComponents" />
           <CompList title="表单控件" :list="basicComponents" />
-          <!-- 高级字段待定如上传等 -->
+          <CompList title="高级控件" :list="advancedComponents" />
           <CompList
             title="自定义控件"
             v-if="slotsWedigets.length > 0"
@@ -27,7 +27,11 @@
 <script setup>
 defineOptions({ name: 'CompsList' })
 import { ref } from 'vue'
-import { basicComponents, layoutComponents } from '../../../core/config/component-list'
+import {
+  advancedComponents,
+  basicComponents,
+  layoutComponents,
+} from '../../../core/config/component-list'
 import useMakerStore from '../../hooks/useMakerStore'
 import CompList from './comp-list.vue'
 
