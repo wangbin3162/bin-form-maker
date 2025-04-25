@@ -110,7 +110,7 @@ function changeType(type) {
 
 const fillVisible = ref(false)
 function renderContent({ data }) {
-  const title = data.isLeaf ? `${data.fieldTitle}(${data.fieldName})` : data.modelName
+  const title = data.isLeaf ? `${data.fieldDesc}(${data.fieldName})` : data.storageDesc
   const inline = [
     h(
       'span',
@@ -137,7 +137,7 @@ function renderContent({ data }) {
 function fillField(item) {
   // console.log('item ========>', item)
   data.value.model = item.fieldName
-  data.value.label = item.fieldTitle
+  data.value.label = item.fieldDesc
   fillVisible.value = false
 }
 </script>

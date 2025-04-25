@@ -15,42 +15,42 @@ const customFields = [
 const realFields = [
   {
     fieldName: 'fname',
-    fieldTitle: '员工姓名',
+    fieldDesc: '员工姓名',
     fieldLength: 10,
     fieldType: 'string',
     required: true,
   },
   {
     fieldName: 'fnumber',
-    fieldTitle: '员工编号',
+    fieldDesc: '员工编号',
     fieldLength: 10,
     fieldType: 'string',
     required: true,
   },
   {
     fieldName: 'fage',
-    fieldTitle: '员工年龄',
+    fieldDesc: '员工年龄',
     fieldLength: 10,
     fieldType: 'number',
     required: false,
   },
   {
     fieldName: 'merit_pay',
-    fieldTitle: '基本工资',
+    fieldDesc: '基本工资',
     fieldLength: 10,
     fieldType: 'number',
     required: false,
   },
   {
     fieldName: 'year_month',
-    fieldTitle: '薪资周期',
+    fieldDesc: '薪资周期',
     fieldLength: 0,
     fieldType: 'string',
     required: false,
   },
   {
     fieldName: 'birthday',
-    fieldTitle: '出生日期',
+    fieldDesc: '出生日期',
     fieldLength: null,
     fieldType: 'date',
     required: false,
@@ -61,23 +61,23 @@ const realFields = [
 const modelData = [
   {
     metadataKey: 'MetaData_1',
-    modelName: '员工信息表',
+    storageDesc: '员工信息表',
     fields: realFields,
   },
   {
     metadataKey: 'MetaData_12',
-    modelName: '家庭成员子表',
+    storageDesc: '家庭成员子表',
     fields: [
       {
         fieldName: 'zname',
-        fieldTitle: '成员名称',
+        fieldDesc: '成员名称',
         fieldLength: 10,
         fieldType: 'string',
         required: true,
       },
       {
         fieldName: 'zphone',
-        fieldTitle: '手机号',
+        fieldDesc: '手机号',
         fieldLength: 10,
         fieldType: 'string',
         required: true,
